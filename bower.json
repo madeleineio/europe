@@ -1,0 +1,20 @@
+{
+  "name": "eu-construction",
+  "version": "0.0.0",
+  "homepage": "https://github.com/hllwd/eu-construction",
+  "authors": [
+    "nicolas mondon <nicolasmondon@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.4.13",
+    "jquery": "~2.1.1"
+  }
+}

@@ -26,3 +26,9 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+# webstorm config directory
+.idea
+
+# bower modules
+bower_components
