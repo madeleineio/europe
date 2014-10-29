@@ -11,9 +11,9 @@ var d3 = require('../bower_components/d3/d3.js'),
     Q = require('../node_modules/q/q.js');
 
 // vars
-var countries,
-    countriyDatas,
-    promiseGeojson = Q.Promise(function(resolve){
+var topojsonDatas,
+    countryDatas,
+    promiseTopojson = Q.Promise(function(resolve){
         d3.json('public/data/topo/world-50m.json', resolve);
     }),
     promiseData = Q.Promise(function(resolve){
@@ -21,6 +21,7 @@ var countries,
     });
 
 // retrieve datas
-Q.all([promiseGeojson, promiseData]).then(function(data){
-    console.log(data);
+Q.all([promiseTopojson, promiseData]).then(function(data){
+    topojsonDatas = data[0];
+    countryDatas = data[1];
 });

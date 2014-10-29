@@ -57,9 +57,9 @@
 	    Q = __webpack_require__(4);
 
 	// vars
-	var countries,
-	    countriyDatas,
-	    promiseGeojson = Q.Promise(function(resolve){
+	var topojsonDatas,
+	    countryDatas,
+	    promiseTopojson = Q.Promise(function(resolve){
 	        d3.json('public/data/topo/world-50m.json', resolve);
 	    }),
 	    promiseData = Q.Promise(function(resolve){
@@ -67,8 +67,9 @@
 	    });
 
 	// retrieve datas
-	Q.all([promiseGeojson, promiseData]).then(function(data){
-	    console.log(data);
+	Q.all([promiseTopojson, promiseData]).then(function(data){
+	    topojsonDatas = data[0];
+	    countryDatas = data[1];
 	});
 
 /***/ },
