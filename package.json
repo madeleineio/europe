@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/hllwd/eu-construction/issues"
   },
-  "homepage": "https://github.com/hllwd/eu-construction"
+  "homepage": "https://github.com/hllwd/eu-construction",
+  "dependencies": {
+    "q": "^1.0.1"
+  }
 }
