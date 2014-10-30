@@ -8,7 +8,8 @@
 var d3 = require('../bower_components/d3/d3.js'),
     topojson = require('../bower_components/topojson/topojson.js'),
     $ = require('../bower_components/jquery/dist/jquery.js'),
-    Q = require('../node_modules/q/q.js');
+    Q = require('../node_modules/q/q.js'),
+    _ = require('../node_modules/lodash/lodash.js');
 
 // style
 require('../css/style.css');
@@ -48,7 +49,7 @@ function draw() {
     h = $svgMap.height();
     // projection
     projection = d3.geo.conicConformal()
-        .scale(1000)
+        .scale(800)
         .center([1, 46.5])
         .rotate([-2, 0])
         .parallels([30, 50])
@@ -57,9 +58,9 @@ function draw() {
     path = d3.geo.path()
         .projection(projection);
 
-    countries = svgMap.selectAll('.country').data(topojson.feature(topojsonDatas, topojsonDatas.objects.countries.filter(function(c){
-
-    })).features);
+    countries = svgMap.selectAll('.country').data(topojson.feature(topojsonDatas, topojsonDatas.objects.countries).features.filter(function(country){
+        return _.find(countryDatas, {'ID': '' + country.id});
+    }));
     countries.enter().append('path')
         .attr('class', 'country')
         .attr('d', path);
