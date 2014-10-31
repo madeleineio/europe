@@ -28201,8 +28201,8 @@
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nmondon/PhpstormProjects/eu-construction/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/eu-construction/css/style.css", function() {
-			var newContent = require("!!/Users/nmondon/PhpstormProjects/eu-construction/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/eu-construction/css/style.css");
+		module.hot.accept("!!/Users/nmondon/PhpstormProjects/eu-construction/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/eu-construction/web/css/style.css", function() {
+			var newContent = require("!!/Users/nmondon/PhpstormProjects/eu-construction/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/eu-construction/web/css/style.css");
 			if(typeof newContent === 'string') newContent = [module.id, newContent, ''];
 			update(newContent);
 		});

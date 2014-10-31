@@ -1,0 +1,39 @@
+/**
+ * Created by nmondon on 31/10/2014.
+ */
+
+'use strict';
+
+var express = require('express'),
+    bodyParser = require('body-parser'),
+    methodOverride = require('method-override'),
+    http = require('http'),
+    path = require('path'),
+    routes = require('./routes'),
+    app = module.exports = express();
+
+/**
+ * configuration
+ */
+// set port
+app.set('port', process.env.PORT || 3001);
+app.set('views', path.resolve('app', 'views'));
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(methodOverride());
+// set assets dir
+app.use(express.static(path.resolve('public')));
+
+/**
+ * routes
+ */
+app.get('/', routes.index);
+app.get('/partials/:name', routes.partials);
+app.get('*', routes.index);
+
+/**
+ * start server
+ */
+http.createServer(app).listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
+});
