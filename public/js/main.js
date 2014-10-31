@@ -101,7 +101,7 @@
 	    h = $svgMap.height();
 	    // projection
 	    projection = d3.geo.conicConformal()
-	        .scale(1200)
+	        .scale(800)
 	        .center([1, 46.5])
 	        .rotate([-2, 0])
 	        .parallels([30, 50])
@@ -28215,7 +28215,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(9)();
-	exports.push([module.id, "/* reset */\nhtml, body {\n    margin: 0;\n    padding: 0;\n}\n\n.container {\n    width: 1000px;\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n.d3-svg {\n    width: 100%;\n    height: 100%;\n}\n\n.country {\n    fill: #ccc;\n    stroke: #666;\n}\n\n.other-country {\n    fill: #fefefe;\n    stroke: #dedede;\n}", ""]);
+	exports.push([module.id, "/* reset */\nhtml, body {\n    margin: 0;\n    padding: 0;\n}\n\n.container {\n    width: 100%;\n    height: 600px;\n    margin: 0;\n    padding: 0;\n}\n\n.d3-svg {\n    width: 100%;\n    height: 100%;\n}\n\n.country {\n    fill: #ccc;\n    stroke: #666;\n    stroke-width: .5px;\n}\n\n.other-country {\n    fill: #fefefe;\n    stroke: #dedede;\n    stroke-width: .5px;\n}", ""]);
 
 /***/ },
 /* 8 */

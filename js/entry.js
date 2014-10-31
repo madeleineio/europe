@@ -55,7 +55,7 @@ function draw() {
     h = $svgMap.height();
     // projection
     projection = d3.geo.conicConformal()
-        .scale(1200)
+        .scale(800)
         .center([1, 46.5])
         .rotate([-2, 0])
         .parallels([30, 50])
