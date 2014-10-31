@@ -3,8 +3,6 @@
  */
 
 'use strict';
-// load d3
-//require('script!d3/d3');
 require('script!jquery/dist/jquery');
 // angular proper modules
 require('script!angular/angular');
