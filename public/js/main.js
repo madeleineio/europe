@@ -69,7 +69,7 @@
 	    promiseData = Q.Promise(function (resolve) {
 	        d3.csv('public/data/UEvsOTAN.csv', resolve);
 	    }),
-	    svgMap,
+	    svgMap, gCountry, gOtherCountry,
 	    $svgMap;
 
 	// retrieve datas
@@ -82,20 +82,26 @@
 	        .attr('class', 'd3-svg svg-map');
 	    $svgMap = $('.svg-map');
 
+	    // add g
+	    gOtherCountry = svgMap.append('g')
+	        .attr('class', 'g-other-country');
+	    gCountry = svgMap.append('g')
+	        .attr('class', 'g-country');
+
 	    draw();
 
 	});
 
 	function draw() {
 	    var w, h, projection, path;
-	    var countries;
+	    var countries, otherCountries;
 
 	    // size
 	    w = $svgMap.width();
 	    h = $svgMap.height();
 	    // projection
 	    projection = d3.geo.conicConformal()
-	        .scale(800)
+	        .scale(1200)
 	        .center([1, 46.5])
 	        .rotate([-2, 0])
 	        .parallels([30, 50])
@@ -104,11 +110,24 @@
 	    path = d3.geo.path()
 	        .projection(projection);
 
-	    countries = svgMap.selectAll('.country').data(topojson.feature(topojsonDatas, topojsonDatas.objects.countries).features.filter(function(country){
-	        return _.find(countryDatas, {'ID': '' + country.id});
+	    countries = gCountry.selectAll('.country').data(topojson.feature(topojsonDatas, topojsonDatas.objects.countries).features.filter(function(country){
+	        return _.find(countryDatas, function(data){ return parseInt(data.ID) === country.id; });
 	    }));
 	    countries.enter().append('path')
 	        .attr('class', 'country')
+	        .attr('id', function(country){
+	            return country.id;
+	        })
+	        .attr('d', path);
+
+	    otherCountries = gOtherCountry.selectAll('.country').data(topojson.feature(topojsonDatas, topojsonDatas.objects.countries).features.filter(function(country){
+	        return !_.find(countryDatas, function(data){ return parseInt(data.ID) === country.id; });
+	    }));
+	    otherCountries.enter().append('path')
+	        .attr('class', 'other-country')
+	        .attr('id', function(country){
+	            return country.id;
+	        })
 	        .attr('d', path);
 
 	};
@@ -28196,7 +28215,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(9)();
-	exports.push([module.id, "/* reset */\nhtml, body {\n    margin: 0;\n    padding: 0;\n}\n\n.container {\n    width: 1000px;\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n.d3-svg {\n    width: 100%;\n    height: 100%;\n}\n\n.country {\n    fill: #ccc;\n    stroke: black;\n    stroke-width: .5px;\n    shape-rendering: crispEdged;\n}", ""]);
+	exports.push([module.id, "/* reset */\nhtml, body {\n    margin: 0;\n    padding: 0;\n}\n\n.container {\n    width: 1000px;\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n.d3-svg {\n    width: 100%;\n    height: 100%;\n}\n\n.country {\n    fill: #ccc;\n    stroke: #666;\n}\n\n.other-country {\n    fill: #fefefe;\n    stroke: #dedede;\n}", ""]);
 
 /***/ },
 /* 8 */

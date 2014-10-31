@@ -18,7 +18,10 @@ html, body {
 
 .country {
     fill: #ccc;
-    stroke: black;
-    stroke-width: .5px;
-    shape-rendering: crispEdges;
+    stroke: #666;
+}
+
+.other-country {
+    fill: #fefefe;
+    stroke: #dedede;
 }
