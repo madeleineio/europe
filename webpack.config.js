@@ -8,7 +8,7 @@ var path = require('path');
 
 module.exports = {
     entry: {
-        main: './app/js/euroConstr.js'
+        main: './app/js/main.js'
     },
     output: {
         path: 'public/js',
