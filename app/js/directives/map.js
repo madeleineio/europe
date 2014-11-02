@@ -22,15 +22,18 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
         }),
         promiseData = $q(function(resolve){
             d3.csv('data/UEvsOTAN.csv', resolve);
-        });
+        }),
+        $container,
+        container,
+        svgMap,
+        gCountry,
+        gOtherCountry,
+        $svgMap;
 
     function setup(scope, element, data){
-        var $container,
-            container,
-            svgMap,
-            gCountry,
-            gOtherCountry,
-            $svgMap;
+        topojsonDatas = data[0];
+        countryDatas = data[1];
+
         container = element[0];
         $container =  $(container);
         // create svg
@@ -43,11 +46,47 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
             .attr('class', 'g-other-country');
         gCountry = svgMap.append('g')
             .attr('class', 'g-country');
+        draw();
 
     };
 
     function draw(){
+        var w, h, projection, path;
+        var countries, otherCountries;
 
+        // size
+        w = $svgMap.width();
+        h = $svgMap.height();
+        // projection
+        projection = d3.geo.conicConformal()
+            .scale(800)
+            .center([1, 46.5])
+            .rotate([-2, 0])
+            .parallels([30, 50])
+            .translate([w/2, h/2]);
+        // path
+        path = d3.geo.path()
+            .projection(projection);
+
+        countries = gCountry.selectAll('.country').data(topojson.feature(topojsonDatas, topojsonDatas.objects.countries).features.filter(function(country){
+            return _.find(countryDatas, function(data){ return parseInt(data.ID) === country.id; });
+        }));
+        countries.enter().append('path')
+            .attr('class', 'country')
+            .attr('id', function(country){
+                return country.id;
+            })
+            .attr('d', path);
+
+        otherCountries = gOtherCountry.selectAll('.country').data(topojson.feature(topojsonDatas, topojsonDatas.objects.countries).features.filter(function(country){
+            return !_.find(countryDatas, function(data){ return parseInt(data.ID) === country.id; });
+        }));
+        otherCountries.enter().append('path')
+            .attr('class', 'other-country')
+            .attr('id', function(country){
+                return country.id;
+            })
+            .attr('d', path);
     };
 
     return {
