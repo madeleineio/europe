@@ -85,4 +85,3 @@ function draw() {
         .attr('d', path);
 
 };
-

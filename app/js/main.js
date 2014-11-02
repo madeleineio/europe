@@ -15,4 +15,4 @@ require('./configs/index');
 require('./controllers/InitCtrl');
 require('./controllers/HomeCtrl');
 // directives
-require('./directives/test');
+require('./directives/map');
