@@ -23,7 +23,7 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
         promiseData = $q(function(resolve){
             d3.csv('data/UEvsOTAN.csv', resolve);
         }),
-        $container,
+        $parent,
         container,
         svgMap,
         gCountry,
@@ -35,7 +35,7 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
         countryDatas = data[1];
 
         container = element[0];
-        $container =  $(container);
+        $parent =  $(container).parent();
         // create svg
         svgMap = d3.select(container).append('svg')
             .attr('class', 'd3-svg svg-map');
