@@ -94,7 +94,7 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
 
 
         strokeCountries = gStrokeCountry.selectAll('.stroke-country').data([topojson.merge(topojsonDatas, topojsonDatas.objects.countries.geometries.filter(function(country){
-            return country.id === 250 || country.id === 724;
+            return /*country.id === 250 || */country.id === 616;
         }))]);
         strokeCountries.enter().append('path')
             .attr('class', 'stroke-country')
@@ -104,8 +104,8 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
                     x = centroid[0],
                     y = centroid[1];
                 return 'translate(' + [x,y] + ')'
-                + 'scale(1.1, 1.1)'
-                + 'translate(' + [-x, -y] + ')';
+                + 'scale(1.3)'
+                + 'translate(' + [-x,-y] + ')';
             })
     };
 
