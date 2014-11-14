@@ -103,9 +103,9 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
                 var centroid = path.centroid(d),
                     x = centroid[0],
                     y = centroid[1];
-                return 'translate(' + x + ',' + y + ')'
+                return 'translate(' + [x,y] + ')'
                 + 'scale(1.1, 1.1)'
-                + 'translate(' + -x + ',' + -y + ')';
+                + 'translate(' + [-x, -y] + ')';
             })
     };
 
