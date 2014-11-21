@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hllwd/eu-construction.git"
+    "url": "https://github.com/gocassinigo/eu-construction.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hllwd/eu-construction/issues"
+    "url": "https://github.com/gocassinigo/eu-construction/issues"
   },
-  "homepage": "https://github.com/hllwd/eu-construction",
+  "homepage": "https://github.com/gocassinigo/eu-construction",
   "dependencies": {
     "body-parser": "^1.9.2",
     "css-loader": "^0.9.0",
