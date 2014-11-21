@@ -29,6 +29,7 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
         gCountry,
         gOtherCountry,
         gStrokeCountry,
+        gRoundedStrokeCountry,
         $svgMap;
 
     function setup(scope, element, data){
@@ -49,6 +50,8 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
             .attr('class', 'g-country');
         gStrokeCountry = svgMap.append('g')
             .attr('class', 'g-stroke-country');
+        gRoundedStrokeCountry = svgMap.append('g')
+            .attr('class', 'g-rounded-stroke-country');
 
         draw();
 
@@ -56,7 +59,7 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
 
     function draw(){
         var w, h, projection, path;
-        var countries, otherCountries, strokeCountries;
+        var countries, otherCountries, strokeCountries, roundedStrokeCountries;
 
         // size
         w = $svgMap.width();
@@ -93,6 +96,7 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
             .attr('d', path);
 
 
+        // test for strokes
         strokeCountries = gStrokeCountry.selectAll('.stroke-country').data([topojson.merge(topojsonDatas, topojsonDatas.objects.countries.geometries.filter(function(country){
             return /*country.id === 250 || */country.id === 616;
         }))]);
@@ -106,7 +110,11 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
                 return 'translate(' + [x,y] + ')'
                 + 'scale(1.3)'
                 + 'translate(' + [-x,-y] + ')';
-            })
+            });
+
+        // test for rounded stroke
+
+
     };
 
     return {
