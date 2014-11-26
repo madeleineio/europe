@@ -31,7 +31,7 @@
     "q": "^1.1.1",
     "script-loader": "^0.6.0",
     "style-loader": "^0.8.1",
-    "topojson": "^1.6.18"
+    "topojson": "1.6.18"
   },
   "devDependencies": {
     "angular-webpack-plugin": "0.0.2",

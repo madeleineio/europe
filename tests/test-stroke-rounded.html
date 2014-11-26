@@ -60,8 +60,15 @@
         };
 
         function draw(data){
-            var width, height, projection, path;
+            var width, height, projection, path, area, simplify;
             var countries;
+
+            area = 2;
+            simplify = d3.geo.transform({
+                point: function(x, y, z) {
+                    if (z >= area) this.stream.point(x, y);
+                }
+            });
 
             width = 1000; height = 600;
             projection = d3.geo.conicConformal()
@@ -70,12 +77,14 @@
                     .rotate([-2, 0])
                     .parallels([30, 50])
                     .translate([width/2, height/2]);
-            path = d3.geo.path()
-                    .projection(projection);
 
-            var topoSimple = topojson.presimplify(data[1], function (triangle) {
-                return 1;
-            });
+            path = d3.geo.path()
+                    .projection(function(coordinates){
+                        return projection(coordinates);
+                    });
+
+            // compute the importance of each point
+            var topoSimple = topojson.presimplify(data[1]);
 
             countries = svg.selectAll('.country').data(topojson.feature(topoSimple, topoSimple.objects.countries).features.filter(function(country){
                 return _.find(data[0], function(data){ return parseInt(data.ID) === country.id; });
