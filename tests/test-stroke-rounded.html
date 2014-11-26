@@ -63,13 +63,6 @@
             var width, height, projection, path, area, simplify;
             var countries;
 
-            area = 2;
-            simplify = d3.geo.transform({
-                point: function(x, y, z) {
-                    if (z >= area) this.stream.point(x, y);
-                }
-            });
-
             width = 1000; height = 600;
             projection = d3.geo.conicConformal()
                     .scale(800)
@@ -77,11 +70,20 @@
                     .rotate([-2, 0])
                     .parallels([30, 50])
                     .translate([width/2, height/2]);
+            area = 1;
+            simplify = d3.geo.transform({
+                point: function(x, y, z) {
+                    if (z >= area){
+                        var coords = projection([x,y]);
+                        this.stream.point(coords[0], coords[1]);
+                    }
+                }
+            });
+
+
 
             path = d3.geo.path()
-                    .projection(function(coordinates){
-                        return projection(coordinates);
-                    });
+                    .projection(simplify);
 
             // compute the importance of each point
             var topoSimple = topojson.presimplify(data[1]);
@@ -95,7 +97,8 @@
                         return country.id;
                     })
                     .attr('d', path)
-                    .attr('stroke-linejoin','round');
+                    .attr('stroke-linejoin','round')
+                    .style('stroke-width', 10);
 
 
 
