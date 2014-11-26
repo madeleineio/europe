@@ -68,11 +68,11 @@
 
             width = 1000; height = 600;
             projection = d3.geo.conicConformal()
-                    .scale(200)
+                    .scale(400)
                     .center([1, 46.5])
                     .rotate([-2, 0])
                     .parallels([30, 50]);
-            area = 1;
+            area = .5;
             simplify = d3.geo.transform({
                 point: function(x, y, z) {
                     if (z >= area){
@@ -114,13 +114,13 @@
                     .attr('stroke-linejoin','round')
                     .attr('stroke-linecap','round')
                     .attr('transform', function(d) {
-                        console.log(d);
+                        console.log(path.area(d));
                         // TODO : plus un pays est grand, plus son stroke est éloigné (...)
                         var centroid = path.centroid(d),
                                 x = centroid[0],
                                 y = centroid[1];
                         return 'translate(' + [x,y] + ')'
-                        + 'scale(1.4)'
+                        + 'scale(1.4, 1.4)'
                         + 'translate(' + [-x,-y] + ')';
                     })
                     .style('fill', 'none')
