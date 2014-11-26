@@ -18,8 +18,6 @@ module.exports = {
         root: [
             // We want roots to resolve the app code:
             path.resolve('app', 'js'),
-            // and the bower components:
-            path.resolve('bower_components'),
             // node modules
             path.resolve('node_modules')
         ]
