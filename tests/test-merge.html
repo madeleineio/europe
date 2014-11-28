@@ -47,7 +47,7 @@
         var promiseData = Q.promise(function(resolve, reject){
             d3.csv('data/UEvsOTAN.csv', resolve);
         });
-        var svg, gAll, gStroke;
+        var svg;
 
         Q.all([promiseData, promiseTopojson])
                 .then(setup)
@@ -56,23 +56,21 @@
         function setup(data){
             svg = d3.select('.container').append('svg')
                     .attr('class', 'd3-svg');
-            gAll = svg.append('g');
-            gStroke = svg.append('g');
             return data;
         };
 
         function draw(data){
             var width, height, projection, path, area, simplify;
-            var countries, strokeCountries;
-            var topoSimple;
+            var countries;
 
             width = 1000; height = 600;
             projection = d3.geo.conicConformal()
-                    .scale(400)
+                    .scale(800)
                     .center([1, 46.5])
                     .rotate([-2, 0])
-                    .parallels([30, 50]);
-            area = .25;
+                    .parallels([30, 50])
+                    .translate([width/2, height/2]);
+            area = .00001;
             simplify = d3.geo.transform({
                 point: function(x, y, z) {
                     if (z >= area){
@@ -81,54 +79,24 @@
                     }
                 }
             });
-            path = d3.geo.path();
 
+            // ne semble pas fonctionner avec un presimplify (...)
+            path = d3.geo.path()
+                    .projection(projection);
 
-            //////////// all
-            countries = gAll.selectAll('.country').data(topojson.feature(data[1], data[1].objects.countries).features.filter(function(country){
-                //return _.find(data[0], function(data){ return parseInt(data.ID) === country.id; });
-                return country.geometry.type === 'Polygon';
+            var topoMerge = topojson.merge(data[1], data[1].objects.countries.geometries.filter(function(country){
+                return [616, 703, 348].indexOf(country.id) >= 0;
             }));
+
+            countries = svg.selectAll('.country').data([topoMerge]);
             countries.enter().append('path')
                     .attr('class', 'country')
                     .attr('id', function(country){
                         return country.id;
                     })
-                    .attr('d', path.projection(projection))
-                    .style('stroke', 'green')
-                    .style('fill', 'blue');
-
-            ////////////// merged stroke
-            // compute the importance of each point
-            topoSimple = topojson.presimplify(data[1]);
-
-            strokeCountries = gStroke.selectAll('.stroke').data(topojson.feature(topoSimple, topoSimple.objects.countries).features.filter(function(country){
-                return country.geometry.type === 'Polygon';
-            }));
-            strokeCountries.enter().append('path')
-                    .attr('class', 'stroke')
-                    .attr('id', function(country){
-                        return country.id;
-                    })
-                    .attr('d', path.projection(simplify))
-                    .attr('stroke-linejoin','round')
-                    .attr('stroke-linecap','round')
-                    .attr('transform', function(d) {
-                        console.log(path.area(d));
-                        // TODO : plus un pays est grand, plus son stroke est éloigné (...)
-                        var centroid = path.centroid(d),
-                                x = centroid[0],
-                                y = centroid[1];
-                        return 'translate(' + [x,y] + ')'
-                        + 'scale(1.4)'
-                        + 'translate(' + [-x,-y] + ')';
-                    })
-                    .style('fill', 'none')
-                    .style('stroke', 'red')
-                    .style('stroke-width', 2);
-
-
-
+                    .attr('d', path)
+                    .style('stroke-width', 1)
+                    .style('stroke', 'red');
 
 
 
