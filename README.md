@@ -13,3 +13,4 @@
 * http://bost.ocks.org/mike/simplify/simplify.js
 * http://bost.ocks.org/mike/simplify/
 * https://github.com/mbostock/d3/wiki/Geo-Paths
+* http://tutorials.jenkov.com/svg/clip-path.html
