@@ -5,7 +5,7 @@
 
 'use strict';
 
-var EuroConstr = require('../EuroConstr');
+var EuroConstr = require('euroConstr');
 
 EuroConstr.controller('HomeCtrl', ['$scope', function($scope){
     console.log('hello home');

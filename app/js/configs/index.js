@@ -4,7 +4,7 @@
 
 'use strict';
 
-var EuroConstr = require('../EuroConstr');
+var EuroConstr = require('euroConstr');
 
 EuroConstr.config(['$routeProvider', function ($routeProvider) {
     $routeProvider

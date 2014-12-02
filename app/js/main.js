@@ -3,16 +3,16 @@
  */
 
 'use strict';
-require('script!jquery/dist/jquery');
+require('jquery/dist/jquery');
 // angular proper modules
 require('script!angular/angular');
 require('script!angular-route/angular-route');
 // create app
-require('./EuroConstr');
+require('euroConstr');
 // configure app routes
-require('./configs/index');
+require('configs/index');
 // controllers
-require('./controllers/InitCtrl');
-require('./controllers/HomeCtrl');
+require('controllers/InitCtrl');
+require('controllers/HomeCtrl');
 // directives
-require('./directives/map');
+require('directives/map');

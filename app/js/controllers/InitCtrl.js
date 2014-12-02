@@ -4,7 +4,7 @@
 
 'use strict';
 
-var EuroConstr = require('../EuroConstr');
+var EuroConstr = require('euroConstr');
 
 EuroConstr.controller('InitCtrl', ['$scope', function($scope){
     console.log('hello init');

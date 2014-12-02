@@ -4,7 +4,7 @@
 
 'use strict';
 
-var EuroConstr = require('../EuroConstr'),
+var EuroConstr = require('euroConstr'),
     d3 = require('d3/d3'),
     topojson = require('topojson/topojson'),
     $ = require('jquery/dist/jquery'),

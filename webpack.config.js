@@ -15,11 +15,15 @@ module.exports = {
         filename: '[name].min.js'
     },
     resolve: {
+        // Allow to omit extensions when requiring these files
+        extensions: ['', '.js', '.css'],
         root: [
             // We want roots to resolve the app code:
             path.resolve('app', 'js'),
             // node modules
-            path.resolve('node_modules')
+            path.resolve('node_modules'),
+            // css dir
+            path.resolve('app', 'css')
         ]
     },
     module: {

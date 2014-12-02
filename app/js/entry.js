@@ -5,14 +5,14 @@
 'use strict';
 
 // modules
-var d3 = require('../../bower_components/d3/d3.js'),
-    topojson = require('../../bower_components/topojson/topojson.js'),
-    $ = require('../../bower_components/jquery/dist/jquery.js'),
-    Q = require('../../node_modules/q/q.js'),
-    _ = require('../../node_modules/lodash/lodash.js');
+var d3 = require('d3/d3'),
+    topojson = require('topojson/topojson'),
+    $ = require('jquery/dist/jquery'),
+    Q = require('q/q'),
+    _ = require('lodash/lodash');
 
 // style
-require('../css/style.css');
+require('style');
 
 // vars
 var topojsonDatas,
