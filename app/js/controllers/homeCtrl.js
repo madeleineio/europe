@@ -7,6 +7,6 @@
 
 var EuroConstr = require('euroConstr');
 
-EuroConstr.controller('HomeCtrl', ['$scope', function($scope){
+module.exports = EuroConstr.controller('HomeCtrl', ['$scope', function($scope){
     console.log('hello home');
 }]);

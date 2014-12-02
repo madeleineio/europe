@@ -6,6 +6,6 @@
 
 var EuroConstr = require('euroConstr');
 
-EuroConstr.controller('InitCtrl', ['$scope', function($scope){
+module.exports = EuroConstr.controller('InitCtrl', ['$scope', function($scope){
     console.log('hello init');
 }]);

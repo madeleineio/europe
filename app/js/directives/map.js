@@ -10,19 +10,12 @@ var EuroConstr = require('euroConstr'),
     $ = require('jquery/dist/jquery'),
     _ = require('lodash/lodash');
 
-require('../../css/map.css');
+require('map.css');
 
-
-EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
+EuroConstr.directive('d3Map', ['$document', '$q', 'getDataFactory', function($document, $q, getDataFactory){
 
     var topojsonDatas,
         countryDatas,
-        promiseTopojson = $q(function(resolve){
-            d3.json('data/topo/world-50m.json', resolve);
-        }),
-        promiseData = $q(function(resolve){
-            d3.csv('data/UEvsOTAN.csv', resolve);
-        }),
         $parent,
         container,
         svgMap,
@@ -120,7 +113,7 @@ EuroConstr.directive('d3Map', ['$document', '$q', function($document, $q){
     return {
         restrict: 'E',
         link: function(scope, element){
-            $q.all([promiseTopojson, promiseData]).then(function(data){
+            $q.all([getDataFactory.topojson, getDataFactory.csv]).then(function(data){
                 setup(scope, element, data);
             });
         }

@@ -3,7 +3,7 @@
  */
 
 'use strict';
-require('jquery/dist/jquery');
+require('script!jquery/dist/jquery');
 // angular proper modules
 require('script!angular/angular');
 require('script!angular-route/angular-route');
@@ -16,3 +16,6 @@ require('controllers/InitCtrl');
 require('controllers/HomeCtrl');
 // directives
 require('directives/map');
+require('directives/timeline');
+// services
+require('services/getData');
