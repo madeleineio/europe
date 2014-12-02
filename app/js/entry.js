@@ -11,8 +11,6 @@ var d3 = require('d3/d3'),
     Q = require('q/q'),
     _ = require('lodash/lodash');
 
-// style
-require('style');
 
 // vars
 var topojsonDatas,

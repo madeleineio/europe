@@ -19,3 +19,4 @@ require('directives/map');
 require('directives/timeline');
 // services
 require('services/getData');
+require('services/getYearExtent');
