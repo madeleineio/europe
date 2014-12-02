@@ -1,7 +1,7 @@
 'use strict';
 
 // style
-require('style.css');
+require('style.scss');
 
 var EuroConstr = window.angular.module('EuroConstr', [
     'ngRoute'

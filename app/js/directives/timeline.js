@@ -11,7 +11,7 @@ var EuroConstr = require('euroConstr'),
     $ = require('jquery/dist/jquery'),
     _ = require('lodash/lodash');
 
-require('timeline.css');
+require('timeline.scss');
 
 module.exports = EuroConstr.directive('d3Timeline', ['$document', '$q', 'getDataFactory', 'getYearExtentFactory', function($document, $q, getDataFactory, getYearExtentFactory){
 
@@ -53,8 +53,10 @@ module.exports = EuroConstr.directive('d3Timeline', ['$document', '$q', 'getData
             .attr('class', 'line')
             .attr('x1', marginWidth)
             .attr('x2', w - marginWidth)
-            .attr('y1', h/2)
-            .attr('y2', h/2);
+            .attr('y1', 50)
+            .attr('y2', 50)
+            .style('stroke', 'black')
+            .style('shape-rendering', 'crispEdges');
 
 
     };

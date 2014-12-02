@@ -3,27 +3,22 @@
     height: 600px;
     margin: 0;
     padding: 0;
-}
 
-.d3-svg {
-    width: 100%;
-    height: 100%;
-}
-
-.country {
+  .country {
     fill: #ccc;
     stroke: white;
     stroke-width: .5px;
-}
+  }
 
-.other-country {
+  .other-country {
     fill: #fefefe;
     stroke: #dedede;
     stroke-width: .5px;
-}
+  }
 
-.stroke-country {
+  .stroke-country {
     fill: none;
     stroke: blue;
     stroke-width: 3px;
+  }
 }

@@ -10,7 +10,7 @@ var EuroConstr = require('euroConstr'),
     $ = require('jquery/dist/jquery'),
     _ = require('lodash/lodash');
 
-require('map.css');
+require('map.scss');
 
 EuroConstr.directive('d3Map', ['$document', '$q', 'getDataFactory', function($document, $q, getDataFactory){
 
