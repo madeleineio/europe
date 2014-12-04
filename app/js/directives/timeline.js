@@ -13,7 +13,14 @@ var EuroConstr = require('euroConstr'),
 
 require('timeline.scss');
 
-module.exports = EuroConstr.directive('d3Timeline', ['$document', '$q', 'getDataFactory', 'getYearExtentFactory', function($document, $q, getDataFactory, getYearExtentFactory){
+module.exports = EuroConstr.directive('d3Timeline', [
+    '$document',
+    '$q',
+    'getDataFactory',
+    'getYearExtentFactory',
+    'getCursorFactory',
+    'getCursorFilterFactory',
+    function($document, $q, getDataFactory, getYearExtentFactory, getCursorFactory, getCursorFilterFactory){
 
     var topojsonDatas,
         csvDatas,
@@ -22,6 +29,7 @@ module.exports = EuroConstr.directive('d3Timeline', ['$document', '$q', 'getData
     var $parent,
         container,
         svg,
+        defs, idCursorFilter,
         gTimeline,
         gCursor,
         $svg;
@@ -37,6 +45,9 @@ module.exports = EuroConstr.directive('d3Timeline', ['$document', '$q', 'getData
         $parent = $(container).parent();
         svg = d3.select(container).append('svg')
             .attr('class', 'd3-svg svg-timeline');
+        defs = svg.append('defs');
+        idCursorFilter = 'cursorFilter'
+        getCursorFilterFactory(defs, idCursorFilter);
         $svg = $('.svg-timeline');
         gTimeline = svg.append('g')
             .attr('class', 'g-timeline');
@@ -50,6 +61,7 @@ module.exports = EuroConstr.directive('d3Timeline', ['$document', '$q', 'getData
         var w, h, marginWidthYear;
         var xLeftYear, xRightYear;
         var yLine, yBottomPick, yTopPick, yTopPick10, yBottomYear;
+        var centerCursor, sizeCursor;
         var years, cursor, line, picks;
         var xScaleYear;
 
@@ -64,6 +76,8 @@ module.exports = EuroConstr.directive('d3Timeline', ['$document', '$q', 'getData
         yTopPick = yBottomPick - 3;
         yTopPick10 = yBottomPick - 5;
         yBottomYear = yTopPick10 - 5;
+        centerCursor = [xLeftYear, yLine];
+        sizeCursor = 5;
 
         // scales
         xScaleYear = d3.scale.linear()
@@ -103,9 +117,14 @@ module.exports = EuroConstr.directive('d3Timeline', ['$document', '$q', 'getData
             .attr('y', yBottomYear)
             .text(function(year){ return year; });
 
+        // cursor
         cursor = gCursor.selectAll('.cursor').data([1]);
         cursor.enter().append('polygon')
-            .attr('class', 'cursor');
+            .attr('class', 'cursor')
+            .attr('points', getCursorFactory(centerCursor, sizeCursor))
+            .style('fill', 'white')
+            .style('stroke', 'black')
+            .style('filter', 'url(#' + idCursorFilter + ')');
 
     };
 

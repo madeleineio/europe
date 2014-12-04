@@ -20,3 +20,5 @@ require('directives/timeline');
 // services
 require('services/getData');
 require('services/getYearExtent');
+require('services/getCursor');
+require('services/getFilterCursor');
