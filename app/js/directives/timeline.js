@@ -103,6 +103,10 @@ module.exports = EuroConstr.directive('d3Timeline', ['$document', '$q', 'getData
             .attr('y', yBottomYear)
             .text(function(year){ return year; });
 
+        cursor = gCursor.selectAll('.cursor').data([1]);
+        cursor.enter().append('polygon')
+            .attr('class', 'cursor');
+
     };
 
     return {
