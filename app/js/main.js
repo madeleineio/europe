@@ -22,3 +22,4 @@ require('services/getData');
 require('services/getYearExtent');
 require('services/getCursor');
 require('services/getFilterCursor');
+require('services/mathUtil');
