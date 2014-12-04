@@ -1,0 +1,18 @@
+.svg-timeline {
+
+  .g-timeline {
+
+    .line, .pick {
+      stroke: black;
+      shape-rendering: crispEdges;
+    }
+
+    .year {
+      text-anchor: middle;
+      dominant-baseline: text-after-edge;
+      font-size: 14px;
+      font-family: helvetica;
+    }
+
+  }
+}
