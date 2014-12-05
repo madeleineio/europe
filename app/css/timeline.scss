@@ -23,4 +23,18 @@
       cursor: pointer;
     }
   }
+
+  .g-country {
+    .country-line-g {
+      .label {
+        text-anchor: start;
+        dominant-baseline: text-after-edge;
+        font-size: 16px;
+        font-family: helvetica;
+      }
+    }
+
+  }
+
+
 }

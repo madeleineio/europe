@@ -39,6 +39,7 @@ module.exports = EuroConstr.directive('d3Timeline', [
             defs, idCursorFilter,
             gTimeline,
             gCursor,
+            gCountry,
             $svg;
 
         function setup(scope, element, data) {
@@ -60,58 +61,66 @@ module.exports = EuroConstr.directive('d3Timeline', [
                 .attr('class', 'g-timeline');
             gCursor = svg.append('g')
                 .attr('class', 'g-cursor');
+            gCountry = svg.append('g')
+                .attr('class', 'g-country');
             // launch draw
             draw();
         };
 
         function draw() {
             // var declaration
-            var w, h, marginWidthYear;
-            var xLeftYear, xRightYear;
-            var yLine, yBottomPick, yTopPick, yTopPick10, yBottomYear;
-            var centerCursor, sizeCursor, dragCursor;
-            var years, cursor, line, picks;
-            var xScaleYear;
+            var w, h, yearMarginLeftWidth;
+            var yearXLeft, yearXRight;
+            var lineY, pickYBottom, pickYTop, pickYTop10, yearYBottom;
+            var cursorCenter, cursorSize, cursorDrag;
+            var years, cursor, line, picks, countryLineG, countryLabel, countryLineHeight, countryLabelMarginLeft;
+            var yearXScale, countryLineYScale;
 
             // sizes
             w = $svg.width();
             h = $svg.height();
-            marginWidthYear = 50;
-            xLeftYear = marginWidthYear;
-            xRightYear = w - marginWidthYear;
-            yLine = 50;
-            yBottomPick = yLine - 2;
-            yTopPick = yBottomPick - 3;
-            yTopPick10 = yBottomPick - 5;
-            yBottomYear = yTopPick10 - 5;
-            centerCursor = [xLeftYear, yLine];
-            sizeCursor = 5;
+            yearMarginLeftWidth = 200;
+            yearXLeft = yearMarginLeftWidth;
+            yearXRight = w;
+            lineY = 50;
+            pickYBottom = lineY - 2;
+            pickYTop = pickYBottom - 3;
+            pickYTop10 = pickYBottom - 5;
+            yearYBottom = pickYTop10 - 5;
+            cursorCenter = [yearXLeft, lineY];
+            cursorSize = 4;
+            countryLineHeight = 20;
+            countryLabelMarginLeft = 20;
 
             // scales
-            xScaleYear = d3.scale.linear()
+            yearXScale = d3.scale.linear()
                 .domain(yearExtent)
-                .range([xLeftYear, xRightYear]);
+                .range([yearXLeft, yearXRight]);
+
+            countryLineYScale = d3.scale.linear()
+                .domain([-1, csvDatas.length])
+                .range([lineY, lineY + csvDatas.length * countryLineHeight]);
 
             // line
             line = gTimeline.selectAll('.line').data([1]);
             line.exit().remove();
             line.enter().append('line')
                 .attr('class', 'line')
-                .attr('x1', xLeftYear)
-                .attr('x2', xRightYear)
-                .attr('y1', yLine)
-                .attr('y2', yLine);
+                .attr('x1', yearXLeft)
+                .attr('x2', yearXRight)
+                .attr('y1', lineY)
+                .attr('y2', lineY);
 
             // picks
             function getY2Pick(year) {
-                return (year % 10 === 0 ? yTopPick10 : yTopPick);
+                return (year % 10 === 0 ? pickYTop10 : pickYTop);
             };
             picks = gTimeline.selectAll('.pick').data(yearDatas);
             picks.enter().append('line')
                 .attr('class', 'pick')
-                .attr('x1', xScaleYear)
-                .attr('x2', xScaleYear)
-                .attr('y1', yBottomPick)
+                .attr('x1', yearXScale)
+                .attr('x2', yearXScale)
+                .attr('y1', pickYBottom)
                 .attr('y2', getY2Pick);
 
             // years
@@ -121,14 +130,14 @@ module.exports = EuroConstr.directive('d3Timeline', [
             }));
             years.enter().append('text')
                 .attr('class', 'year')
-                .attr('x', xScaleYear)
-                .attr('y', yBottomYear)
+                .attr('x', yearXScale)
+                .attr('y', yearYBottom)
                 .text(function (year) {
                     return year;
                 });
 
             // cursor
-            dragCursor = d3.behavior.drag()
+            cursorDrag = d3.behavior.drag()
                 .on('dragstart', dragCursorStarted)
                 .on('drag', draggedCursor)
                 .on('dragend', dragCursorEnded);
@@ -138,8 +147,8 @@ module.exports = EuroConstr.directive('d3Timeline', [
             };
             function draggedCursor(d) {
                 d3.select(this).attr('points', getCursorFactory([
-                            mathUtilFactory.constrain(d3.event.x, xLeftYear, xRightYear),
-                            yLine], sizeCursor));
+                            mathUtilFactory.constrain(d3.event.x, yearXLeft, yearXRight),
+                            lineY], cursorSize));
             };
             function dragCursorEnded(d) {
                 d3.select(this).classed('dragging', false);
@@ -147,9 +156,28 @@ module.exports = EuroConstr.directive('d3Timeline', [
             cursor = gCursor.selectAll('.cursor').data([1]);
             cursor.enter().append('polygon')
                 .attr('class', 'cursor')
-                .attr('points', getCursorFactory(centerCursor, sizeCursor))
+                .attr('points', getCursorFactory(cursorCenter, cursorSize))
                 .style('filter', 'url(#' + idCursorFilter + ')')
-                .call(dragCursor);
+                .call(cursorDrag);
+
+            // g country line
+            countryLineG = gCountry.selectAll('.country-line-g').data(csvDatas);
+            countryLineG.enter().append('g')
+                .attr('class', 'country-line-g')
+                .attr('transform', function(country, i){
+                    return 'translate(' + [0, countryLineYScale(i)] + ')';
+                });
+
+            console.log(csvDatas);
+
+            countryLabel = countryLineG.selectAll('.label').data(function(country){
+                return [country.nom];
+            });
+            countryLabel.enter().append('text')
+                .attr('class', 'label')
+                .attr('x', countryLabelMarginLeft)
+                .attr('y', countryLineHeight / 2)
+                .text(function(d){ return d;});
 
         };
 
