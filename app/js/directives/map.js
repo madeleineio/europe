@@ -10,6 +10,7 @@ var EuroConstr = require('euroConstr'),
     $ = require('jquery/dist/jquery'),
     _ = require('lodash/lodash');
 
+require('imports?d3=d3!d3-geo-projection/d3.geo.projection');
 require('map.scss');
 
 EuroConstr.directive('d3Map', ['$document', '$q', 'getDataFactory', function($document, $q, getDataFactory){
@@ -58,12 +59,25 @@ EuroConstr.directive('d3Map', ['$document', '$q', 'getDataFactory', function($do
         w = $svgMap.width();
         h = $svgMap.height();
         // projection
-        projection = d3.geo.conicConformal()
+        /*projection = d3.geo.conicConformal()
             .scale(800)
             .center([1, 46.5])
             .rotate([-2, 0])
             .parallels([30, 50])
-            .translate([w/2, h/2]);
+            .translate([w/2, h/2]);*/
+        /*projection = d3.geo.robinson()
+            .scale(800)
+            .center([10, 56.5])
+            .translate([w / 2, h / 2])
+            .precision(.1);*/
+        projection = d3.geo.stereographic()
+            .scale(1600)
+            .center([-5, 55])
+            .translate([w / 2, h / 2])
+            .rotate([-20, 0])
+            .clipAngle(180 - 1e-4)
+            .clipExtent([[0, 0], [w, h]])
+            .precision(.1);
         // path
         path = d3.geo.path()
             .projection(projection);
@@ -77,35 +91,6 @@ EuroConstr.directive('d3Map', ['$document', '$q', 'getDataFactory', function($do
                 return country.id;
             })
             .attr('d', path);
-
-        otherCountries = gOtherCountry.selectAll('.country').data(topojson.feature(topojsonDatas, topojsonDatas.objects.countries).features.filter(function(country){
-            return !_.find(countryDatas, function(data){ return parseInt(data.ID) === country.id; });
-        }));
-        otherCountries.enter().append('path')
-            .attr('class', 'other-country')
-            .attr('id', function(country){
-                return country.id;
-            })
-            .attr('d', path);
-
-
-        // test for strokes
-        strokeCountries = gStrokeCountry.selectAll('.stroke-country').data([topojson.merge(topojsonDatas, topojsonDatas.objects.countries.geometries.filter(function(country){
-            return /*country.id === 250 || */country.id === 616;
-        }))]);
-        strokeCountries.enter().append('path')
-            .attr('class', 'stroke-country')
-            .attr('d', path)
-            .attr('transform', function(d) {
-                var centroid = path.centroid(d),
-                    x = centroid[0],
-                    y = centroid[1];
-                return 'translate(' + [x,y] + ')'
-                + 'scale(1.3)'
-                + 'translate(' + [-x,-y] + ')';
-            });
-
-        // test for rounded stroke
 
 
     };

@@ -348,8 +348,6 @@ module.exports = EuroConstr.directive('d3Timeline', [
                     }
                 });
 
-
-
             countryLabel = countryLineG.selectAll('.label').data(function(country){
                 return [country.nom];
             });
