@@ -20,6 +20,7 @@ module.exports = EuroConstr.directive('d3Timeline', [
     'getYearExtentFactory',
     'getCursorFactory',
     'getLosangeFactory',
+    'getStripeLineFactory',
     'getCursorFilterFactory',
     'mathUtilFactory',
     function ($document,
@@ -28,6 +29,7 @@ module.exports = EuroConstr.directive('d3Timeline', [
               getYearExtentFactory,
               getCursorFactory,
               getLosangeFactory,
+              getStripeLineFactory,
               getCursorFilterFactory,
               mathUtilFactory) {
 
@@ -79,7 +81,9 @@ module.exports = EuroConstr.directive('d3Timeline', [
                 countryLineG, countryLabel,
                 countryLineHeight,
                 countryLabelMarginLeft,
-                countryThinLine, countryEmptyLine, countryOtanLine, countryUELine, countryUEPoint,
+                countryThinLine, countryEmptyLine, countryOtanLine, countryUELine,
+                countryUEStripe, countryPPPStripe,
+                countryUEPoint,
                 countryCandidatureUEPoint, countryPPPPoint, countryOtanPoint;
             var yearXScale, countryLineYScale;
 
@@ -230,6 +234,66 @@ module.exports = EuroConstr.directive('d3Timeline', [
                 .attr('x2', yearXRight)
                 .attr('y1', countryLineHeight / 2)
                 .attr('y2', countryLineHeight / 2);
+
+            countryUEStripe = countryLineG.selectAll('.ue-stripe').data(function(country){
+                var yearStart = parseInt(country['candidature officielle']);
+
+                if(!$.isNumeric(yearStart)) return [];
+                var yearEnd = $.isNumeric(parseInt(country.UE)) ? parseInt(country.UE) : yearExtent[1] ;
+
+                return getStripeLineFactory(
+                    yearXScale(yearStart),
+                    yearXScale(yearEnd),
+                    countryLineHeight / 2,
+                    1,
+                    4
+                );
+            });
+            countryUEStripe.enter().append('line')
+                .attr('class', 'ue-stripe')
+                .attr('x1', function(d){
+                    return d[0][0];
+                })
+                .attr('x2', function(d){
+                    return d[1][0];
+                })
+                .attr('y1', function(d){
+                    return d[0][1];
+                })
+                .attr('y2', function(d){
+                    return d[1][1];
+                });
+
+            countryPPPStripe = countryLineG.selectAll('.ppp-stripe').data(function(country){
+                var yearStart = parseInt(country.PPP);
+
+                if(!$.isNumeric(yearStart)) return [];
+                var yearEnd = $.isNumeric(parseInt(country.OTAN)) ? parseInt(country.OTAN) : yearExtent[1] ;
+
+                return getStripeLineFactory(
+                    yearXScale(yearStart),
+                    yearXScale(yearEnd),
+                    countryLineHeight / 2,
+                    -1,
+                    4
+                );
+            });
+            countryPPPStripe.enter().append('line')
+                .attr('class', 'ppp-stripe')
+                .attr('x1', function(d){
+                    return d[0][0];
+                })
+                .attr('x2', function(d){
+                    return d[1][0];
+                })
+                .attr('y1', function(d){
+                    return d[0][1];
+                })
+                .attr('y2', function(d){
+                    return d[1][1];
+                });
+
+
 
             countryUEPoint = countryLineG.selectAll('.ue-point').data(function(country){
                 return [country.UE];

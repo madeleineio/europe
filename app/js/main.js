@@ -27,5 +27,6 @@ require('services/getData');
 require('services/getYearExtent');
 require('services/getCursor');
 require('services/getLosange');
+require('services/getStripeLine');
 require('services/getFilterCursor');
 require('services/mathUtil');
