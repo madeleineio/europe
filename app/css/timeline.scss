@@ -48,9 +48,29 @@
         stroke-width: 6px;
       }
 
+      .otan-point {
+        stroke: #ff6e50;
+        fill: #ff6e50;
+      }
+
       .ue-line {
         stroke: #4D79FF;
         stroke-width: 3px;
+      }
+
+      .ue-point {
+        fill: #4D79FF;
+        stroke: none;
+      }
+
+      .candidature-ue-point {
+        stroke: #4D79FF;
+        fill: white;
+      }
+
+      .ppp-point {
+        stroke: #ff8b51;
+        fill: white;
       }
     }
 

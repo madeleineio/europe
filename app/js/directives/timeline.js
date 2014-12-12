@@ -19,6 +19,7 @@ module.exports = EuroConstr.directive('d3Timeline', [
     'getDataFactory',
     'getYearExtentFactory',
     'getCursorFactory',
+    'getLosangeFactory',
     'getCursorFilterFactory',
     'mathUtilFactory',
     function ($document,
@@ -26,6 +27,7 @@ module.exports = EuroConstr.directive('d3Timeline', [
               getDataFactory,
               getYearExtentFactory,
               getCursorFactory,
+              getLosangeFactory,
               getCursorFilterFactory,
               mathUtilFactory) {
 
@@ -77,7 +79,8 @@ module.exports = EuroConstr.directive('d3Timeline', [
                 countryLineG, countryLabel,
                 countryLineHeight,
                 countryLabelMarginLeft,
-                countryThinLine, countryEmptyLine, countryOtanLine, countryUELine;
+                countryThinLine, countryEmptyLine, countryOtanLine, countryUELine, countryUEPoint,
+                countryCandidatureUEPoint, countryPPPPoint, countryOtanPoint;
             var yearXScale, countryLineYScale;
 
             // sizes
@@ -227,6 +230,69 @@ module.exports = EuroConstr.directive('d3Timeline', [
                 .attr('x2', yearXRight)
                 .attr('y1', countryLineHeight / 2)
                 .attr('y2', countryLineHeight / 2);
+
+            countryUEPoint = countryLineG.selectAll('.ue-point').data(function(country){
+                return [country.UE];
+            });
+            countryUEPoint.enter().append('circle')
+                .attr('class', 'ue-point')
+                .attr('cx', function(d){
+                    var year = parseInt(d);
+                    if($.isNumeric(year)){
+                        return yearXScale(year);
+                    }else {
+                        return yearXRight;
+                    }
+                })
+                .attr('cy', countryLineHeight / 2)
+                .attr('r', 2.5);
+
+            //
+            countryCandidatureUEPoint = countryLineG.selectAll('.candidature-ue-point').data(function(country){
+                return [country['candidature officielle']];
+            });
+            countryCandidatureUEPoint.enter().append('circle')
+                .attr('class', 'candidature-ue-point')
+                .attr('cx', function(d){
+                    var year = parseInt(d);
+                    if($.isNumeric(year)){
+                        return yearXScale(year);
+                    }else {
+                        return yearXRight;
+                    }
+                })
+                .attr('cy', countryLineHeight / 2)
+                .attr('r', 2.5);
+
+            countryPPPPoint = countryLineG.selectAll('.ppp-point').data(function(country){
+                return [country.PPP];
+            });
+            countryPPPPoint.enter().append('polygon')
+                .attr('class', 'ppp-point')
+                .attr('points', function(d){
+                    var year = parseInt(d);
+                    if($.isNumeric(year)){
+                        return getLosangeFactory([yearXScale(year), countryLineHeight / 2], 3);
+                    }else {
+                        return '';
+                    }
+                });
+
+            countryOtanPoint = countryLineG.selectAll('.otan-point').data(function(country){
+                return [country.OTAN];
+            });
+            countryOtanPoint.enter().append('polygon')
+                .attr('class', 'otan-point')
+                .attr('points', function(d){
+                    var year = parseInt(d);
+                    if($.isNumeric(year)){
+                        return getLosangeFactory([yearXScale(year), countryLineHeight / 2], 3);
+                    }else {
+                        return '';
+                    }
+                });
+
+
 
             countryLabel = countryLineG.selectAll('.label').data(function(country){
                 return [country.nom];
