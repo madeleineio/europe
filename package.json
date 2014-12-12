@@ -36,7 +36,9 @@
   "devDependencies": {
     "angular-webpack-plugin": "0.0.2",
     "exports-loader": "^0.6.2",
+    "file-loader": "^0.8.1",
     "sass-loader": "^0.3.1",
+    "url-loader": "^0.5.5",
     "webpack": "^1.4.10"
   }
 }

@@ -11,7 +11,7 @@
       text-anchor: middle;
       dominant-baseline: text-after-edge;
       font-size: 14px;
-      font-family: helvetica;
+      font-family: karlaregular;
     }
 
   }
@@ -28,9 +28,29 @@
     .country-line-g {
       .label {
         text-anchor: start;
-        dominant-baseline: text-after-edge;
-        font-size: 16px;
-        font-family: helvetica;
+        dominant-baseline: middle;
+        font-size: 13px;
+        font-family: karlaregular;
+      }
+
+      .thin-line {
+        stroke: #7B8571;
+        shape-rendering: crispEdges;
+        stroke-opacity: 0.2;
+      }
+
+      .empty-line {
+        stroke: #9fa995;
+      }
+
+      .otan-line {
+        stroke: #ffb59a;
+        stroke-width: 6px;
+      }
+
+      .ue-line {
+        stroke: #4D79FF;
+        stroke-width: 3px;
       }
     }
 

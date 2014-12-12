@@ -2,7 +2,12 @@
  * Created by nmondon on 31/10/2014.
  */
 
-'use strict';
+
+var src = document.getElementById("webpack-path").getAttribute("src");
+__webpack_public_path__ = src.substr(0, src.lastIndexOf("/") + 1);
+
+console.log(__webpack_public_path__);
+
 require('script!jquery/dist/jquery');
 // angular proper modules
 require('script!angular/angular');

@@ -29,7 +29,11 @@ module.exports = {
     module: {
         loaders: [
             // css and style loader
-            {test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader'}
+            {test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader'},
+            { test: /\.woff$/,   loader: "url-loader?limit=10000&minetype=application/font-woff" },
+            { test: /\.ttf$/,    loader: "file-loader" },
+            { test: /\.eot$/,    loader: "file-loader" },
+            { test: /\.svg$/,    loader: "file-loader" }
         ]
     }
 };

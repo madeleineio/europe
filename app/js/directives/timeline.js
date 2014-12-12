@@ -73,7 +73,11 @@ module.exports = EuroConstr.directive('d3Timeline', [
             var yearXLeft, yearXRight;
             var lineY, pickYBottom, pickYTop, pickYTop10, yearYBottom;
             var cursorCenter, cursorSize, cursorDrag;
-            var years, cursor, line, picks, countryLineG, countryLabel, countryLineHeight, countryLabelMarginLeft;
+            var years, cursor, line, picks,
+                countryLineG, countryLabel,
+                countryLineHeight,
+                countryLabelMarginLeft,
+                countryThinLine, countryEmptyLine, countryOtanLine, countryUELine;
             var yearXScale, countryLineYScale;
 
             // sizes
@@ -169,6 +173,60 @@ module.exports = EuroConstr.directive('d3Timeline', [
                 });
 
             console.log(csvDatas);
+
+            countryThinLine = countryLineG.selectAll('.thin-line').data(function(country){
+                return [1];
+            });
+            countryThinLine.enter().append('line')
+                .attr('class', 'thin-line')
+                .attr('x1', countryLabelMarginLeft)
+                .attr('x2', yearXRight)
+                .attr('y1', countryLineHeight / 2)
+                .attr('y2', countryLineHeight / 2);
+
+            countryEmptyLine = countryLineG.selectAll('.empty-line').data(function(country){
+                return [1];
+            });
+            countryEmptyLine.enter().append('line')
+                .attr('class', 'empty-line')
+                .attr('x1', yearXLeft)
+                .attr('x2', yearXRight)
+                .attr('y1', countryLineHeight / 2)
+                .attr('y2', countryLineHeight / 2);
+
+            countryOtanLine = countryLineG.selectAll('.otan-line').data(function(country){
+                return [country.OTAN];
+            });
+            countryOtanLine.enter().append('line')
+                .attr('class', 'otan-line')
+                .attr('x1', function(d){
+                    var year = parseInt(d);
+                    if($.isNumeric(year)){
+                        return yearXScale(year);
+                    }else {
+                        return yearXRight;
+                    }
+                })
+                .attr('x2', yearXRight)
+                .attr('y1', countryLineHeight / 2)
+                .attr('y2', countryLineHeight / 2);
+
+            countryUELine = countryLineG.selectAll('.ue-line').data(function(country){
+                return [country.UE];
+            });
+            countryUELine.enter().append('line')
+                .attr('class', 'ue-line')
+                .attr('x1', function(d){
+                    var year = parseInt(d);
+                    if($.isNumeric(year)){
+                        return yearXScale(year);
+                    }else {
+                        return yearXRight;
+                    }
+                })
+                .attr('x2', yearXRight)
+                .attr('y1', countryLineHeight / 2)
+                .attr('y2', countryLineHeight / 2);
 
             countryLabel = countryLineG.selectAll('.label').data(function(country){
                 return [country.nom];
