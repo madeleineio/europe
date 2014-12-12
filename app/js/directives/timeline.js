@@ -296,34 +296,26 @@ module.exports = EuroConstr.directive('d3Timeline', [
 
 
             countryUEPoint = countryLineG.selectAll('.ue-point').data(function(country){
-                return [country.UE];
+                var year = parseInt(country.UE);
+                return $.isNumeric(year) ? [year] : [];
             });
             countryUEPoint.enter().append('circle')
                 .attr('class', 'ue-point')
                 .attr('cx', function(d){
-                    var year = parseInt(d);
-                    if($.isNumeric(year)){
-                        return yearXScale(year);
-                    }else {
-                        return yearXRight;
-                    }
+                    return yearXScale(d);
                 })
                 .attr('cy', countryLineHeight / 2)
                 .attr('r', 2.5);
 
             //
             countryCandidatureUEPoint = countryLineG.selectAll('.candidature-ue-point').data(function(country){
-                return [country['candidature officielle']];
+                var year = parseInt(country['candidature officielle']);
+                return $.isNumeric(year) ? [year] : [];
             });
             countryCandidatureUEPoint.enter().append('circle')
                 .attr('class', 'candidature-ue-point')
                 .attr('cx', function(d){
-                    var year = parseInt(d);
-                    if($.isNumeric(year)){
-                        return yearXScale(year);
-                    }else {
-                        return yearXRight;
-                    }
+                    return yearXScale(d);
                 })
                 .attr('cy', countryLineHeight / 2)
                 .attr('r', 2.5);
