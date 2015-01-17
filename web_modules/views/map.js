@@ -9,11 +9,13 @@ var topojson = require('topojson/topojson');
 var $ = require('jquery/dist/jquery');
 var _ = require('underscore/underscore');
 var Backbone = require('backbone');
+Backbone.Stickit = require('backbone.stickit/backbone.stickit');
 var Q = require('q/q');
 
 var template = require('templates/map');
 var getData = require('services/get-data');
 
+console.log(Backbone.Stickit);
 
 // style
 require('imports?d3=d3!d3-geo-projection/d3.geo.projection');
@@ -22,14 +24,23 @@ require('map.scss');
 //
 var MapView = Backbone.View.extend({
     el: $('.map').get(0),
+    bindings: {
+        ':el': {
+            observe: 'title',
+            update: function(){
+                console.log('title updated');
+            }
+        }
+    },
     template: template,
     initialize: function(){
-        Q.all([getData.topojson, getData.csv]).then(function(d){
-            alert('data retrieed');
+        Q.all([getData.dataTopojson, getData.dataTimeline]).then(function(d){
+            console.log(d);
         });
     },
     render: function(){
-
+        this.$el.html(this.template(this.model.toJSON()));
+        this.stickit();
     }
 });
 

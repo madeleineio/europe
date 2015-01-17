@@ -13,9 +13,9 @@ require('style.scss');
 
 $(window).load(function(){
     var MapView = require('views/map');
-    var TestModel = require('models/Test');
-    var test = new Test({
-        model: new TestModel()
+    var MapModel = require('models/map');
+    var map = new MapView({
+        model: new MapModel()
     });
-    test.render();
+    map.render();
 });
