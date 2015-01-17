@@ -17,7 +17,7 @@ var express = require('express'),
  */
 // set port
 app.set('port', 3010);
-app.set('views', path.resolve('app', 'views'));
+app.set('views', path.resolve('views'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride());

@@ -8,22 +8,23 @@ var path = require('path');
 
 module.exports = {
     entry: {
-        main: './app/js/main.js'
+        main: './web_modules/main.js'
     },
     output: {
         path: 'public/js',
-        filename: '[name].min.js'
+        filename: '[name].min.js',
+        sourceMapFilename: '[file].map'
     },
     resolve: {
         // Allow to omit extensions when requiring these files
-        extensions: ['', '.js', '.css'],
+        extensions: ['', '.js', '.css', '.ejs'],
         root: [
             // We want roots to resolve the app code:
-            path.resolve('app', 'js'),
+            path.resolve('web_modules'),
             // node modules
             path.resolve('node_modules'),
-            // css dir
-            path.resolve('app', 'css')
+            // sass dir
+            path.resolve('sass')
         ]
     },
     module: {
@@ -33,7 +34,10 @@ module.exports = {
             { test: /\.woff$/,   loader: "url-loader?limit=10000&minetype=application/font-woff" },
             { test: /\.ttf$/,    loader: "file-loader" },
             { test: /\.eot$/,    loader: "file-loader" },
-            { test: /\.svg$/,    loader: "file-loader" }
+            { test: /\.svg$/,    loader: "file-loader" },
+            // ejs templates
+            {test: /\.ejs$/,    loader: "ejs-compiled-loader"}
         ]
-    }
+    },
+    devtool: 'eval'
 };
