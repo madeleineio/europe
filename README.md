@@ -14,3 +14,4 @@
 * http://bost.ocks.org/mike/simplify/
 * https://github.com/mbostock/d3/wiki/Geo-Paths
 * http://tutorials.jenkov.com/svg/clip-path.html
+* https://www.youtube.com/watch?v=kqSc9YAZUi8
