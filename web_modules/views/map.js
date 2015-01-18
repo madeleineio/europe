@@ -9,13 +9,11 @@ var topojson = require('topojson/topojson');
 var $ = require('jquery/dist/jquery');
 var _ = require('underscore/underscore');
 var Backbone = require('backbone');
-Backbone.Stickit = require('backbone.stickit/backbone.stickit');
+!Backbone.Stickit && (Backbone.Stickit = require('backbone.stickit/backbone.stickit'));
 var Q = require('q/q');
 
 var template = require('templates/map');
 var getData = require('services/get-data');
-
-console.log(Backbone.Stickit);
 
 // style
 require('imports?d3=d3!d3-geo-projection/d3.geo.projection');
