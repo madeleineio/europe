@@ -17,5 +17,4 @@ $(window).load(function(){
     var map = new MapView({
         model: new MapModel()
     });
-    map.render();
 });
