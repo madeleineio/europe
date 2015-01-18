@@ -22,6 +22,10 @@ require('imports?d3=d3!d3-geo-projection/d3.geo.projection');
 require('map.scss');
 
 //
+var dataTopojson;
+var dataTimeline;
+
+//
 var MapView = Backbone.View.extend({
     el: $('.map').get(0),
     bindings: {
@@ -35,11 +39,13 @@ var MapView = Backbone.View.extend({
     template: template,
     initialize: function(){
         Q.all([getData.dataTopojson, getData.dataTimeline]).then(function(d){
-            console.log(d);
+            dataTopojson = d[0];
+            dataTimeline = d[1];
         });
+        this.$el.html(this.template(this.model.toJSON()));
     },
     render: function(){
-        this.$el.html(this.template(this.model.toJSON()));
+
         this.stickit();
     }
 });

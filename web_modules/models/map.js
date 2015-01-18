@@ -9,7 +9,9 @@ var Backbone = require('backbone');
 var MapModel = Backbone.Model.extend({
     defaults: function(){
         return {
-            title: 'map'
+            title: 'map',
+            width: 0,
+            height: 0
         };
     }
 });
