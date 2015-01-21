@@ -1,20 +1,11 @@
 /**
- * Created by nicolasmondon on 17/01/15.
+ * Created by nicolasmondon on 21/01/15.
  */
 
-var src = document.getElementById("webpack-path").getAttribute("src");
-__webpack_public_path__ = src.substr(0, src.lastIndexOf("/") + 1);
+import Test from './test';
+import d3 from 'd3';
 
-// dependencies
-var $ = require('jquery/dist/jquery');
+Test.load();
+console.log(d3);
 
-// style
-require('style.scss');
-
-$(window).load(function(){
-    var MapView = require('views/map');
-    var MapModel = require('models/map');
-    var map = new MapView({
-        model: new MapModel()
-    });
-});
+export default {};

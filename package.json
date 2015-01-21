@@ -1,47 +1,11 @@
 {
-  "name": "eu-construction",
-  "version": "1.0.0",
-  "description": "eu-construction ===============",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gocassinigo/eu-construction.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/gocassinigo/eu-construction/issues"
-  },
-  "homepage": "https://github.com/gocassinigo/eu-construction",
-  "devDependencies": {
-    "backbone": "^1.1.2",
-    "backbone.stickit": "^0.8.0",
-    "body-parser": "^1.9.2",
-    "css-loader": "^0.9.0",
-    "d3": "^3.4.13",
-    "d3-geo-projection": "^0.2.12",
-    "ejs": "^1.0.0",
-    "ejs-compiled-loader": "^0.1.0",
-    "ejs-loader": "^0.1.0",
-    "exports-loader": "^0.6.2",
-    "express": "^4.10.1",
-    "file-loader": "^0.8.1",
-    "hammerjs": "^2.0.4",
-    "imports-loader": "^0.6.3",
-    "jquery": "^2.1.1",
-    "jquery-hammerjs": "^2.0.0",
-    "lodash": "^2.4.1",
-    "method-override": "^2.3.0",
-    "q": "^1.1.1",
-    "sass-loader": "^0.3.1",
-    "script-loader": "^0.6.0",
-    "style-loader": "^0.8.1",
-    "topojson": "1.6.18",
-    "underscore": "^1.7.0",
-    "url-loader": "^0.5.5",
-    "webpack": "^1.4.10"
+  "jspm": {
+    "name": "europe.madeleine.io",
+    "directories": {
+      "lib": "web_modules"
+    },
+    "dependencies": {
+      "d3": "npm:d3@^3.5.3"
+    }
   }
 }

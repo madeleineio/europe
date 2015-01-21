@@ -32,3 +32,5 @@ node_modules
 
 # bower modules
 bower_components
+
+jspm_packages
