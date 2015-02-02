@@ -12,11 +12,35 @@ var promise = new P(function (resolve) {
         // compute important arcs
         var presimplified = topojson.presimplify(data);
 
-        // TODO normalized all countries
-        // all "MultiPolygon" country are divided into "Polygon"
-        // each "Polygon" will be considered as a specific country
+        // transform all MutliPolygon as an array of Polygon
+        // as it, we just have Polygons
+        data.objects.countries.geometries = _.flatten(data.objects.countries.geometries.map(function(g){
+            // possibly non unique country id : cid
+            g.cid = g.id;
+            // multi polygons
+            if(g.type === 'MultiPolygon'){
+                return _.range(g.arcs.length).map(function(p, i){
+                    return _.extend({}, g, {
+                        type: 'Polygon',
+                        arcs: g.arcs[i],
+                        // unique id
+                        id: g.id + '_' + i
+                    });
+                });
+            }
+            // simple polygons
+            else return _.extend({}, g, {
+                // unique id
+                id: g.id + '_0'
+            });
+        }), true);
+
+        console.log(data);
 
         // TODO remove too small pieces without neighbour
+        // first, find all polygons without neighbours
+        //
+
 
         // TODO remove too far countries
 
