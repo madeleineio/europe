@@ -17,29 +17,27 @@ var $container = $('#map');
 var w = $container.width(),
     h = $container.height();
 var svgMap;
+var gCountry;
 var dataTopojson;
 
 
-var trans = [w/2, h/2];
-
+var trans = [0, 0];
 var projection = d3.geo.stereographic()
     .scale(1600)
     .center([-5, 55])
-    .rotate([-20, 0])
+    .translate([w/2, h/2])
     .clipAngle(180 - 1e-4)
     .clipExtent([[0, 0], [w, h]])
     .precision(.1);
 
-var simplify = function(trans){
-    return d3.geo.transform({
-        point: function(x, y, z) {
-            if (z >= .2){
-                var coords = projection.translate(trans)([x,y]);
-                this.stream.point(coords[0], coords[1]);
-            }
+var simplify = d3.geo.transform({
+    point: function(x, y, z) {
+        if (z >= .05){
+            var coords = projection([x,y]);
+            this.stream.point(coords[0], coords[1]);
         }
-    });
-};
+    }
+});
 
 
 // drag
@@ -50,13 +48,17 @@ var dragMap = d3.behavior.drag()
     })
     .on('drag', function () {
         if (coordDrag) {
-            var path = d3.geo.path()
-                .projection(simplify([
-                    w / 2 + d3.event.sourceEvent.pageX - coordDrag[0],
-                    h / 2 + d3.event.sourceEvent.pageY - coordDrag[1]
-                ]));
-            d3.selectAll('path').attr('d', path);
+            gCountry.attr('transform', 'translate(' + [
+                trans[0] + d3.event.sourceEvent.pageX - coordDrag[0],
+                trans[1] + d3.event.sourceEvent.pageY - coordDrag[1]
+            ] + ')');
         }
+    })
+    .on('dragend', function(){
+        trans = [
+            trans[0] + d3.event.sourceEvent.pageX - coordDrag[0],
+            trans[1] + d3.event.sourceEvent.pageY - coordDrag[1]
+        ];
     });
 
 function init(datajson) {
@@ -65,18 +67,20 @@ function init(datajson) {
     svgMap = d3.select('#map').append('svg')
         .attr('class', 'svg-map')
         .call(dragMap);
+
+    gCountry = svgMap.append('g')
+    .attr('transform', 'translate(' + trans + ')');
 };
 
 function render() {
 
     var path = d3.geo.path()
-        .projection(simplify(trans));
+        .projection(simplify);
 
     // compute the importance of each point
     var topoSimple = topojson.presimplify(dataTopojson);
 
-
-    var countries = svgMap.selectAll('.country').data(topojson.feature(topoSimple, topoSimple.objects.countries).features);
+    var countries = gCountry.selectAll('.country').data(topojson.feature(topoSimple, topoSimple.objects.countries).features);
     countries.enter().append('path')
         .attr('class', 'country')
         .attr('id', function (country) {
