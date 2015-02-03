@@ -21,6 +21,8 @@ gulp.task('build-vendors', function () {
         'node_modules/d3/d3.js',
         // topojson
         'node_modules/topojson/topojson.js',
+        // react
+        'node_modules/react/dist/react-with-addons.js',
         // hammer
         'node_modules/hammerjs/hammer.js',
         // jquery

@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-    entry: './web_modules/main.js',
+    entry: './web_modules/main.jsx',
     output: {
         path: './build',
         filename: 'bundle.js'
@@ -12,7 +12,8 @@ module.exports = {
         'lodash': '_',
         'd3': 'd3',
         'topojson': 'topojson',
-        'bluebird': 'P'
+        'bluebird': 'P',
+        'react': 'React'
     },
     resolve: {
         root: [
@@ -20,7 +21,7 @@ module.exports = {
             path.resolve('web_modules'),
             path.resolve('sass')
         ],
-        extensions: ['', '.js', 'ejs']
+        extensions: ['', '.js', '.jsx']
     },
     module: {
         loaders: [
@@ -29,7 +30,9 @@ module.exports = {
             { test: /\.woff$/,   loader: "url-loader?limit=10000&minetype=application/font-woff" },
             { test: /\.ttf$/,    loader: "file-loader" },
             { test: /\.eot$/,    loader: "file-loader" },
-            { test: /\.svg$/,    loader: "file-loader" }
+            { test: /\.svg$/,    loader: "file-loader" },
+            // jsx loader
+            { test: /\.jsx$/, loader: 'jsx-loader'}
         ]
     },
     devtool: 'source-map'
