@@ -38,18 +38,18 @@ var promise = new P(function (resolve) {
         }), true);
 
 
-        // TODO remove too small pieces without neighbour
+        // remove too small pieces without neighbour
         // first, find all polygons without neighbours
         var path = d3.geo.path()
             .projection(simplify(.1, projection));
         var features = topojson.feature(data, data.objects.countries).features;
+        console.log(features);
         var neighbors = topojson.neighbors(data.objects.countries.geometries);
         data.objects.countries.geometries = data.objects.countries.geometries.filter(function(g, i){
-            return neighbors[i].length > 0 || path.area(features[i]) > 100;
+            return neighbors[i].length > 0  // neighbours
+                || path.area(features[i]) > 100; // not too small
         });
 
-
-        // TODO remove too far countries
 
 
 

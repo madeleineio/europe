@@ -51,13 +51,12 @@ var dragMap = d3.behavior.drag()
             trans[0] + d3.event.sourceEvent.pageX - coordDrag[0],
             trans[1] + d3.event.sourceEvent.pageY - coordDrag[1]
         ];
+        console.log(trans);
     });
 
 function init(datajson) {
 
     dataTopojson = datajson;
-
-    console.log(datajson);
 
     svgMap = d3.select('#map').append('svg')
         .attr('class', 'svg-map')
@@ -71,7 +70,7 @@ function init(datajson) {
 function render() {
 
     var path = d3.geo.path()
-        .projection(simplify(.1, projection));
+        .projection(simplify(.05, projection));
 
     var countries = gCountry.selectAll('.country').data(topojson.feature(dataTopojson, dataTopojson.objects.countries).features);
     countries.enter().append('path')
