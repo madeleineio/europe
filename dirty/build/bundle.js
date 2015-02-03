@@ -40,8 +40,9 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91,37 +92,43 @@
 	});
 
 /***/ },
-/* 1 */
+
+/***/ 1:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = d3;
 
 /***/ },
-/* 2 */
+
+/***/ 2:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = jQuery;
 
 /***/ },
-/* 3 */
+
+/***/ 3:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = _;
 
 /***/ },
-/* 4 */
+
+/***/ 4:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = P;
 
 /***/ },
-/* 5 */
+
+/***/ 5:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = React;
 
 /***/ },
-/* 6 */
+
+/***/ 6:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -134,7 +141,8 @@
 
 
 /***/ },
-/* 7 */
+
+/***/ 7:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -199,7 +207,8 @@
 	module.exports = promise;
 
 /***/ },
-/* 8 */
+
+/***/ 8:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -240,33 +249,71 @@
 	module.exports = promise;
 
 /***/ },
-/* 9 */
+
+/***/ 9:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(28);
+	__webpack_require__(18);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var topojson = __webpack_require__(13);
 	
+	var CountriesContainer = __webpack_require__(194);
 	
-	var Country = __webpack_require__(18);
+	var coordDrag;
 	
 	/**
 	 * @props countries
 	 * @type {*|Function}
 	 */
 	module.exports = React.createClass({displayName: "exports",
+	    getInitialState: function () {
+	        return {
+	            gTranslate: 'translate(0,0)',
+	            x: 0,
+	            y: 0,
+	            forceCountriesRendering: true
+	        };
+	    },
+	    handleDragStart: function (e) {
+	        console.log('on drag start')
+	        coordDrag = [e.clientX, e.clientY];
+	    },
+	    handleDrag: function (e) {
+	        console.log('on drag')
+	        e.stopPropagation();
+	        e.preventDefault();
+	        var trans = [
+	            this.state.x + e.clientX - coordDrag[0],
+	            this.state.y + e.clientY - coordDrag[1]
+	        ];
+	        this.setState({
+	            gTranslate: 'translate(' + trans + ')',
+	            forceCountriesRendering: false
+	        });
+	
+	    },
+	    handleDragEnd: function (e) {
+	        console.log('on drag end')
+	    },
 	    render: function () {
 	        var features = topojson.feature(this.props.countries, this.props.countries.objects.countries).features;
 	        return (
-	            React.createElement("svg", {className: 'svg-map'}, 
-	                React.createElement("g", {className: 'g-country'}, 
-	                    features.map(function (feature) {
-	                        return React.createElement(Country, {feature: feature})
-	                    })
+	            React.createElement("div", {className: 'svg-container', 
+	                draggable: "true", 
+	                onDragStart: this.handleDragStart, 
+	                onDrag: this.handleDrag, 
+	                onDragEnd: this.handleDragEnd
+	            }, 
+	                React.createElement("svg", {className: 'svg-map'}, 
+	                    React.createElement("g", {className: 'g-translatable', transform: this.state.gTranslate}, 
+	                        React.createElement(CountriesContainer, {
+	                            rendering: this.state.forceCountriesRendering, 
+	                            features: features})
+	                    )
 	                )
 	            )
 	        );
@@ -274,7 +321,8 @@
 	});
 
 /***/ },
-/* 10 */
+
+/***/ 10:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -284,7 +332,7 @@
 	'use strict';
 	
 	// style
-	__webpack_require__(19);
+	__webpack_require__(21);
 	
 	var d3 = __webpack_require__(1);
 	var $ = __webpack_require__(2);
@@ -338,7 +386,8 @@
 	};
 
 /***/ },
-/* 11 */
+
+/***/ 11:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -361,20 +410,23 @@
 	}
 
 /***/ },
-/* 12 */
+
+/***/ 12:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
-	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(24)+");src:url("+__webpack_require__(24)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(27)+") format('woff'),url("+__webpack_require__(25)+") format('truetype'),url("+__webpack_require__(26)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
+	exports = module.exports = __webpack_require__(25)();
+	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(26)+");src:url("+__webpack_require__(26)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(29)+") format('woff'),url("+__webpack_require__(27)+") format('truetype'),url("+__webpack_require__(28)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
 
 /***/ },
-/* 13 */
+
+/***/ 13:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = topojson;
 
 /***/ },
-/* 14 */
+
+/***/ 14:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -570,7 +622,8 @@
 
 
 /***/ },
-/* 15 */
+
+/***/ 15:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -586,7 +639,8 @@
 	    .center([35, 50]);
 
 /***/ },
-/* 16 */
+
+/***/ 16:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -609,7 +663,8 @@
 	};
 
 /***/ },
-/* 17 */
+
+/***/ 17:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -619,7 +674,7 @@
 	'use strict';
 	
 	// style
-	__webpack_require__(21);
+	__webpack_require__(23);
 	
 	
 	var d3 = __webpack_require__(1);
@@ -693,7 +748,40 @@
 	};
 
 /***/ },
-/* 18 */
+
+/***/ 18:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(19);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(14)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/map.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/map.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 19:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(25)();
+	exports.push([module.id, "#map{width:100%;height:100%}#map .svg-container{width:100%;height:100%;user-select:none}#map .svg-container .svg-map{width:100%;height:100%;background-color:#EBF0F7}#map .svg-container .svg-map .g-country .country{stroke:#ccc;fill:white;stroke-width:0.25px;stroke-opacity:0.8}", ""]);
+
+/***/ },
+
+/***/ 20:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -715,8 +803,8 @@
 	 * @type {*|Function}
 	 */
 	module.exports = React.createClass({displayName: "exports",
-	
 	    render: function(){
+	        console.log('render country');
 	        return (
 	            React.createElement("path", {className: 'country', d: path(this.props.feature)})
 	        );
@@ -724,13 +812,14 @@
 	});
 
 /***/ },
-/* 19 */
+
+/***/ 21:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(20);
+	var content = __webpack_require__(22);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(14)(content, {});
@@ -747,20 +836,22 @@
 	}
 
 /***/ },
-/* 20 */
+
+/***/ 22:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(25)();
 	exports.push([module.id, "#control-panel{position:fixed;background-color:rgba(255,255,255,0.85);width:45%;height:100%;z-index:2;top:0%;left:55%;border-left:#ccc 1px solid}#control-panel .svg-timeline{width:100%;height:100%}", ""]);
 
 /***/ },
-/* 21 */
+
+/***/ 23:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(22);
+	var content = __webpack_require__(24);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(14)(content, {});
@@ -777,14 +868,16 @@
 	}
 
 /***/ },
-/* 22 */
+
+/***/ 24:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(23)();
+	exports = module.exports = __webpack_require__(25)();
 	exports.push([module.id, ".g-list-country .country-label{text-anchor:start;dominant-baseline:middle;font-size:10px;font-family:karlaregular}", ""]);
 
 /***/ },
-/* 23 */
+
+/***/ 25:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function() {
@@ -805,59 +898,70 @@
 	}
 
 /***/ },
-/* 24 */
+
+/***/ 26:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "9b32ddf7a8f92141181778d032317807.eot"
 
 /***/ },
-/* 25 */
+
+/***/ 27:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "b39ab43702ee55c707e54327b9a8251f.ttf"
 
 /***/ },
-/* 26 */
+
+/***/ 28:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "c2e4a81907170a84e0ef7079904653c6.svg"
 
 /***/ },
-/* 27 */
+
+/***/ 29:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "25635a84225e55513e4882a4240e1dd5.woff"
 
 /***/ },
-/* 28 */
+
+/***/ 194:
 /***/ function(module, exports, __webpack_require__) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
+	/**
+	 * Created by nicolasmondon on 03/02/15.
+	 */
 	
-	// load the styles
-	var content = __webpack_require__(29);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(14)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/map.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/map.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(23)();
-	exports.push([module.id, "#map{width:100%;height:100%}.svg-map{width:100%;height:100%;background-color:#EBF0F7}.svg-map .g-country .country{stroke:#ccc;fill:white;stroke-width:0.25px;stroke-opacity:0.8}", ""]);
+	'use strict';
+	
+	var React = __webpack_require__(5);
+	var Country = __webpack_require__(20);
+	
+	/**
+	 * @props features
+	 * @props rendering
+	 * @type {*|Function}
+	 */
+	module.exports = React.createClass({displayName: "exports",
+	    shouldComponentUpdate: function (nextProps, nextState) {
+	        return nextProps.rendering;
+	    },
+	    render: function () {
+	        return (
+	            React.createElement("g", {className: 'g-country'}, 
+	                this.props.features.map(function (feature, i) {
+	                    return React.createElement(Country, {
+	                        feature: feature, 
+	                        key: i})
+	                })
+	            )
+	        );
+	    }
+	});
 
 /***/ }
-/******/ ])
+
+/******/ })
 //# sourceMappingURL=bundle.js.map

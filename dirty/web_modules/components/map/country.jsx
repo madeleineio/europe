@@ -17,8 +17,8 @@ var path = d3.geo.path()
  * @type {*|Function}
  */
 module.exports = React.createClass({
-
     render: function(){
+        console.log('render country');
         return (
             <path className={'country'} d={path(this.props.feature)}></path>
         );
