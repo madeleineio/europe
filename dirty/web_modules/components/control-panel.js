@@ -41,7 +41,12 @@ function init(csvData) {
     $svgTimeline = $('.svg-timeline');
 
     //
-    listCountry.init(csvData, svgTimeline, $svgTimeline.width() / 4, $svgTimeline.height());
+    listCountry.init(csvData,
+        svgTimeline.append('g')
+            .attr('class', 'g-list-country')
+        .attr('transform', 'translate(' + [0, $svgTimeline.height()/4] + ')'),
+        $svgTimeline.width() / 4,
+        $svgTimeline.height()*3/4);
 };
 
 function render() {

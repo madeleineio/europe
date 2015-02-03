@@ -24,8 +24,12 @@ var promise = new P(function(resolve){
                 'candidature officielle': toNum(el['candidature officielle'])
             });
         });
-        console.log(data);
+
         resolve(data);
+
+        /*resolve(_.groupBy(data, function(c){
+            return c.UE;
+        }));*/
     });
 });
 

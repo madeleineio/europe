@@ -32,5 +32,5 @@ module.exports = {
             { test: /\.svg$/,    loader: "file-loader" }
         ]
     },
-    devtool: 'eval'
+    devtool: 'source-map'
 };

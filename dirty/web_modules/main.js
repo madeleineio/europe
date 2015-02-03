@@ -4,8 +4,12 @@
 
 'use strict';
 
+// webpack path
+require('util/webpack-path');
 // style
 require('reset.scss');
+
+
 
 // vendors
 var d3 = require('d3');
