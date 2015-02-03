@@ -21,8 +21,16 @@ gulp.task('build-vendors', function () {
         'node_modules/d3/d3.js',
         // topojson
         'node_modules/topojson/topojson.js',
+        // hammer
+        'node_modules/hammerjs/hammer.js',
         // jquery
         'node_modules/jquery/dist/jquery.js',
+        // jquery hammer js
+        'node_modules/jquery-hammerjs/jquery.hammer.js',
+        // velocity
+        'node_modules/velocity-animate/velocity.js',
+        // velocity ui
+        'node_modules/velocity-animate/velocity.ui.js',
         // lodash
         'node_modules/lodash/index.js',
         // bluebird
