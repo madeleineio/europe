@@ -43,7 +43,6 @@ var promise = new P(function (resolve) {
         var path = d3.geo.path()
             .projection(simplify(.1, projection));
         var features = topojson.feature(data, data.objects.countries).features;
-        console.log(features);
         var neighbors = topojson.neighbors(data.objects.countries.geometries);
         data.objects.countries.geometries = data.objects.countries.geometries.filter(function(g, i){
             return neighbors[i].length > 0  // neighbours

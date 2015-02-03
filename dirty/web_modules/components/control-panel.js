@@ -10,17 +10,24 @@ require('control-panel.scss');
 var d3 = require('d3');
 var $ = require('jquery');
 
-var $el;
+// sub modules
+var listCountry = require('components/list-country');
 
-function init(){
+var $el;
+var svgTimeline;
+var $svgTimeline;
+var gListCountry;
+
+function init(csvData) {
     $el = $('#control-panel');
-    $el.hammer().on('swiperight', function(){
+    // TODO opacity on hover
+    $el.hammer().on('swiperight', function () {
         $el.velocity({
             left: '90%'
         }, {
             duration: 200
         });
-    }).on('swipeleft', function(){
+    }).on('swipeleft', function () {
         $el.velocity({
             left: '55%'
         }, {
@@ -29,10 +36,16 @@ function init(){
         });
     });
 
+    svgTimeline = d3.select('#control-panel').append('svg')
+        .attr('class', 'svg-timeline');
+    $svgTimeline = $('.svg-timeline');
+
+    //
+    listCountry.init(csvData, svgTimeline, $svgTimeline.width() / 4, $svgTimeline.height());
 };
 
-function render(){
-
+function render() {
+    listCountry.render();
 };
 
 module.exports = {

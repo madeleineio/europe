@@ -28,6 +28,6 @@ P.all([
 ]).then(function (d) {
     map.init(d[1]);
     map.render();
-    controlPanel.init();
+    controlPanel.init(d[0]);
     controlPanel.render();
 });
