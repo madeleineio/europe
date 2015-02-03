@@ -6,6 +6,8 @@
 var P = require('bluebird');
 var d3 = require('d3');
 var topojson = require('topojson');
+var projection = require('services/get-projection');
+var simplify = require('services/get-simplify');
 
 var promise = new P(function (resolve) {
     d3.json('data/topo/world-50m.json', function (data) {
@@ -35,11 +37,16 @@ var promise = new P(function (resolve) {
             });
         }), true);
 
-        console.log(data);
 
         // TODO remove too small pieces without neighbour
         // first, find all polygons without neighbours
-        //
+        var path = d3.geo.path()
+            .projection(simplify(.1, projection));
+        var features = topojson.feature(data, data.objects.countries).features;
+        var neighbors = topojson.neighbors(data.objects.countries.geometries);
+        data.objects.countries.geometries = data.objects.countries.geometries.filter(function(g, i){
+            return neighbors[i].length > 0 || path.area(features[i]) > 100;
+        });
 
 
         // TODO remove too far countries
