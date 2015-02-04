@@ -9,7 +9,7 @@ var React = require('react');
 module.exports = React.createClass({
     render: function () {
         return (
-            <text className={'country-label'}>
+            <text className={'country-label'} x="10">
                 {this.props.text}
             </text>
         );

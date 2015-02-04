@@ -10,7 +10,6 @@ require('util/webpack-path');
 require('reset.scss');
 
 
-
 // vendors
 var d3 = require('d3');
 var $ = require('jquery');
@@ -21,12 +20,12 @@ var React = require('react');
 // services
 var promiseGeojson = require('services/get-json-map');
 var promiseData = require('services/get-csv-data');
+var yearExtent = require('services/get-year-extent');
 
 // components
-//var map = require('components/map');
-//var controlPanel = require('components/control-panel');
 var MapComp = require('components/map/map');
-var Timeline = require('components/list-country/timeline');
+var ListCountryContainer = require('components/list-country/container');
+var Timeline = require('components/timeline/timeline');
 
 
 // retrieve data
@@ -34,20 +33,24 @@ P.all([
     promiseData,
     promiseGeojson
 ]).then(function (d) {
-    //map.init(d[1]);
-    //map.render();
 
-    //controlPanel.init(d[0]);
-    //controlPanel.render();
+    $(function () {
+        React.render(
+            <MapComp countries={d[1]} />,
+            $('#map').get(0)
+        );
 
-    React.render(
-        <MapComp countries={d[1]} />,
-        $('#map').get(0)
-    );
+        React.render(
+            <ListCountryContainer data={d[0]}/>,
+            $('#list-country').get(0)
+        );
 
-    React.render(
-        <Timeline data={d[0]}/>,
-        $('#control-panel').get(0)
-    );
+        React.render(
+            <Timeline yearExtent={yearExtent(d[0])} />,
+            $('#timeline').get(0)
+        );
+
+    });
+
 
 });

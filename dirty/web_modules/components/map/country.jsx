@@ -17,9 +17,19 @@ var path = d3.geo.path()
  * @type {*|Function}
  */
 module.exports = React.createClass({
+    getInitialState: function(){
+        return {
+            fill: 'white'
+        };
+    },
+    handleMouseOver: function(){
+        /*this.setState({
+            fill: 'red'
+        });*/
+    },
     render: function(){
         return (
-            <path className={'country'} d={path(this.props.feature)}></path>
+            <path className={'country'} d={path(this.props.feature)} fill={this.state.fill} onMouseOver={this.handleMouseOver}></path>
         );
     }
 });

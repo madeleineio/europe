@@ -4,6 +4,7 @@ require('control-panel.scss');
 require('list-country.scss');
 
 var React = require('react');
+var $ = require('jquery');
 var _ = require('lodash');
 
 var GroupCountry = require('components/list-country/group-country');
@@ -30,10 +31,29 @@ module.exports = React.createClass({
         });
         return groupAdhesionUEData;
     },
+    componentDidMount: function(){
+        // TODO : where to put this ?
+        var $el = $('#control-panel');
+        // TODO opacity on hover
+        $el.hammer().on('swiperight', function () {
+            $el.velocity({
+                left: '90%'
+            }, {
+                duration: 200
+            });
+        }).on('swipeleft', function () {
+            $el.velocity({
+                left: '50%'
+            }, {
+                duration: 200,
+                easing: 'easeOutQuart'
+            });
+        });
+    },
     render: function () {
         var groupAdhesionUEData = this.computeGroups();
         return (
-            <div className="list-country">
+            <div className="list-country-container">
                 {groupAdhesionUEData.map(function(g, kg){
                     return (
                         <GroupCountry key={kg} >

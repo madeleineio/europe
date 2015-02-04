@@ -56,7 +56,6 @@
 	__webpack_require__(11);
 	
 	
-	
 	// vendors
 	var d3 = __webpack_require__(1);
 	var $ = __webpack_require__(2);
@@ -67,12 +66,12 @@
 	// services
 	var promiseGeojson = __webpack_require__(7);
 	var promiseData = __webpack_require__(8);
+	var yearExtent = __webpack_require__(36);
 	
 	// components
-	//var map = require('components/map');
-	//var controlPanel = require('components/control-panel');
 	var MapComp = __webpack_require__(9);
-	var Timeline = __webpack_require__(10);
+	var ListCountryContainer = __webpack_require__(10);
+	var Timeline = __webpack_require__(33);
 	
 	
 	// retrieve data
@@ -80,21 +79,25 @@
 	    promiseData,
 	    promiseGeojson
 	]).then(function (d) {
-	    //map.init(d[1]);
-	    //map.render();
 	
-	    //controlPanel.init(d[0]);
-	    //controlPanel.render();
+	    $(function () {
+	        React.render(
+	            React.createElement(MapComp, {countries: d[1]}),
+	            $('#map').get(0)
+	        );
 	
-	    React.render(
-	        React.createElement(MapComp, {countries: d[1]}),
-	        $('#map').get(0)
-	    );
+	        React.render(
+	            React.createElement(ListCountryContainer, {data: d[0]}),
+	            $('#list-country').get(0)
+	        );
 	
-	    React.render(
-	        React.createElement(Timeline, {data: d[0]}),
-	        $('#control-panel').get(0)
-	    );
+	        React.render(
+	            React.createElement(Timeline, {yearExtent: yearExtent(d[0])}),
+	            $('#timeline').get(0)
+	        );
+	
+	    });
+	
 	
 	});
 
@@ -255,14 +258,14 @@
 
 	'use strict';
 	
-	__webpack_require__(17);
+	__webpack_require__(23);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var topojson = __webpack_require__(13);
 	var _ = __webpack_require__(3);
 	
-	var Country = __webpack_require__(19);
+	var Country = __webpack_require__(25);
 	
 	var trans = [0, 0];
 	
@@ -318,14 +321,15 @@
 
 	'use strict';
 	
-	__webpack_require__(28);
-	__webpack_require__(30);
+	__webpack_require__(17);
+	__webpack_require__(19);
 	
 	var React = __webpack_require__(5);
+	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
 	
-	var GroupCountry = __webpack_require__(20);
-	var Country = __webpack_require__(21);
+	var GroupCountry = __webpack_require__(21);
+	var Country = __webpack_require__(22);
 	
 	/**
 	 * @props data
@@ -348,10 +352,29 @@
 	        });
 	        return groupAdhesionUEData;
 	    },
+	    componentDidMount: function(){
+	        // TODO : where to put this ?
+	        var $el = $('#control-panel');
+	        // TODO opacity on hover
+	        $el.hammer().on('swiperight', function () {
+	            $el.velocity({
+	                left: '90%'
+	            }, {
+	                duration: 200
+	            });
+	        }).on('swipeleft', function () {
+	            $el.velocity({
+	                left: '50%'
+	            }, {
+	                duration: 200,
+	                easing: 'easeOutQuart'
+	            });
+	        });
+	    },
 	    render: function () {
 	        var groupAdhesionUEData = this.computeGroups();
 	        return (
-	            React.createElement("div", {className: "list-country"}, 
+	            React.createElement("div", {className: "list-country-container"}, 
 	                groupAdhesionUEData.map(function(g, kg){
 	                    return (
 	                        React.createElement(GroupCountry, {key: kg}, 
@@ -395,8 +418,8 @@
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(22)();
-	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(24)+");src:url("+__webpack_require__(24)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(27)+") format('woff'),url("+__webpack_require__(25)+") format('truetype'),url("+__webpack_require__(26)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
+	exports = module.exports = __webpack_require__(26)();
+	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(29)+");src:url("+__webpack_require__(29)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(32)+") format('woff'),url("+__webpack_require__(30)+") format('truetype'),url("+__webpack_require__(31)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
 
 /***/ },
 /* 13 */
@@ -653,8 +676,8 @@
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/map.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/map.scss");
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/control-panel.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/control-panel.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -666,11 +689,119 @@
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(22)();
-	exports.push([module.id, "#map{width:100%;height:100%}#map .svg-map{width:100%;height:100%;background-color:#EBF0F7}#map .svg-map .g-country .country{stroke:#ccc;fill:white;stroke-width:0.25px;stroke-opacity:0.8}", ""]);
+	exports = module.exports = __webpack_require__(26)();
+	exports.push([module.id, "#control-panel{overflow:scroll;position:fixed;background-color:rgba(255,255,255,0.65);width:50%;height:100%;z-index:2;top:0%;left:50%;border-left:#ccc 1px solid}", ""]);
 
 /***/ },
 /* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(20);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(14)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/list-country.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/list-country.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(26)();
+	exports.push([module.id, ".list-country-container .group-country{margin:30px 5px;box-sizing:content-box}.list-country-container .group-country .country{height:15px;width:100%}.list-country-container .group-country .country .grey-line{shape-rendering:crispEdges;stroke:#ccc;stroke-width:0.5}.list-country-container .group-country .country .country-label{text-anchor:start;dominant-baseline:text-before-edge;font-size:14px;font-family:karlaregular}", ""]);
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(5);
+	
+	module.exports = React.createClass({displayName: "exports",
+	    render: function () {
+	        return (
+	            React.createElement("div", {className: 'group-country'}, 
+	                this.props.children
+	            )
+	        );
+	    }
+	
+	});
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(5);
+	var d3 = __webpack_require__(1);
+	
+	var GreyLine = __webpack_require__(27);
+	var Label = __webpack_require__(28);
+	
+	/**
+	 * @props country
+	 * @type {*|Function}
+	 */
+	module.exports = React.createClass({displayName: "exports",
+	    render: function(){
+	        console.log('country');
+	        return (
+	
+	            React.createElement("svg", {className: "country"}, 
+	                React.createElement(GreyLine, null), 
+	                React.createElement(Label, {text: this.props.country.nom})
+	            )
+	        );
+	    }
+	});
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(24);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(14)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/map.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/map.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(26)();
+	exports.push([module.id, "#map{width:100%;height:100%}#map .svg-map{width:100%;height:100%;background-color:#EBF0F7}#map .svg-map .g-country .country{stroke:#ccc;fill:white;stroke-width:0.25px;stroke-opacity:0.8}", ""]);
+
+/***/ },
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -692,63 +823,25 @@
 	 * @type {*|Function}
 	 */
 	module.exports = React.createClass({displayName: "exports",
+	    getInitialState: function(){
+	        return {
+	            fill: 'white'
+	        };
+	    },
+	    handleMouseOver: function(){
+	        /*this.setState({
+	            fill: 'red'
+	        });*/
+	    },
 	    render: function(){
 	        return (
-	            React.createElement("path", {className: 'country', d: path(this.props.feature)})
+	            React.createElement("path", {className: 'country', d: path(this.props.feature), fill: this.state.fill, onMouseOver: this.handleMouseOver})
 	        );
 	    }
 	});
 
 /***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(5);
-	
-	module.exports = React.createClass({displayName: "exports",
-	    render: function () {
-	        return (
-	            React.createElement("div", {className: 'g-list-country'}, 
-	                this.props.children
-	            )
-	        );
-	    }
-	
-	});
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(5);
-	var d3 = __webpack_require__(1);
-	
-	var GreyLine = __webpack_require__(32);
-	var Label = __webpack_require__(23);
-	
-	/**
-	 * @props country
-	 * @type {*|Function}
-	 */
-	module.exports = React.createClass({displayName: "exports",
-	    render: function(){
-	        console.log('country');
-	        return (
-	
-	            React.createElement("svg", {className: "country"}, 
-	                React.createElement(GreyLine, null), 
-	                React.createElement(Label, {text: this.props.country.nom})
-	            )
-	        );
-	    }
-	});
-
-/***/ },
-/* 22 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function() {
@@ -769,7 +862,23 @@
 	}
 
 /***/ },
-/* 23 */
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(5);
+	
+	module.exports = React.createClass({displayName: "exports",
+	    render: function(){
+	        return (
+	            React.createElement("line", {className: "grey-line", x1: 10, x2: 2000, y1: 7.5, y2: 7.5})
+	        );
+	    }
+	});
+
+/***/ },
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -783,7 +892,7 @@
 	module.exports = React.createClass({displayName: "exports",
 	    render: function () {
 	        return (
-	            React.createElement("text", {className: 'country-label'}, 
+	            React.createElement("text", {className: 'country-label', x: "10"}, 
 	                this.props.text
 	            )
 	        );
@@ -791,104 +900,159 @@
 	});
 
 /***/ },
-/* 24 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "9b32ddf7a8f92141181778d032317807.eot"
 
 /***/ },
-/* 25 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "b39ab43702ee55c707e54327b9a8251f.ttf"
 
 /***/ },
-/* 26 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "c2e4a81907170a84e0ef7079904653c6.svg"
 
 /***/ },
-/* 27 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "25635a84225e55513e4882a4240e1dd5.woff"
 
 /***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(29);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(14)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/control-panel.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/control-panel.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(22)();
-	exports.push([module.id, "#control-panel{overflow:scroll;position:fixed;background-color:rgba(255,255,255,0.85);width:45%;height:100%;z-index:2;top:0%;left:55%;border-left:#ccc 1px solid}", ""]);
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(31);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(14)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/list-country.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/list-country.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(22)();
-	exports.push([module.id, ".list-country .g-list-country{margin-bottom:30px}.list-country .g-list-country .country{height:15px;width:100%}.list-country .g-list-country .country .grey-line{shape-rendering:crispEdges;stroke:#ccc}.list-country .g-list-country .country .country-label{text-anchor:start;dominant-baseline:text-before-edge;font-size:12px;font-family:karlaregular}", ""]);
-
-/***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var React = __webpack_require__(5);
+	// style
+	__webpack_require__(34);
 	
+	var React = __webpack_require__(5);
+	var d3 = __webpack_require__(1);
+	var $ = __webpack_require__(2);
+	
+	var marginX = 20;
+	var w;
+	var h;
+	
+	/**
+	 * @props yearExtent
+	 * @type {*|Function}
+	 */
 	module.exports = React.createClass({displayName: "exports",
-	    render: function(){
+	    render: function () {
+	
+	        var w = $('#timeline').width();
+	        var h = $('#timeline').height();
+	
+	        var scaleXYear = d3.scale.linear()
+	            .domain(this.props.yearExtent)
+	            .rangeRound([20, w - 20]);
+	
+	        var years = d3.range(this.props.yearExtent[0], this.props.yearExtent[1] + 1);
+	
+	
 	        return (
-	            React.createElement("line", {className: "grey-line", x1: 0, x2: 2000, y1: 7.5, y2: 7.5})
+	            React.createElement("svg", {className: "svg-timeline"}, 
+	                React.createElement("line", {className: "pick", 
+	                    x1: scaleXYear(this.props.yearExtent[0]), 
+	                    x2: scaleXYear(this.props.yearExtent[1]), 
+	                    y1: h / 2 + 3, 
+	                    y2: h / 2 + 3}), 
+	                years.map(function (year, k) {
+	                    return (
+	                        React.createElement("line", {className: "pick", 
+	                            key: k, 
+	                            x1: scaleXYear(year), 
+	                            x2: scaleXYear(year), 
+	                            y1: h / 2, 
+	                            y2: h / 2 - (year % 5 === 0 ? 5 : 3)})
+	                    );
+	                }), 
+	                years.filter(function (y) {
+	                    return y % 5 === 0
+	                }).map(function (year, k) {
+	                    return (
+	                        React.createElement("text", {className: "year", x: scaleXYear(year), y: h/2 - 10}, 
+	                            year
+	                        )
+	                    );
+	                })
+	            )
 	        );
 	    }
 	});
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(35);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(14)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/timeline.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/dirty/sass/timeline.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(26)();
+	exports.push([module.id, "#timeline{z-index:3;position:fixed;left:0;bottom:0;width:50%;height:100px}#timeline .svg-timeline{width:100%;height:100%}#timeline .svg-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:0.5px}#timeline .svg-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:11px;font-family:karlaregular;font-weight:lighter;opacity:0.8}", ""]);
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by nicolasmondon on 03/02/15.
+	 */
+	
+	'use script';
+	
+	var d3 = __webpack_require__(1);
+	var _ = __webpack_require__(3);
+	
+	var events = [
+	    'OTAN', 'PPP', 'UE', 'candidature non officielle', 'candidature officielle'
+	];
+	
+	function compute(countries){
+	    return [
+	        d3.min(countries, function(country){
+	            return d3.min(events, function(event){
+	                var year = parseInt(country[event]);
+	                return _.isNumber(year) ? year : 9999;
+	            });
+	        }),
+	        d3.max(countries, function(country){
+	            return d3.max(events, function(event){
+	                var year = parseInt(country[event]);
+	                return _.isNumber(year) ? year : 0;
+	            });
+	        })
+	    ];
+	};
+	
+	module.exports = compute;
 
 /***/ }
 /******/ ])

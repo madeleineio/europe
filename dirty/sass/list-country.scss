@@ -1,7 +1,8 @@
-.list-country {
-  .g-list-country {
+.list-country-container {
+  .group-country {
 
-    margin-bottom: 30px;
+    margin: 30px 5px;
+    box-sizing: content-box;
 
     .country {
       height: 15px;
@@ -10,12 +11,13 @@
       .grey-line {
         shape-rendering: crispEdges;
         stroke: #ccc;
+        stroke-width: .5;
       }
 
       .country-label {
         text-anchor: start;
         dominant-baseline: text-before-edge;
-        font-size: 12px;
+        font-size: 14px;
         font-family: karlaregular;
       }
     }
