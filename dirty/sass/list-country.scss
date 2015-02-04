@@ -1,8 +1,26 @@
-.g-list-country {
-  .country-label {
-    text-anchor: start;
-    dominant-baseline: middle;
-    font-size: 10px;
-    font-family: karlaregular;
+.list-country {
+  .g-list-country {
+
+    margin-bottom: 30px;
+
+    .country {
+      height: 15px;
+      width: 100%;
+
+      .grey-line {
+        shape-rendering: crispEdges;
+        stroke: #ccc;
+      }
+
+      .country-label {
+        text-anchor: start;
+        dominant-baseline: text-before-edge;
+        font-size: 12px;
+        font-family: karlaregular;
+      }
+    }
+
   }
 }
+
+

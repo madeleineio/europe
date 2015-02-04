@@ -24,8 +24,10 @@ var promiseData = require('services/get-csv-data');
 
 // components
 //var map = require('components/map');
+//var controlPanel = require('components/control-panel');
 var MapComp = require('components/map/map');
-var controlPanel = require('components/control-panel');
+var Timeline = require('components/list-country/timeline');
+
 
 // retrieve data
 P.all([
@@ -35,11 +37,17 @@ P.all([
     //map.init(d[1]);
     //map.render();
 
+    //controlPanel.init(d[0]);
+    //controlPanel.render();
+
     React.render(
         <MapComp countries={d[1]} />,
         $('#map').get(0)
     );
 
-    controlPanel.init(d[0]);
-    controlPanel.render();
+    React.render(
+        <Timeline data={d[0]}/>,
+        $('#control-panel').get(0)
+    );
+
 });

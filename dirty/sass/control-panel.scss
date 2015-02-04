@@ -1,5 +1,5 @@
-$width: 48;
 #control-panel {
+  overflow: scroll;
   position: fixed;
   background-color: rgba(255, 255, 255, .85);
   width: 45%;
@@ -8,9 +8,4 @@ $width: 48;
   top: 0%;
   left: 55%;
   border-left: #ccc 1px solid;
-
-  .svg-timeline {
-    width: 100%;
-    height: 100%;
-  }
 }

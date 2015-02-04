@@ -37,7 +37,6 @@ module.exports = React.createClass({
                     trans[0] + d3.event.sourceEvent.pageX - coordDrag[0],
                     trans[1] + d3.event.sourceEvent.pageY - coordDrag[1]
                 ];
-                console.log(trans);
             });
         svg.call(dragMap);
     },

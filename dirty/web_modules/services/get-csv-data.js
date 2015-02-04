@@ -15,7 +15,9 @@ function toNum(str){
 var promise = new P(function(resolve){
     d3.csv('data/UEvsOTAN.csv', function(data){
         // transform
-        data = data.map(function(el){
+        data = data.filter(function(el){
+            return toNum(el.UE) !== null;
+        }).map(function(el){
             return _.extend({}, el, {
                 OTAN: toNum(el.OTAN),
                 PPP: toNum(el.PPP),
