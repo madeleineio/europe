@@ -40,8 +40,6 @@ function render() {
         return obj;
     });
 
-    console.log(groupAdhesionUEData);
-
     var marginHeightGroup = 10;
     var scaleMarginHeightGroup = d3.scale.linear()
         .domain([0, data.length-1])

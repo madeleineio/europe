@@ -62,13 +62,15 @@
 	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
 	var P = __webpack_require__(4);
+	var React = __webpack_require__(5);
 	
 	// services
 	var promiseGeojson = __webpack_require__(7);
 	var promiseData = __webpack_require__(8);
 	
 	// components
-	var map = __webpack_require__(31);
+	//var map = require('components/map');
+	var MapComp = __webpack_require__(9);
 	var controlPanel = __webpack_require__(10);
 	
 	// retrieve data
@@ -76,9 +78,13 @@
 	    promiseData,
 	    promiseGeojson
 	]).then(function (d) {
-	    map.init(d[1]);
-	    map.render();
+	    //map.init(d[1]);
+	    //map.render();
 	
+	    React.render(
+	        React.createElement(MapComp, {countries: d[1]}),
+	        $('#map').get(0)
+	    );
 	
 	    controlPanel.init(d[0]);
 	    controlPanel.render();
@@ -109,7 +115,12 @@
 	module.exports = P;
 
 /***/ },
-/* 5 */,
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = React;
+
+/***/ },
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -229,7 +240,70 @@
 	module.exports = promise;
 
 /***/ },
-/* 9 */,
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(15);
+	
+	var React = __webpack_require__(5);
+	var d3 = __webpack_require__(1);
+	var topojson = __webpack_require__(13);
+	var _ = __webpack_require__(3);
+	
+	var Country = __webpack_require__(23);
+	
+	var trans = [0, 0];
+	
+	/**
+	 * @props countries
+	 * @type {*|Function}
+	 */
+	module.exports = React.createClass({displayName: "exports",
+	    componentDidMount: function(){
+	        var svg = d3.select('.svg-map');
+	        var gCountry = svg.select('.g-country');
+	        var coordDrag;
+	        var dragMap = d3.behavior.drag()
+	            .on('dragstart', function () {
+	                coordDrag = [d3.event.sourceEvent.pageX, d3.event.sourceEvent.pageY];
+	            })
+	            .on('drag', function () {
+	                if (coordDrag) {
+	                    gCountry.attr('transform', 'translate(' + [
+	                        trans[0] + d3.event.sourceEvent.pageX - coordDrag[0],
+	                        trans[1] + d3.event.sourceEvent.pageY - coordDrag[1]
+	                    ] + ')');
+	                }
+	            })
+	            .on('dragend', function () {
+	                trans = [
+	                    trans[0] + d3.event.sourceEvent.pageX - coordDrag[0],
+	                    trans[1] + d3.event.sourceEvent.pageY - coordDrag[1]
+	                ];
+	                console.log(trans);
+	            });
+	        svg.call(dragMap);
+	    },
+	    render: function () {
+	        var features = topojson.feature(this.props.countries, this.props.countries.objects.countries).features;
+	        return (
+	            React.createElement("svg", {className: 'svg-map'}, 
+	                React.createElement("g", {className: 'g-country'}, 
+	                features.map(function (feature, i) {
+	                    return React.createElement(Country, {
+	                        feature: feature, 
+	                        key: i})
+	                })
+	                )
+	            )
+	
+	        );
+	    }
+	});
+
+/***/ },
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -671,8 +745,6 @@
 	        return obj;
 	    });
 	
-	    console.log(groupAdhesionUEData);
-	
 	    var marginHeightGroup = 10;
 	    var scaleMarginHeightGroup = d3.scale.linear()
 	        .domain([0, data.length-1])
@@ -710,7 +782,37 @@
 	};
 
 /***/ },
-/* 23 */,
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by nicolasmondon on 03/02/15.
+	 */
+	
+	'use strict';
+	
+	var React = __webpack_require__(5);
+	var d3 = __webpack_require__(1);
+	
+	var simplify = __webpack_require__(19);
+	var projection = __webpack_require__(18);
+	var path = d3.geo.path()
+	    .projection(simplify(.05, projection));
+	
+	/**
+	 * @props feature
+	 * @type {*|Function}
+	 */
+	module.exports = React.createClass({displayName: "exports",
+	    render: function(){
+	        console.log('render country');
+	        return (
+	            React.createElement("path", {className: 'country', d: path(this.props.feature)})
+	        );
+	    }
+	});
+
+/***/ },
 /* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -784,99 +886,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "25635a84225e55513e4882a4240e1dd5.woff"
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by nicolasmondon on 02/02/15.
-	 */
-	
-	'use strict';
-	
-	// style
-	__webpack_require__(15);
-	
-	var d3 = __webpack_require__(1);
-	var topojson = __webpack_require__(13);
-	var $ = __webpack_require__(2);
-	var _ = __webpack_require__(3);
-	
-	
-	
-	var $container = $('#map');
-	var w = $container.width(),
-	    h = $container.height();
-	
-	var svgMap;
-	var gCountry;
-	var dataTopojson;
-	
-	// translation for gCountry
-	var trans = [0, 0];
-	// TODO compute responsive behavior
-	// projection for countries
-	var projection = __webpack_require__(18).translate([w / 2, h / 2]);
-	// simplify shapes
-	var simplify = __webpack_require__(19);
-	
-	// drag on map
-	var coordDrag;
-	// TODO constrain drag
-	// TODO reduce quality on drag to improve perfs
-	var dragMap = d3.behavior.drag()
-	    .on('dragstart', function () {
-	        coordDrag = [d3.event.sourceEvent.pageX, d3.event.sourceEvent.pageY];
-	    })
-	    .on('drag', function () {
-	        if (coordDrag) {
-	            gCountry.attr('transform', 'translate(' + [
-	                trans[0] + d3.event.sourceEvent.pageX - coordDrag[0],
-	                trans[1] + d3.event.sourceEvent.pageY - coordDrag[1]
-	            ] + ')');
-	        }
-	    })
-	    .on('dragend', function () {
-	        trans = [
-	            trans[0] + d3.event.sourceEvent.pageX - coordDrag[0],
-	            trans[1] + d3.event.sourceEvent.pageY - coordDrag[1]
-	        ];
-	        console.log(trans);
-	    });
-	
-	function init(datajson) {
-	
-	    dataTopojson = datajson;
-	
-	    svgMap = d3.select('#map').append('svg')
-	        .attr('class', 'svg-map')
-	        .call(dragMap);
-	
-	    gCountry = svgMap.append('g')
-	        .attr('class', 'g-country')
-	        .attr('transform', 'translate(' + trans + ')');
-	};
-	
-	function render() {
-	
-	    var path = d3.geo.path()
-	        .projection(simplify(.05, projection));
-	
-	    var countries = gCountry.selectAll('.country').data(topojson.feature(dataTopojson, dataTopojson.objects.countries).features);
-	    countries.enter().append('path')
-	        .attr('class', 'country')
-	        .attr('id', function (country) {
-	            return country.id;
-	        })
-	        .attr('d', path)
-	        .style('stroke', 'black');
-	};
-	
-	module.exports = {
-	    init: init,
-	    render: render
-	};
 
 /***/ }
 /******/ ])

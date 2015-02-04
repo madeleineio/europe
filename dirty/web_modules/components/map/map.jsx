@@ -7,62 +7,53 @@ var d3 = require('d3');
 var topojson = require('topojson');
 var _ = require('lodash');
 
-var CountriesContainer = require('components/map/countries-container');
+var Country = require('components/map/country');
 
-var coordDrag;
+var trans = [0, 0];
 
 /**
  * @props countries
  * @type {*|Function}
  */
 module.exports = React.createClass({
-    getInitialState: function () {
-        return {
-            gTranslate: 'translate(0,0)',
-            x: 0,
-            y: 0,
-            forceCountriesRendering: true
-        };
-    },
-    handleDragStart: function (e) {
-        console.log('on drag start')
-        coordDrag = [e.clientX, e.clientY];
-    },
-    handleDrag: _.throttle(function (e) {
-        console.log('on drag');
-
-        var trans = [
-            this.state.x + e.clientX - coordDrag[0],
-            this.state.y + e.clientY - coordDrag[1]
-        ];
-        this.setState({
-            gTranslate: 'translate(' + trans + ')',
-            forceCountriesRendering: false
-        });
-    }, 1000),
-    handleDragEnd: function (e) {
-        this.setState({
-            x: e.clientX,
-            y: e.clientY
-        });
+    componentDidMount: function(){
+        var svg = d3.select('.svg-map');
+        var gCountry = svg.select('.g-country');
+        var coordDrag;
+        var dragMap = d3.behavior.drag()
+            .on('dragstart', function () {
+                coordDrag = [d3.event.sourceEvent.pageX, d3.event.sourceEvent.pageY];
+            })
+            .on('drag', function () {
+                if (coordDrag) {
+                    gCountry.attr('transform', 'translate(' + [
+                        trans[0] + d3.event.sourceEvent.pageX - coordDrag[0],
+                        trans[1] + d3.event.sourceEvent.pageY - coordDrag[1]
+                    ] + ')');
+                }
+            })
+            .on('dragend', function () {
+                trans = [
+                    trans[0] + d3.event.sourceEvent.pageX - coordDrag[0],
+                    trans[1] + d3.event.sourceEvent.pageY - coordDrag[1]
+                ];
+                console.log(trans);
+            });
+        svg.call(dragMap);
     },
     render: function () {
         var features = topojson.feature(this.props.countries, this.props.countries.objects.countries).features;
         return (
-            <div className={'svg-container'}
-                draggable="true"
-                onDragStart={this.handleDragStart}
-                onDrag={this.handleDrag}
-                onDragEnd={this.handleDragEnd}
-            >
-                <svg className={'svg-map'}>
-                    <g className={'g-translatable'} transform={this.state.gTranslate}>
-                        <CountriesContainer
-                            rendering={this.state.forceCountriesRendering}
-                            features={features}/>
-                    </g>
-                </svg>
-            </div>
+            <svg className={'svg-map'}>
+                <g className={'g-country'}>
+                {features.map(function (feature, i) {
+                    return <Country
+                        feature={feature}
+                        key={i} />
+                })}
+                </g>
+            </svg>
+
         );
     }
 });
