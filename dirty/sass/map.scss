@@ -2,25 +2,18 @@
   width: 100%;
   height: 100%;
 
-  .svg-container {
+  .svg-map {
     width: 100%;
     height: 100%;
 
-    user-select: none;
+    background-color: #EBF0F7;
 
-    .svg-map {
-      width: 100%;
-      height: 100%;
-
-      background-color: #EBF0F7;
-
-      .g-country {
-        .country {
-          stroke: #ccc;
-          fill: white;
-          stroke-width: .25px;
-          stroke-opacity: .8;
-        }
+    .g-country {
+      .country {
+        stroke: #ccc;
+        fill: white;
+        stroke-width: .25px;
+        stroke-opacity: .8;
       }
     }
   }

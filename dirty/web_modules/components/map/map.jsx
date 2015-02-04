@@ -5,6 +5,7 @@ require('map.scss');
 var React = require('react');
 var d3 = require('d3');
 var topojson = require('topojson');
+var _ = require('lodash');
 
 var CountriesContainer = require('components/map/countries-container');
 
@@ -27,10 +28,9 @@ module.exports = React.createClass({
         console.log('on drag start')
         coordDrag = [e.clientX, e.clientY];
     },
-    handleDrag: function (e) {
-        console.log('on drag')
-        e.stopPropagation();
-        e.preventDefault();
+    handleDrag: _.throttle(function (e) {
+        console.log('on drag');
+
         var trans = [
             this.state.x + e.clientX - coordDrag[0],
             this.state.y + e.clientY - coordDrag[1]
@@ -39,10 +39,12 @@ module.exports = React.createClass({
             gTranslate: 'translate(' + trans + ')',
             forceCountriesRendering: false
         });
-
-    },
+    }, 1000),
     handleDragEnd: function (e) {
-        console.log('on drag end')
+        this.setState({
+            x: e.clientX,
+            y: e.clientY
+        });
     },
     render: function () {
         var features = topojson.feature(this.props.countries, this.props.countries.objects.countries).features;
