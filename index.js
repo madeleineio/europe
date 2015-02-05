@@ -27,8 +27,6 @@ app.use(express.static(path.resolve('public')));
 /**
  * routes
  */
-app.get('/', routes.index);
-app.get('/partials/:name', routes.partials);
 app.get('*', routes.index);
 
 /**

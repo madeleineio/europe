@@ -1,88 +1,39 @@
-.svg-timeline {
+#timeline {
 
-  .g-timeline {
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 50%;
+  height: 100px;
+  /*background-color: rgba(255,255,255, .75);*/
 
-    .line, .pick {
+
+
+  .svg-timeline {
+    width: 100%;
+    height: 100%;
+
+    .pick {
       stroke: black;
       shape-rendering: crispEdges;
+      stroke-width: .5px;
     }
 
     .year {
       text-anchor: middle;
-      dominant-baseline: text-after-edge;
-      font-size: 14px;
+      dominant-baseline: middle;
+      font-size: 12px;
       font-family: karlaregular;
+      font-weight: lighter;
+      opacity: .8;
     }
 
-  }
-
-  .g-cursor {
     .cursor {
-      fill: white;
       stroke: black;
+      fill: white;
       cursor: pointer;
     }
   }
-
-  .g-country {
-    .country-line-g {
-      .label {
-        text-anchor: start;
-        dominant-baseline: middle;
-        font-size: 13px;
-        font-family: karlaregular;
-      }
-
-      .thin-line {
-        stroke: #7B8571;
-        shape-rendering: crispEdges;
-        stroke-opacity: 0.2;
-      }
-
-      .empty-line {
-        stroke: #9fa995;
-      }
-
-      .otan-line {
-        stroke: #ffb59a;
-        stroke-width: 6px;
-      }
-
-      .ue-stripe {
-        stroke: #4D79FF;
-      }
-
-      .ppp-stripe {
-        stroke: #ff6e50;
-      }
-
-      .otan-point {
-        stroke: #ff6e50;
-        fill: #ff6e50;
-      }
-
-      .ue-line {
-        stroke: #4D79FF;
-        stroke-width: 3px;
-      }
-
-      .ue-point {
-        fill: #4D79FF;
-        stroke: none;
-      }
-
-      .candidature-ue-point {
-        stroke: #4D79FF;
-        fill: white;
-      }
-
-      .ppp-point {
-        stroke: #ff8b51;
-        fill: white;
-      }
-    }
-
-  }
-
 
 }

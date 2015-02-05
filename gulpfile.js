@@ -42,7 +42,7 @@ gulp.task('build-vendors', function () {
     gulp.src(dependencies)
         .pipe(concat('vendors.chunk.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest('public/js'));
 });
 
 // default task
