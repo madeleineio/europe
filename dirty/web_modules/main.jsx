@@ -41,7 +41,7 @@ var Root = React.createClass({
         this.setState({
             currentYear: year
         });
-    }.bind(this),
+    },
     shouldComponentUpdate: function(nextProps, nextState){
         return !_.isEqual(this.state, nextState);
     },
@@ -51,8 +51,10 @@ var Root = React.createClass({
                 width: '100%',
                 height: '100%'
             }}>
-                <MapComp countries={this.props.jsonCountries} currentYear={this.state.currentYear} />
-                <ListCountryContainer data={this.props.countries} currentYear={this.state.currentYear} />
+                <MapComp countries={this.props.jsonCountries}
+                    currentYear={this.state.currentYear} />
+                <ListCountryContainer data={this.props.countries}
+                    currentYear={this.state.currentYear} />
                 <Timeline yearExtent={this.props.yearExtent}
                     currentYear={this.state.currentYear}
                     setCurrentYear={this.setCurrentYear}

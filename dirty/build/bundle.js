@@ -87,7 +87,7 @@
 	        this.setState({
 	            currentYear: year
 	        });
-	    }.bind(this),
+	    },
 	    shouldComponentUpdate: function(nextProps, nextState){
 	        return !_.isEqual(this.state, nextState);
 	    },
@@ -97,8 +97,10 @@
 	                width: '100%',
 	                height: '100%'
 	            }}, 
-	                React.createElement(MapComp, {countries: this.props.jsonCountries, currentYear: this.state.currentYear}), 
-	                React.createElement(ListCountryContainer, {data: this.props.countries, currentYear: this.state.currentYear}), 
+	                React.createElement(MapComp, {countries: this.props.jsonCountries, 
+	                    currentYear: this.state.currentYear}), 
+	                React.createElement(ListCountryContainer, {data: this.props.countries, 
+	                    currentYear: this.state.currentYear}), 
 	                React.createElement(Timeline, {yearExtent: this.props.yearExtent, 
 	                    currentYear: this.state.currentYear, 
 	                    setCurrentYear: this.setCurrentYear}
@@ -528,9 +530,10 @@
 	                    );
 	                }), 
 	                    React.createElement(Cursor, {size: 5, 
-	                        center: [marginX, h / 2 + 5], 
+	                        y: h / 2 + 5, 
 	                        constrain: [marginX, w - marginX], 
 	                        currentYear: this.props.currentYear, 
+	                        yearExtent: this.props.yearExtent, 
 	                        setCurrentYear: this.props.setCurrentYear})
 	                )
 	            )
@@ -1109,6 +1112,7 @@
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	
+	
 	var trans = [0, 0];
 	
 	/**
@@ -1118,29 +1122,36 @@
 	 * @type {*|Function}
 	 */
 	module.exports = React.createClass({displayName: "exports",
-	    getInitialState: function(){
+	    getInitialState: function () {
+	        trans = [this.scaleYear()(this.props.currentYear), 0];
 	        return {
-	            transform: 'translate(0,0)'
+	            transform: 'translate(' + trans +' )'
 	        };
 	    },
-	    getCoords: function(){
+	    scaleYear: function(){
+	        return d3.scale.linear()
+	            .domain(this.props.yearExtent)
+	            .range(this.props.constrain)
+	            .clamp(true);
+	    },
+	    getCoords: function () {
 	        var coords;
-	        var center = this.props.center;
+	        var center = [this.scaleYear()(this.props.currentYear) - this.scaleYear()(this.props.yearExtent[0]), this.props.y];
 	        var size = this.props.size;
 	
 	        coords = [
-	            [ center[0] - size, center[1] - size ],
-	            [ center[0] - size, center[1] + size ],
-	            [ center[0] + size, center[1] + size ],
-	            [ center[0] + size, center[1] - size ],
-	            [ center[0], center[1] - 2*size ]
+	            [center[0] - size, center[1] - size],
+	            [center[0] - size, center[1] + size],
+	            [center[0] + size, center[1] + size],
+	            [center[0] + size, center[1] - size],
+	            [center[0], center[1] - 2 * size]
 	        ];
 	
-	        return coords.map(function(pt){
+	        return coords.map(function (pt) {
 	            return pt.join(',');
 	        }).join(' ');
 	    },
-	    componentDidMount: function(){
+	    componentDidMount: function () {
 	        var svg = d3.select('.svg-timeline');
 	        var el = svg.select('.cursor');
 	        var coordDrag;
@@ -1150,9 +1161,9 @@
 	            })
 	            .on('drag', function () {
 	                if (coordDrag) {
-	                    this.setState({
-	                        'transform': 'translate(' + [trans[0] + d3.event.sourceEvent.pageX - coordDrag[0], 0] + ')'
-	                    });
+	                    this.props.setCurrentYear(
+	                        d3.round(this.scaleYear().invert(trans[0] + d3.event.sourceEvent.pageX - coordDrag[0]))
+	                    );
 	                }
 	            }.bind(this))
 	            .on('dragend', function () {
@@ -1160,7 +1171,7 @@
 	            });
 	        el.call(dragMap);
 	    },
-	    render: function(){
+	    render: function () {
 	        return (
 	            React.createElement("polygon", {className: "cursor", points: this.getCoords(), transform: this.state.transform})
 	        );

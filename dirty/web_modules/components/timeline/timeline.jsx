@@ -57,9 +57,10 @@ module.exports = React.createClass({
                     );
                 })}
                     <Cursor size={5}
-                        center={[marginX, h / 2 + 5]}
+                        y={h / 2 + 5}
                         constrain={[marginX, w - marginX]}
                         currentYear={this.props.currentYear}
+                        yearExtent={this.props.yearExtent}
                         setCurrentYear={this.props.setCurrentYear}/>
                 </svg>
             </div>

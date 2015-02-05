@@ -3,6 +3,7 @@
 var React = require('react');
 var d3 = require('d3');
 
+
 var trans = [0, 0];
 
 /**
@@ -12,29 +13,36 @@ var trans = [0, 0];
  * @type {*|Function}
  */
 module.exports = React.createClass({
-    getInitialState: function(){
+    getInitialState: function () {
+        trans = [this.scaleYear()(this.props.currentYear), 0];
         return {
-            transform: 'translate(0,0)'
+            transform: 'translate(' + trans +' )'
         };
     },
-    getCoords: function(){
+    scaleYear: function(){
+        return d3.scale.linear()
+            .domain(this.props.yearExtent)
+            .range(this.props.constrain)
+            .clamp(true);
+    },
+    getCoords: function () {
         var coords;
-        var center = this.props.center;
+        var center = [this.scaleYear()(this.props.currentYear) - this.scaleYear()(this.props.yearExtent[0]), this.props.y];
         var size = this.props.size;
 
         coords = [
-            [ center[0] - size, center[1] - size ],
-            [ center[0] - size, center[1] + size ],
-            [ center[0] + size, center[1] + size ],
-            [ center[0] + size, center[1] - size ],
-            [ center[0], center[1] - 2*size ]
+            [center[0] - size, center[1] - size],
+            [center[0] - size, center[1] + size],
+            [center[0] + size, center[1] + size],
+            [center[0] + size, center[1] - size],
+            [center[0], center[1] - 2 * size]
         ];
 
-        return coords.map(function(pt){
+        return coords.map(function (pt) {
             return pt.join(',');
         }).join(' ');
     },
-    componentDidMount: function(){
+    componentDidMount: function () {
         var svg = d3.select('.svg-timeline');
         var el = svg.select('.cursor');
         var coordDrag;
@@ -44,9 +52,9 @@ module.exports = React.createClass({
             })
             .on('drag', function () {
                 if (coordDrag) {
-                    this.setState({
-                        'transform': 'translate(' + [trans[0] + d3.event.sourceEvent.pageX - coordDrag[0], 0] + ')'
-                    });
+                    this.props.setCurrentYear(
+                        d3.round(this.scaleYear().invert(trans[0] + d3.event.sourceEvent.pageX - coordDrag[0]))
+                    );
                 }
             }.bind(this))
             .on('dragend', function () {
@@ -54,7 +62,7 @@ module.exports = React.createClass({
             });
         el.call(dragMap);
     },
-    render: function(){
+    render: function () {
         return (
             <polygon className="cursor" points={this.getCoords()} transform={this.state.transform}/>
         );
