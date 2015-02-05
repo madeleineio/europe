@@ -12,7 +12,6 @@ var Label = require('components/list-country/label');
  */
 module.exports = React.createClass({
     render: function(){
-        console.log('country');
         return (
 
             <svg className="country">

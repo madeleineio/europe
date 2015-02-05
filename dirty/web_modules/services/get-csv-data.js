@@ -27,8 +27,6 @@ var promise = new P(function(resolve){
             });
         });
 
-        console.log(data);
-
         resolve(data);
 
         /*resolve(_.groupBy(data, function(c){

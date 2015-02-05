@@ -13,6 +13,7 @@ var projection = require('services/get-projection');
 var path = d3.geo.path()
     .projection(simplify(.05, projection));
 
+var ueInterpolation = d3.interpolateRgb('#fff', 'rgb(0,158,255)');
 
 /**
  * @props feature
@@ -20,26 +21,29 @@ var path = d3.geo.path()
  */
 var Country = React.createClass({
     mixins: [tweenState.Mixin],
-    statics: {
-        getFill: function(data, currentYear){
-            if(data === undefined){
-                return 255
-            }
-            return 0;
-        }
-    },
     getInitialState: function(){
         return {
-            b: 0,
-            rendering: Country.getFill(this.props.data, this.props.currentYear) === 0
+            ue: 0,
+            rendering: !!this.props.data
         }
     },
     componentWillReceiveProps: function(nextProps){
-        this.tweenState('b',{
-            easing: tweenState.easingTypes.easeInOutQuad,
-            duration: 1000,
-            endValue: 255
-        });
+        if(nextProps.data){
+            if(nextProps.data.UE <=  this.props.currentYear){
+                this.tweenState('ue',{
+                    easing: tweenState.easingTypes.easeInOutQuad,
+                    duration: 500,
+                    endValue: 1
+                });
+            }else {
+                this.tweenState('ue',{
+                    easing: tweenState.easingTypes.easeInOutQuad,
+                    duration: 500,
+                    endValue: 0
+                });
+            }
+        }
+
     },
     shouldComponentUpdate: function(nextProps, nextState){
         return this.state.rendering;
@@ -48,15 +52,14 @@ var Country = React.createClass({
 
     },
     getRGB: function(){
-        console.log('rgb(' + [255, 255, this.getTweeningValue('b')] + ')');
-        return 'rgb(' + [255, 255, parseInt(this.getTweeningValue('b'))] + ')';
-
+        return ueInterpolation(this.getTweeningValue('ue'));
     },
     render: function(){
         return (
             <path className={'country'}
                 d={path(this.props.feature)}
                 fill={this.getRGB()}
+                stroke={this.getRGB()}
                 onMouseOver={this.handleMouseOver}></path>
         );
     }

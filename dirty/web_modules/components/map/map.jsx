@@ -51,7 +51,6 @@ var Map = React.createClass({
     },
     render: function () {
         var features = topojson.feature(this.props.countries, this.props.countries.objects.countries).features;
-        console.log(features);
         return (
             <div id="map">
                 <svg className={'svg-map'}>
