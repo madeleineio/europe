@@ -83,20 +83,26 @@
 	            currentYear: this.props.yearExtent[0]
 	        }
 	    },
+	    setCurrentYear: function(year){
+	        this.setState({
+	            currentYear: year
+	        });
+	    }.bind(this),
+	    shouldComponentUpdate: function(nextProps, nextState){
+	        return !_.isEqual(this.state, nextState);
+	    },
 	    render: function () {
-	        this.props.children = React.Children.map(this.props.children, function (child) {
-	            return React.addons.cloneWithProps(child, {
-	                currentYear: this.state.currentYear
-	            })
-	        }.bind(this));
 	        return (
 	            React.createElement("div", {className: "root", style: {
 	                width: '100%',
 	                height: '100%'
 	            }}, 
-	                React.createElement(MapComp, {countries: this.props.jsonCountries}), 
-	                React.createElement(ListCountryContainer, {data: this.props.countries}), 
-	                React.createElement(Timeline, {yearExtent: this.props.yearExtent})
+	                React.createElement(MapComp, {countries: this.props.jsonCountries, currentYear: this.state.currentYear}), 
+	                React.createElement(ListCountryContainer, {data: this.props.countries, currentYear: this.state.currentYear}), 
+	                React.createElement(Timeline, {yearExtent: this.props.yearExtent, 
+	                    currentYear: this.state.currentYear, 
+	                    setCurrentYear: this.setCurrentYear}
+	                )
 	            )
 	        );
 	
@@ -521,7 +527,11 @@
 	                        )
 	                    );
 	                }), 
-	                    React.createElement(Cursor, {size: 5, center: [marginX, h / 2 + 5], constrain: [marginX, w - marginX]})
+	                    React.createElement(Cursor, {size: 5, 
+	                        center: [marginX, h / 2 + 5], 
+	                        constrain: [marginX, w - marginX], 
+	                        currentYear: this.props.currentYear, 
+	                        setCurrentYear: this.props.setCurrentYear})
 	                )
 	            )
 	        );

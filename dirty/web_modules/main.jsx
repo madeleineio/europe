@@ -37,20 +37,26 @@ var Root = React.createClass({
             currentYear: this.props.yearExtent[0]
         }
     },
+    setCurrentYear: function(year){
+        this.setState({
+            currentYear: year
+        });
+    }.bind(this),
+    shouldComponentUpdate: function(nextProps, nextState){
+        return !_.isEqual(this.state, nextState);
+    },
     render: function () {
-        this.props.children = React.Children.map(this.props.children, function (child) {
-            return React.addons.cloneWithProps(child, {
-                currentYear: this.state.currentYear
-            })
-        }.bind(this));
         return (
             <div className="root" style={{
                 width: '100%',
                 height: '100%'
             }}>
-                <MapComp countries={this.props.jsonCountries} />
-                <ListCountryContainer data={this.props.countries} />
-                <Timeline yearExtent={this.props.yearExtent} />
+                <MapComp countries={this.props.jsonCountries} currentYear={this.state.currentYear} />
+                <ListCountryContainer data={this.props.countries} currentYear={this.state.currentYear} />
+                <Timeline yearExtent={this.props.yearExtent}
+                    currentYear={this.state.currentYear}
+                    setCurrentYear={this.setCurrentYear}
+                />
             </div>
         );
 

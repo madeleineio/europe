@@ -56,7 +56,11 @@ module.exports = React.createClass({
                         </text>
                     );
                 })}
-                    <Cursor size={5} center={[marginX, h / 2 + 5]} constrain={[marginX, w - marginX]} />
+                    <Cursor size={5}
+                        center={[marginX, h / 2 + 5]}
+                        constrain={[marginX, w - marginX]}
+                        currentYear={this.props.currentYear}
+                        setCurrentYear={this.props.setCurrentYear}/>
                 </svg>
             </div>
         );
