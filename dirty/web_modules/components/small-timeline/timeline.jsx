@@ -1,19 +1,15 @@
 'use strict';
 
-// style
-require('timeline.scss');
+require('small-timeline.scss');
 
 var React = require('react');
 var d3 = require('d3');
 var $ = require('jquery');
 
-var Cursor = require('components/timeline/cursor');
-
-var marginX = 20;
-var w;
-var h;
+var math = require('util/math');
 
 /**
+ * @props currentYear
  * @props yearExtent
  * @type {*|Function}
  */
@@ -23,20 +19,20 @@ module.exports = React.createClass({
         var w = $(window).width() / 2;
         var h = 100;
 
+        /*var firstYearVisible = math.constrain(this.props.currentYear -7.5, this.props.yearExtent[0], this.props.yearExtent[1]);
+        var lastYearVisible = math.constrain(firstYearVisible +15, this.props.yearExtent[0], this.props.yearExtent[1]);
+        firstYearVisible = lastYearVisible - 15;*/
+
         var scaleXYear = d3.scale.linear()
-            .domain(this.props.yearExtent)
+            .domain([this.props.currentYear -7.5, this.props.currentYear +7.5])
             .rangeRound([20, w - 20]);
 
         var years = d3.range(this.props.yearExtent[0], this.props.yearExtent[1] + 1);
 
         return (
-            <div id="timeline">
-                <svg className="svg-timeline">
-                    <line className="pick"
-                        x1={scaleXYear(this.props.yearExtent[0])}
-                        x2={scaleXYear(this.props.yearExtent[1])}
-                        y1={h / 2 + 3}
-                        y2={h / 2 + 3}/>
+            <div id="small-timeline">
+                <div className="border-left"></div>
+                <svg className="svg-small-timeline">
                     {years.map(function (year, k) {
                         return (
                             <line className="pick"
@@ -56,12 +52,6 @@ module.exports = React.createClass({
                             </text>
                         );
                     })}
-                    <Cursor size={5}
-                        y={h / 2 + 5}
-                        constrain={[marginX, w - marginX]}
-                        currentYear={this.props.currentYear}
-                        yearExtent={this.props.yearExtent}
-                        setCurrentYear={this.props.setCurrentYear}/>
                 </svg>
             </div>
         );

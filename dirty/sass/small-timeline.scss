@@ -1,18 +1,18 @@
-#timeline {
+#small-timeline {
 
-  z-index: 2;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 50%;
-  height: 100px;
-  /*background-color: rgba(255,255,255, .75);*/
+  z-index: 4;
+  width: 100%;
+  height: 10%;
 
-
-
-  .svg-timeline {
-    width: 100%;
+  .border-left {
+    width: 20%;
     height: 100%;
+    display: inline-block;
+  }
+
+  .svg-small-timeline {
+    width: 80%;
+    height: 1000px;
 
     .pick {
       stroke: black;
@@ -34,6 +34,6 @@
       fill: white;
       cursor: pointer;
     }
-  }
 
+  }
 }

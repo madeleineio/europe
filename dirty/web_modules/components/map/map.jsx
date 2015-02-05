@@ -13,9 +13,18 @@ var trans = [0, 0];
 
 /**
  * @props countries
+ * @props data
  * @type {*|Function}
  */
-module.exports = React.createClass({
+var Map = React.createClass({
+    statics: {
+        getDataByFeature: function(feature, data){
+            var cid = feature.id.match(/(.+)_/)[1];
+            return _.find(data, function(d){
+                return d.ID === cid;
+            });
+        }
+    },
     componentDidMount: function () {
         var svg = d3.select('.svg-map');
         var gCountry = svg.select('.g-country');
@@ -42,15 +51,18 @@ module.exports = React.createClass({
     },
     render: function () {
         var features = topojson.feature(this.props.countries, this.props.countries.objects.countries).features;
+        console.log(features);
         return (
             <div id="map">
                 <svg className={'svg-map'}>
                     <g className={'g-country'}>
                 {features.map(function (feature, i) {
                     return <Country
+                        currentYear={this.props.currentYear}
                         feature={feature}
+                        data={Map.getDataByFeature(feature, this.props.data)}
                         key={i} />
-                })}
+                }.bind(this))}
                     </g>
                 </svg>
             </div>
@@ -58,3 +70,5 @@ module.exports = React.createClass({
         );
     }
 });
+
+module.exports = Map;

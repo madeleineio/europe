@@ -25,6 +25,7 @@
     "object.observe": "^0.2.1",
     "react": "^0.12.2",
     "react-draggable": "^0.4.0",
+    "react-tween-state": "0.0.4",
     "sass-loader": "^0.3.1",
     "style-loader": "^0.8.3",
     "topojson": "^1.6.18",
