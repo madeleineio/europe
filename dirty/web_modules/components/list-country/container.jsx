@@ -15,7 +15,7 @@ var Country = require('components/list-country/country');
  * @type {*|Function}
  */
 module.exports = React.createClass({
-    computeGroups: function(){
+    computeGroups: function () {
         var groupAdhesionUEHash = _.groupBy(this.props.data, function (c) {
             return c.UE;
         });
@@ -31,7 +31,7 @@ module.exports = React.createClass({
         });
         return groupAdhesionUEData;
     },
-    componentDidMount: function(){
+    componentDidMount: function () {
         // TODO : where to put this ?
         var $el = $('#control-panel');
         // TODO opacity on hover
@@ -53,18 +53,22 @@ module.exports = React.createClass({
     render: function () {
         var groupAdhesionUEData = this.computeGroups();
         return (
-            <div className="list-country-container">
-                {groupAdhesionUEData.map(function(g, kg){
+            <div id="control-panel">
+                <div id="list-country">
+                    <div className="list-country-container">
+                {groupAdhesionUEData.map(function (g, kg) {
                     return (
                         <GroupCountry key={kg} >
                             {
-                                g.countries.map(function(c, kc){
+                                g.countries.map(function (c, kc) {
                                     return <Country country={c} key={kc}/>;
                                 })
-                            }
+                                }
                         </GroupCountry>
                     );
                 })}
+                    </div>
+                </div>
             </div>
         );
     }

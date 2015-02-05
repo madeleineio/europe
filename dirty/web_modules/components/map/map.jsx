@@ -16,7 +16,7 @@ var trans = [0, 0];
  * @type {*|Function}
  */
 module.exports = React.createClass({
-    componentDidMount: function(){
+    componentDidMount: function () {
         var svg = d3.select('.svg-map');
         var gCountry = svg.select('.g-country');
         var coordDrag;
@@ -43,15 +43,17 @@ module.exports = React.createClass({
     render: function () {
         var features = topojson.feature(this.props.countries, this.props.countries.objects.countries).features;
         return (
-            <svg className={'svg-map'}>
-                <g className={'g-country'}>
+            <div id="map">
+                <svg className={'svg-map'}>
+                    <g className={'g-country'}>
                 {features.map(function (feature, i) {
                     return <Country
                         feature={feature}
                         key={i} />
                 })}
-                </g>
-            </svg>
+                    </g>
+                </svg>
+            </div>
 
         );
     }

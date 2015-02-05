@@ -28,6 +28,12 @@
       font-weight: lighter;
       opacity: .8;
     }
+
+    .cursor {
+      stroke: black;
+      fill: white;
+      cursor: pointer;
+    }
   }
 
 }

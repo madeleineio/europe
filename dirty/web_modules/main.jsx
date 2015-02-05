@@ -20,12 +20,42 @@ var React = require('react');
 // services
 var promiseGeojson = require('services/get-json-map');
 var promiseData = require('services/get-csv-data');
-var yearExtent = require('services/get-year-extent');
+var yearExtentService = require('services/get-year-extent');
 
 // components
 var MapComp = require('components/map/map');
 var ListCountryContainer = require('components/list-country/container');
 var Timeline = require('components/timeline/timeline');
+
+/**
+ * @props countries, jsonCountries, yearExtent
+ * @type {*|Function}
+ */
+var Root = React.createClass({
+    getInitialState: function(){
+        return {
+            currentYear: this.props.yearExtent[0]
+        }
+    },
+    render: function () {
+        this.props.children = React.Children.map(this.props.children, function (child) {
+            return React.addons.cloneWithProps(child, {
+                currentYear: this.state.currentYear
+            })
+        }.bind(this));
+        return (
+            <div className="root" style={{
+                width: '100%',
+                height: '100%'
+            }}>
+                <MapComp countries={this.props.jsonCountries} />
+                <ListCountryContainer data={this.props.countries} />
+                <Timeline yearExtent={this.props.yearExtent} />
+            </div>
+        );
+
+    }
+});
 
 
 // retrieve data
@@ -34,23 +64,19 @@ P.all([
     promiseGeojson
 ]).then(function (d) {
 
-    $(function () {
-        React.render(
-            <MapComp countries={d[1]} />,
-            $('#map').get(0)
-        );
 
-        React.render(
-            <ListCountryContainer data={d[0]}/>,
-            $('#list-country').get(0)
-        );
+    var yearExtent = yearExtentService(d[0]);
+    var currentYear =
 
-        React.render(
-            <Timeline yearExtent={yearExtent(d[0])} />,
-            $('#timeline').get(0)
-        );
+        $(function () {
+            React.render(
+                <Root jsonCountries={d[1]}
+                    countries={d[0]}
+                    yearExtent={yearExtent}/>,
+                $('body').get(0)
+            );
 
-    });
+        });
 
 
 });

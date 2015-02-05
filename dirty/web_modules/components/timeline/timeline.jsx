@@ -7,6 +7,8 @@ var React = require('react');
 var d3 = require('d3');
 var $ = require('jquery');
 
+var Cursor = require('components/timeline/cursor');
+
 var marginX = 20;
 var w;
 var h;
@@ -18,8 +20,8 @@ var h;
 module.exports = React.createClass({
     render: function () {
 
-        var w = $('#timeline').width();
-        var h = $('#timeline').height();
+        var w = $(window).width() / 2;
+        var h = 100;
 
         var scaleXYear = d3.scale.linear()
             .domain(this.props.yearExtent)
@@ -27,14 +29,14 @@ module.exports = React.createClass({
 
         var years = d3.range(this.props.yearExtent[0], this.props.yearExtent[1] + 1);
 
-
         return (
-            <svg className="svg-timeline">
-                <line className="pick"
-                    x1={scaleXYear(this.props.yearExtent[0])}
-                    x2={scaleXYear(this.props.yearExtent[1])}
-                    y1={h / 2 + 3}
-                    y2={h / 2 + 3}/>
+            <div id="timeline">
+                <svg className="svg-timeline">
+                    <line className="pick"
+                        x1={scaleXYear(this.props.yearExtent[0])}
+                        x2={scaleXYear(this.props.yearExtent[1])}
+                        y1={h / 2 + 3}
+                        y2={h / 2 + 3}/>
                 {years.map(function (year, k) {
                     return (
                         <line className="pick"
@@ -49,12 +51,14 @@ module.exports = React.createClass({
                     return y % 5 === 0
                 }).map(function (year, k) {
                     return (
-                        <text className="year" x={scaleXYear(year)} y={h/2 - 10}>
+                        <text className="year" x={scaleXYear(year)} y={h / 2 - 10} key={k}>
                             {year}
                         </text>
                     );
                 })}
-            </svg>
+                    <Cursor size={5} center={[marginX, h / 2 + 5]} constrain={[marginX, w - marginX]} />
+                </svg>
+            </div>
         );
     }
 });
