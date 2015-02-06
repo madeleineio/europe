@@ -17,6 +17,7 @@ module.exports = React.createClass({
             <svg className="country">
                 <GreyLine />
                 <Label text={this.props.country.nom} />
+
             </svg>
         );
     }

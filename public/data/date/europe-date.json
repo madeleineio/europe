@@ -1,0 +1,362 @@
+[
+  {
+    "nom": "Allemagne",
+    "debutNegocationUE": [],
+    "candidature non officielle": "",
+    "candidature officielle": "",
+    "UE": "1957",
+    "": "",
+    "PPP": "",
+    "OTAN": "1955",
+    "ID": "276"
+  },
+  {
+    "nom": "Belgique",
+    "candidature non officielle": "",
+    "candidature officielle": "",
+    "UE": "1957",
+    "": "",
+    "PPP": "",
+    "OTAN": "1949",
+    "ID": "56"
+  },
+  {
+    "nom": "France",
+    "candidature non officielle": "",
+    "candidature officielle": "",
+    "UE": "1957",
+    "": "",
+    "PPP": "",
+    "OTAN": "1949",
+    "ID": "250"
+  },
+  {
+    "nom": "Italie",
+    "candidature non officielle": "",
+    "candidature officielle": "",
+    "UE": "1957",
+    "": "",
+    "PPP": "",
+    "OTAN": "1949",
+    "ID": "380"
+  },
+  {
+    "nom": "Luxembourg",
+    "candidature non officielle": "",
+    "candidature officielle": "",
+    "UE": "1957",
+    "": "",
+    "PPP": "",
+    "OTAN": "1949",
+    "ID": "442"
+  },
+  {
+    "nom": "Albanie",
+    "candidature non officielle": "2009",
+    "candidature officielle": "2014",
+    "UE": "",
+    "": "",
+    "PPP": "",
+    "OTAN": "",
+    "ID": "008"
+  },
+  {
+    "nom": "Islande",
+    "candidature non officielle": "2009",
+    "candidature officielle": "2010",
+    "UE": "",
+    "": "",
+    "PPP": "",
+    "OTAN": "",
+    "ID": "352"
+  },
+  {
+    "nom": "Maroc",
+    "candidature non officielle": "1987",
+    "candidature officielle": "rejet",
+    "UE": "",
+    "": "",
+    "PPP": "",
+    "OTAN": "",
+    "ID": "504"
+  },
+  {
+    "nom": "Monténégro",
+    "candidature non officielle": "2009",
+    "candidature officielle": "2010",
+    "UE": "",
+    "": "",
+    "PPP": "",
+    "OTAN": "",
+    "ID": "499"
+  },
+  {
+    "nom": "norvège",
+    "candidature non officielle": "1962- retrait",
+    "candidature officielle": "",
+    "UE": "",
+    "": "",
+    "PPP": "",
+    "OTAN": "",
+    "ID": "578"
+  },
+  {
+    "nom": "Serbie",
+    "candidature non officielle": "2009",
+    "candidature officielle": "2012",
+    "UE": "",
+    "": "",
+    "PPP": "",
+    "OTAN": "",
+    "ID": "688"
+  },
+  {
+    "nom": "Pays-Bas",
+    "candidature non officielle": "",
+    "candidature officielle": "",
+    "UE": "1957",
+    "": "",
+    "PPP": "",
+    "OTAN": "1949",
+    "ID": "528"
+  },
+  {
+    "nom": "Danemark",
+    "candidature non officielle": "",
+    "candidature officielle": "1961 -retrait 63- 1967",
+    "UE": "1973",
+    "": "",
+    "PPP": "",
+    "OTAN": "1949",
+    "ID": "208"
+  },
+  {
+    "nom": "Irlande",
+    "candidature non officielle": "",
+    "candidature officielle": "1961 -retrait 63- 1967",
+    "UE": "1973",
+    "": "",
+    "PPP": "1999",
+    "OTAN": "",
+    "ID": "372"
+  },
+  {
+    "nom": "Royaume-Uni",
+    "candidature non officielle": "",
+    "candidature officielle": "1961 -véto fr 63- 1967",
+    "UE": "1973",
+    "": "",
+    "PPP": "",
+    "OTAN": "1949",
+    "ID": "826"
+  },
+  {
+    "nom": "Grèce",
+    "candidature non officielle": "",
+    "candidature officielle": "1975",
+    "UE": "1981",
+    "": "",
+    "PPP": "",
+    "OTAN": "1952",
+    "ID": "300"
+  },
+  {
+    "nom": "Espagne",
+    "candidature non officielle": "1962-rejet",
+    "candidature officielle": "1977",
+    "UE": "1986",
+    "": "",
+    "PPP": "",
+    "OTAN": "1982",
+    "ID": "724"
+  },
+  {
+    "nom": "Portugal",
+    "candidature non officielle": "",
+    "candidature officielle": "1977",
+    "UE": "1986",
+    "": "",
+    "PPP": "",
+    "OTAN": "1949",
+    "ID": "620"
+  },
+  {
+    "nom": "Suisse",
+    "candidature non officielle": "",
+    "candidature officielle": "1992",
+    "UE": "",
+    "": "",
+    "PPP": "1996",
+    "OTAN": "",
+    "ID": "756"
+  },
+  {
+    "nom": "Autriche",
+    "candidature non officielle": "",
+    "candidature officielle": "1989",
+    "UE": "1995",
+    "": "",
+    "PPP": "1995",
+    "OTAN": "",
+    "ID": "40"
+  },
+  {
+    "nom": "Finlande",
+    "candidature non officielle": "",
+    "candidature officielle": "1992",
+    "UE": "1995",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "",
+    "ID": "246"
+  },
+  {
+    "nom": "Suède",
+    "candidature non officielle": "",
+    "candidature officielle": "1991",
+    "UE": "1995",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "",
+    "ID": "752"
+  },
+  {
+    "nom": "Chypre",
+    "candidature non officielle": "",
+    "candidature officielle": "1990",
+    "UE": "2004",
+    "": "",
+    "PPP": "q",
+    "OTAN": "",
+    "ID": "196"
+  },
+  {
+    "nom": "Estonie",
+    "candidature non officielle": "",
+    "candidature officielle": "1995",
+    "UE": "2004",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "2004",
+    "ID": "233"
+  },
+  {
+    "nom": "Hongrie",
+    "candidature non officielle": "",
+    "candidature officielle": "1994",
+    "UE": "2004",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "1999",
+    "ID": "348"
+  },
+  {
+    "nom": "Lettonie",
+    "candidature non officielle": "",
+    "candidature officielle": "1995",
+    "UE": "2004",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "2004",
+    "ID": "428"
+  },
+  {
+    "nom": "Lituanie",
+    "candidature non officielle": "",
+    "candidature officielle": "1996",
+    "UE": "2004",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "2004",
+    "ID": "440"
+  },
+  {
+    "nom": "Malte",
+    "candidature non officielle": "",
+    "candidature officielle": "1990",
+    "UE": "2004",
+    "": "",
+    "PPP": "1995",
+    "OTAN": "",
+    "ID": "470"
+  },
+  {
+    "nom": "Pologne",
+    "candidature non officielle": "",
+    "candidature officielle": "1994",
+    "UE": "2004",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "1999",
+    "ID": "616"
+  },
+  {
+    "nom": "République Tc",
+    "candidature non officielle": "",
+    "candidature officielle": "1996",
+    "UE": "2004",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "1999",
+    "ID": "203"
+  },
+  {
+    "nom": "Slovaquie",
+    "candidature non officielle": "",
+    "candidature officielle": "1995",
+    "UE": "2004",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "2004",
+    "ID": "703"
+  },
+  {
+    "nom": "Slovénie",
+    "candidature non officielle": "",
+    "candidature officielle": "1996",
+    "UE": "2004",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "2004",
+    "ID": "705"
+  },
+  {
+    "nom": "Bulgarie",
+    "candidature non officielle": "",
+    "candidature officielle": "1996",
+    "UE": "2007",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "2004",
+    "ID": "100"
+  },
+  {
+    "nom": "Roumanie",
+    "candidature non officielle": "",
+    "candidature officielle": "1995",
+    "UE": "2007",
+    "": "",
+    "PPP": "1994",
+    "OTAN": "2004",
+    "ID": "642"
+  },
+  {
+    "nom": "Croatie",
+    "candidature non officielle": "2003",
+    "candidature officielle": "2004",
+    "UE": "2013",
+    "": "",
+    "PPP": "2000",
+    "OTAN": "2009",
+    "ID": "191"
+  },
+  {
+    "nom": "Turquie",
+    "candidature non officielle": "1987",
+    "candidature officielle": "2009",
+    "UE": "",
+    "PPP": "",
+    "OTAN": "",
+    "ID": "792"
+  }
+]

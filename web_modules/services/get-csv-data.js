@@ -14,6 +14,8 @@ function toNum(str){
 
 var promise = new P(function(resolve){
     d3.csv('data/UEvsOTAN.csv', function(data){
+
+        console.log(JSON.stringify(data));
         // transform
         data = data.filter(function(el){
             return toNum(el.UE) !== null;
@@ -26,6 +28,8 @@ var promise = new P(function(resolve){
                 'candidature officielle': toNum(el['candidature officielle'])
             });
         });
+
+        console.log(JSON.stringify(data));
 
         resolve(data);
 
