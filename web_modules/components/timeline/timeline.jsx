@@ -8,9 +8,11 @@ var d3 = require('d3');
 var $ = require('jquery');
 
 var Cursor = require('components/timeline/cursor');
+var YearLines = require('components/timeline/year-lines');
+var YearLabels = require('components/timeline/year-labels');
 var Range = require('components/timeline/range');
 
-var marginX = 100;
+var marginX = 60;
 var w;
 var h;
 
@@ -38,25 +40,16 @@ module.exports = React.createClass({
                         x2={scaleXYear(this.props.yearExtent[1])}
                         y1={h / 2 + 10}
                         y2={h / 2 + 10}/>
-                    {years.map(function (year, k) {
-                        return (
-                            <line className="pick"
-                                key={k}
-                                x1={scaleXYear(year)}
-                                x2={scaleXYear(year)}
-                                y1={h / 2}
-                                y2={h / 2 - (year % 5 === 0 ? 5 : 3)}/>
-                        );
-                    })}
-                    {years.filter(function (y, i) {
-                        return (y % 10 === 0 || i === years.length -1)
-                    }).map(function (year, k) {
-                        return (
-                            <text className="year" x={scaleXYear(year)} y={h / 2 - 10} key={k}>
-                                {year}
-                            </text>
-                        );
-                    })}
+                    <YearLines
+                        h={h}
+                        years={years}
+                        scaleYear={scaleXYear}
+                    />
+                    <YearLabels
+                        h={h}
+                        years={years}
+                        scaleYear={scaleXYear}
+                    />
                     <Cursor size={5}
                         y={h / 2 + 5}
                         constrain={[marginX, w - marginX]}
@@ -64,9 +57,10 @@ module.exports = React.createClass({
                         yearExtent={this.props.yearExtent}
                         setCurrentYear={this.props.setCurrentYear}/>
                     <Range
-                        y={h / 2 + 5}
-                        x1={scaleXYear(this.props.currentYear - 7)}
-                        x2={scaleXYear(this.props.currentYear + 7)}
+                        y={h / 2 + 10}
+                        currentYear={this.props.currentYear}
+                        yearExtent={this.props.yearExtent}
+                        scaleYear={scaleXYear}
                     />
                 </svg>
             </div>
