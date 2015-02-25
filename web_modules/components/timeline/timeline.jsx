@@ -50,18 +50,18 @@ module.exports = React.createClass({
                         years={years}
                         scaleYear={scaleXYear}
                     />
-                    <Cursor size={5}
-                        y={h / 2 + 5}
-                        constrain={[marginX, w - marginX]}
-                        currentYear={this.props.currentYear}
-                        yearExtent={this.props.yearExtent}
-                        setCurrentYear={this.props.setCurrentYear}/>
                     <Range
                         y={h / 2 + 10}
                         currentYear={this.props.currentYear}
                         yearExtent={this.props.yearExtent}
                         scaleYear={scaleXYear}
                     />
+                    <Cursor size={5}
+                        y={h / 2 + 5}
+                        constrain={[marginX, w - marginX]}
+                        currentYear={this.props.currentYear}
+                        yearExtent={this.props.yearExtent}
+                        setCurrentYear={this.props.setCurrentYear}/>
                 </svg>
             </div>
         );

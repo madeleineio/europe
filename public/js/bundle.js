@@ -492,18 +492,18 @@
 	                        years: years, 
 	                        scaleYear: scaleXYear}
 	                    ), 
-	                    React.createElement(Cursor, {size: 5, 
-	                        y: h / 2 + 5, 
-	                        constrain: [marginX, w - marginX], 
-	                        currentYear: this.props.currentYear, 
-	                        yearExtent: this.props.yearExtent, 
-	                        setCurrentYear: this.props.setCurrentYear}), 
 	                    React.createElement(Range, {
 	                        y: h / 2 + 10, 
 	                        currentYear: this.props.currentYear, 
 	                        yearExtent: this.props.yearExtent, 
 	                        scaleYear: scaleXYear}
-	                    )
+	                    ), 
+	                    React.createElement(Cursor, {size: 5, 
+	                        y: h / 2 + 5, 
+	                        constrain: [marginX, w - marginX], 
+	                        currentYear: this.props.currentYear, 
+	                        yearExtent: this.props.yearExtent, 
+	                        setCurrentYear: this.props.setCurrentYear})
 	                )
 	            )
 	        );
@@ -1009,6 +1009,9 @@
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	
+	var styleCursorDrag = {
+	    'fill': 'rgba(0,0,0,0)'
+	};
 	
 	var trans = [0, 0];
 	
@@ -1022,26 +1025,24 @@
 	    getInitialState: function () {
 	        trans = [this.scaleYear()(this.props.currentYear), 0];
 	        return {
-	            transform: 'translate(' + trans +' )'
+	            transform: 'translate(' + trans + ' )'
 	        };
 	    },
-	    scaleYear: function(){
+	    scaleYear: function () {
 	        return d3.scale.linear()
 	            .domain(this.props.yearExtent)
 	            .range(this.props.constrain)
 	            .clamp(true);
 	    },
-	    getCoords: function () {
+	    getCoords: function (ind) {
 	        var coords;
 	        var center = [this.scaleYear()(this.props.currentYear) - this.scaleYear()(this.props.yearExtent[0]), this.props.y];
 	        var size = this.props.size;
 	
 	        coords = [
-	            [center[0] - size, center[1] - size],
-	            [center[0] - size, center[1] + size],
-	            [center[0] + size, center[1] + size],
-	            [center[0] + size, center[1] - size],
-	            [center[0], center[1] - 2 * size]
+	            [center[0] - size, center[1]],
+	            [center[0] + size, center[1]],
+	            [center[0], center[1] + (ind*size)]
 	        ];
 	
 	        return coords.map(function (pt) {
@@ -1050,7 +1051,7 @@
 	    },
 	    componentDidMount: function () {
 	        var svg = d3.select('.svg-timeline');
-	        var el = svg.select('.cursor');
+	        var el = svg.select('.cursor-drag');
 	        var coordDrag;
 	        var dragMap = d3.behavior.drag()
 	            .on('dragstart', function () {
@@ -1070,7 +1071,18 @@
 	    },
 	    render: function () {
 	        return (
-	            React.createElement("polygon", {className: "cursor", points: this.getCoords(), transform: this.state.transform})
+	            React.createElement("g", null, 
+	                React.createElement("polygon", {className: "cursor", points: this.getCoords(1), transform: this.state.transform}), 
+	                React.createElement("polygon", {className: "cursor", points: this.getCoords(-1), transform: this.state.transform}), 
+	                React.createElement("rect", {
+	                    className: "cursor-drag", 
+	                    style: styleCursorDrag, 
+	                    x: 0, 
+	                    y: 0, 
+	                    width: 1000, 
+	                    height: 1000}
+	                )
+	            )
 	        );
 	    }
 	});
