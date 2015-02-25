@@ -364,14 +364,14 @@
 
 	'use strict';
 	
-	__webpack_require__(25);
+	__webpack_require__(27);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var topojson = __webpack_require__(18);
 	var _ = __webpack_require__(3);
 	
-	var Country = __webpack_require__(27);
+	var Country = __webpack_require__(29);
 	
 	var trans = [0, 0];
 	
@@ -443,15 +443,16 @@
 	'use strict';
 	
 	// style
-	__webpack_require__(28);
+	__webpack_require__(30);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var $ = __webpack_require__(2);
 	
-	var Cursor = __webpack_require__(30);
+	var Cursor = __webpack_require__(32);
+	var Range = __webpack_require__(33);
 	
-	var marginX = 20;
+	var marginX = 100;
 	var w;
 	var h;
 	
@@ -467,7 +468,7 @@
 	
 	        var scaleXYear = d3.scale.linear()
 	            .domain(this.props.yearExtent)
-	            .rangeRound([20, w - 20]);
+	            .rangeRound([marginX, w - marginX]);
 	
 	        var years = d3.range(this.props.yearExtent[0], this.props.yearExtent[1] + 1);
 	
@@ -477,8 +478,8 @@
 	                    React.createElement("line", {className: "pick", 
 	                        x1: scaleXYear(this.props.yearExtent[0]), 
 	                        x2: scaleXYear(this.props.yearExtent[1]), 
-	                        y1: h / 2 + 3, 
-	                        y2: h / 2 + 3}), 
+	                        y1: h / 2 + 10, 
+	                        y2: h / 2 + 10}), 
 	                    years.map(function (year, k) {
 	                        return (
 	                            React.createElement("line", {className: "pick", 
@@ -489,8 +490,8 @@
 	                                y2: h / 2 - (year % 5 === 0 ? 5 : 3)})
 	                        );
 	                    }), 
-	                    years.filter(function (y) {
-	                        return y % 5 === 0
+	                    years.filter(function (y, i) {
+	                        return (y % 10 === 0 || i === years.length -1)
 	                    }).map(function (year, k) {
 	                        return (
 	                            React.createElement("text", {className: "year", x: scaleXYear(year), y: h / 2 - 10, key: k}, 
@@ -503,7 +504,12 @@
 	                        constrain: [marginX, w - marginX], 
 	                        currentYear: this.props.currentYear, 
 	                        yearExtent: this.props.yearExtent, 
-	                        setCurrentYear: this.props.setCurrentYear})
+	                        setCurrentYear: this.props.setCurrentYear}), 
+	                    React.createElement(Range, {
+	                        y: h / 2 + 5, 
+	                        x1: scaleXYear(this.props.currentYear - 7), 
+	                        x2: scaleXYear(this.props.currentYear + 7)}
+	                    )
 	                )
 	            )
 	        );
@@ -516,7 +522,7 @@
 
 	'use strict';
 	
-	__webpack_require__(31);
+	__webpack_require__(25);
 	
 	var React = __webpack_require__(5);
 	
@@ -554,7 +560,7 @@
 
 	'use strict';
 	
-	__webpack_require__(33);
+	__webpack_require__(34);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
@@ -618,14 +624,14 @@
 
 	'use strict';
 	
-	__webpack_require__(35);
+	__webpack_require__(36);
 	
 	var React = __webpack_require__(5);
 	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
 	
-	var GroupCountry = __webpack_require__(37);
-	var Country = __webpack_require__(38);
+	var GroupCountry = __webpack_require__(38);
+	var Country = __webpack_require__(39);
 	
 	/**
 	 * @props data
@@ -697,8 +703,8 @@
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(39)();
-	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(42)+");src:url("+__webpack_require__(42)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(45)+") format('woff'),url("+__webpack_require__(43)+") format('truetype'),url("+__webpack_require__(44)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
+	exports = module.exports = __webpack_require__(40)();
+	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(43)+");src:url("+__webpack_require__(43)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(46)+") format('woff'),url("+__webpack_require__(44)+") format('truetype'),url("+__webpack_require__(45)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
 
 /***/ },
 /* 18 */
@@ -997,7 +1003,7 @@
 /* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(39)();
+	exports = module.exports = __webpack_require__(40)();
 	exports.push([module.id, "#map-panel{width:100%;height:100%}", ""]);
 
 /***/ },
@@ -1014,8 +1020,8 @@
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map.scss");
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/right-panel.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/right-panel.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -1027,11 +1033,41 @@
 /* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(39)();
-	exports.push([module.id, "#map{width:100%;height:100%}#map .svg-map{width:100%;height:100%;background-color:#EBF0F7}", ""]);
+	exports = module.exports = __webpack_require__(40)();
+	exports.push([module.id, "#right-panel{overflow:scroll;position:fixed;background-color:rgba(255,255,255,0.65);width:50%;height:100%;z-index:2;top:0%;left:50%;border-left:#ccc 1px solid}", ""]);
 
 /***/ },
 /* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(28);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(19)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(40)();
+	exports.push([module.id, "#map{width:100%;height:100%}#map .svg-map{width:100%;height:100%;background-color:#EBF0F7}", ""]);
+
+/***/ },
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1041,7 +1077,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(5);
-	var tweenState = __webpack_require__(46);
+	var tweenState = __webpack_require__(47);
 	var d3 = __webpack_require__(1);
 	
 	var simplify = __webpack_require__(21);
@@ -1104,13 +1140,13 @@
 	module.exports = Country;
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(29);
+	var content = __webpack_require__(31);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(19)(content, {});
@@ -1127,14 +1163,14 @@
 	}
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(39)();
+	exports = module.exports = __webpack_require__(40)();
 	exports.push([module.id, "#timeline{z-index:2;position:fixed;left:0;bottom:0;width:50%;height:100px}#timeline .svg-timeline{width:100%;height:100%}#timeline .svg-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:0.5px}#timeline .svg-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:12px;font-family:karlaregular;font-weight:lighter;opacity:0.8}#timeline .svg-timeline .cursor{stroke:black;fill:white;cursor:pointer}", ""]);
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1209,43 +1245,44 @@
 	});
 
 /***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(32);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(19)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/right-panel.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/right-panel.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(39)();
-	exports.push([module.id, "#right-panel{overflow:scroll;position:fixed;background-color:rgba(255,255,255,0.65);width:50%;height:100%;z-index:2;top:0%;left:50%;border-left:#ccc 1px solid}", ""]);
-
-/***/ },
 /* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	var React = __webpack_require__(5);
+	
+	var style = {
+	    'stroke-width': "10",
+	    'stroke-linecap': "round",
+	    'stroke': "black"
+	};
+	
+	var Range = React.createClass({displayName: "Range",
+	    render: function(){
+	
+	        return (
+	            React.createElement("line", {
+	                x1: this.props.x1, 
+	                x2: this.props.x2, 
+	                y1: this.props.y, 
+	                y2: this.props.y, 
+	                style: style}
+	            )
+	        );
+	    }
+	});
+	
+	module.exports = Range;
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(34);
+	var content = __webpack_require__(35);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(19)(content, {});
@@ -1262,20 +1299,20 @@
 	}
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(39)();
+	exports = module.exports = __webpack_require__(40)();
 	exports.push([module.id, "#small-timeline{z-index:4;width:100%;height:10%}#small-timeline .border-left{width:20%;height:100%;display:inline-block}#small-timeline .svg-small-timeline{width:80%;height:1000px}#small-timeline .svg-small-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:0.5px}#small-timeline .svg-small-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:12px;font-family:karlaregular;font-weight:lighter;opacity:0.8}#small-timeline .svg-small-timeline .cursor{stroke:black;fill:white;cursor:pointer}", ""]);
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(36);
+	var content = __webpack_require__(37);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(19)(content, {});
@@ -1292,14 +1329,14 @@
 	}
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(39)();
+	exports = module.exports = __webpack_require__(40)();
 	exports.push([module.id, ".list-country-container .group-country{margin:30px 5px;box-sizing:content-box}.list-country-container .group-country .country{height:15px;width:100%}.list-country-container .group-country .country .grey-line{shape-rendering:crispEdges;stroke:#ccc;stroke-width:0.5}.list-country-container .group-country .country .country-label{text-anchor:start;dominant-baseline:text-before-edge;font-size:14px;font-family:karlaregular}", ""]);
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1318,7 +1355,7 @@
 	});
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1326,8 +1363,8 @@
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	
-	var GreyLine = __webpack_require__(40);
-	var Label = __webpack_require__(41);
+	var GreyLine = __webpack_require__(41);
+	var Label = __webpack_require__(42);
 	
 	/**
 	 * @props country
@@ -1347,7 +1384,7 @@
 	});
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function() {
@@ -1368,7 +1405,7 @@
 	}
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1384,7 +1421,7 @@
 	});
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1406,36 +1443,36 @@
 	});
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "9b32ddf7a8f92141181778d032317807.eot"
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "b39ab43702ee55c707e54327b9a8251f.ttf"
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "c2e4a81907170a84e0ef7079904653c6.svg"
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "25635a84225e55513e4882a4240e1dd5.woff"
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var easingTypes = __webpack_require__(47);
+	var easingTypes = __webpack_require__(48);
 	
 	// additive is the new iOS 8 default. In most cases it simulates a physics-
 	// looking overshoot behavior (especially with easeInOut. You can test that in
@@ -1610,7 +1647,7 @@
 
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

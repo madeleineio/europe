@@ -8,8 +8,9 @@ var d3 = require('d3');
 var $ = require('jquery');
 
 var Cursor = require('components/timeline/cursor');
+var Range = require('components/timeline/range');
 
-var marginX = 20;
+var marginX = 100;
 var w;
 var h;
 
@@ -25,7 +26,7 @@ module.exports = React.createClass({
 
         var scaleXYear = d3.scale.linear()
             .domain(this.props.yearExtent)
-            .rangeRound([20, w - 20]);
+            .rangeRound([marginX, w - marginX]);
 
         var years = d3.range(this.props.yearExtent[0], this.props.yearExtent[1] + 1);
 
@@ -35,8 +36,8 @@ module.exports = React.createClass({
                     <line className="pick"
                         x1={scaleXYear(this.props.yearExtent[0])}
                         x2={scaleXYear(this.props.yearExtent[1])}
-                        y1={h / 2 + 3}
-                        y2={h / 2 + 3}/>
+                        y1={h / 2 + 10}
+                        y2={h / 2 + 10}/>
                     {years.map(function (year, k) {
                         return (
                             <line className="pick"
@@ -47,8 +48,8 @@ module.exports = React.createClass({
                                 y2={h / 2 - (year % 5 === 0 ? 5 : 3)}/>
                         );
                     })}
-                    {years.filter(function (y) {
-                        return y % 5 === 0
+                    {years.filter(function (y, i) {
+                        return (y % 10 === 0 || i === years.length -1)
                     }).map(function (year, k) {
                         return (
                             <text className="year" x={scaleXYear(year)} y={h / 2 - 10} key={k}>
@@ -62,6 +63,11 @@ module.exports = React.createClass({
                         currentYear={this.props.currentYear}
                         yearExtent={this.props.yearExtent}
                         setCurrentYear={this.props.setCurrentYear}/>
+                    <Range
+                        y={h / 2 + 5}
+                        x1={scaleXYear(this.props.currentYear - 7)}
+                        x2={scaleXYear(this.props.currentYear + 7)}
+                    />
                 </svg>
             </div>
         );
