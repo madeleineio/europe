@@ -9,6 +9,8 @@ var _ = require('lodash');
 var GroupCountry = require('components/list-country/group-country');
 var Country = require('components/list-country/country');
 
+var getGroupLabel = require('util/get-group-label');
+
 /**
  * @props data
  * @type {*|Function}
@@ -22,6 +24,7 @@ module.exports = React.createClass({
         var groupAdhesionUEData = _.keys(groupAdhesionUEHash).map(function (key, i) {
             var obj = {
                 key: key,
+                label: getGroupLabel(i),
                 countries: groupAdhesionUEHash[key],
                 firstCountryInd: currentFirstCountryInd
             };
@@ -40,9 +43,9 @@ module.exports = React.createClass({
                         <GroupCountry key={kg} >
                             {
                                 g.countries.map(function (c, kc) {
-                                    return <Country country={c} key={kc}/>;
+                                    return <Country country={c} key={kc} groupLabel={g.label} ind={kc}/>;
                                 })
-                                }
+                            }
                         </GroupCountry>
                     );
                 })}

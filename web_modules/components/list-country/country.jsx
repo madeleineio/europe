@@ -3,8 +3,8 @@
 var React = require('react');
 var d3 = require('d3');
 
-var GreyLine = require('components/list-country/grey-line');
 var Label = require('components/list-country/label');
+var GroupLabel = require('components/list-country/group-label');
 
 /**
  * @props country
@@ -13,11 +13,9 @@ var Label = require('components/list-country/label');
 module.exports = React.createClass({
     render: function(){
         return (
-
             <svg className="country">
-                <GreyLine />
+                <GroupLabel ind={this.props.ind} label={this.props.groupLabel}/>
                 <Label text={this.props.country.nom} />
-
             </svg>
         );
     }
