@@ -10,6 +10,10 @@ var getYearRange = require('util/get-year-range');
 
 var math = require('util/math');
 
+var styleVerticalLine = {
+    stroke: 'black'
+};
+
 /**
  * @props currentYear
  * @props yearExtent
@@ -45,7 +49,7 @@ module.exports = React.createClass({
                         );
                     })}
                     {years.filter(function (y) {
-                        return y % 5 === 0
+                        return y % 10 === 0
                     }).map(function (year, k) {
                         return (
                             <text className="year" x={scaleXYear(year)} y={h / 2 - 10} key={k}>
@@ -53,6 +57,13 @@ module.exports = React.createClass({
                             </text>
                         );
                     })}
+                    <line
+                        x1={scaleXYear(this.props.currentYear)}
+                        x2={scaleXYear(this.props.currentYear)}
+                        y1={0}
+                        y2={1000}
+                        style={styleVerticalLine}
+                    />
                 </svg>
             </div>
         );
