@@ -6,6 +6,8 @@ var React = require('react');
 var d3 = require('d3');
 var $ = require('jquery');
 
+var getYearRange = require('util/get-year-range');
+
 var math = require('util/math');
 
 /**
@@ -16,16 +18,15 @@ var math = require('util/math');
 module.exports = React.createClass({
     render: function () {
 
-        var w = $(window).width() / 2;
+        // .6 because svg is 60% of width
+        var w = .6 * $(window).width() / 2;
         var h = 100;
 
-        /*var firstYearVisible = math.constrain(this.props.currentYear -7.5, this.props.yearExtent[0], this.props.yearExtent[1]);
-        var lastYearVisible = math.constrain(firstYearVisible +15, this.props.yearExtent[0], this.props.yearExtent[1]);
-        firstYearVisible = lastYearVisible - 15;*/
+        var yearRange = getYearRange(this.props.currentYear, this.props.yearExtent);
 
         var scaleXYear = d3.scale.linear()
-            .domain([this.props.currentYear -7.5, this.props.currentYear +7.5])
-            .rangeRound([20, w - 20]);
+            .domain(yearRange)
+            .rangeRound([0, w]);
 
         var years = d3.range(this.props.yearExtent[0], this.props.yearExtent[1] + 1);
 

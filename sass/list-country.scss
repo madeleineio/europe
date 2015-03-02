@@ -1,8 +1,9 @@
 .list-country-container {
   .group-country {
 
-    margin: 30px 5px;
+    margin: 10px 5px;
     box-sizing: content-box;
+    border-bottom: 1px solid black;
 
     .country {
       height: 15px;
@@ -17,7 +18,7 @@
       .country-label {
         text-anchor: start;
         dominant-baseline: text-before-edge;
-        font-size: 14px;
+        font-size: 12px;
         font-family: karlaregular;
       }
     }
