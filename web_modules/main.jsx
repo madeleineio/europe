@@ -65,11 +65,12 @@ var Root = React.createClass({
                         setCurrentYear={this.setCurrentYear}/>
                 </MapPanel>
 
-                <RightPanel>
-                    <SmallTimeline yearExtent={this.props.yearExtent}
-                        currentYear={this.state.currentYear}/>
-                    <ListCountryContainer data={this.props.countries}
-                        currentYear={this.state.currentYear} />
+                <RightPanel
+                    yearExtent={this.props.yearExtent}
+                    currentYear={this.state.currentYear}>
+                    <SmallTimeline/>
+                    <ListCountryContainer
+                        data={this.props.countries}/>
                 </RightPanel>
             </div>
         );

@@ -6,7 +6,6 @@ var React = require('react');
 var $ = require('jquery');
 var _ = require('lodash');
 
-var GroupCountry = require('components/list-country/group-country');
 var Country = require('components/list-country/country');
 
 var getGroupLabel = require('util/get-group-label');
@@ -40,15 +39,21 @@ module.exports = React.createClass({
                 <div className="list-country-container">
                 {groupAdhesionUEData.map(function (g, kg) {
                     return (
-                        <GroupCountry key={kg} >
+                        <div className={'group-country'} key={kg}>
                             {
                                 g.countries.map(function (c, kc) {
-                                    return <Country country={c} key={kc} groupLabel={g.label} ind={kc}/>;
-                                })
+                                    return <Country
+                                        country={c}
+                                        key={kc}
+                                        groupLabel={g.label}
+                                        ind={kc}
+                                        translateStripes={this.props.translateStripes}
+                                    />;
+                                }.bind(this))
                             }
-                        </GroupCountry>
+                        </div>
                     );
-                })}
+                }.bind(this))}
                 </div>
             </div>
         );

@@ -35,5 +35,5 @@ module.exports = {
             { test: /\.jsx$/, loader: 'jsx-loader'}
         ]
     },
-    devtool: 'source-map'
+    devtool: '#source-map'
 };
