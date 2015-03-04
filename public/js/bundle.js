@@ -345,7 +345,7 @@
 
 	'use strict';
 	
-	__webpack_require__(27);
+	__webpack_require__(25);
 	
 	var React = __webpack_require__(5);
 	
@@ -365,14 +365,14 @@
 
 	'use strict';
 	
-	__webpack_require__(29);
+	__webpack_require__(27);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var topojson = __webpack_require__(18);
 	var _ = __webpack_require__(3);
 	
-	var Country = __webpack_require__(31);
+	var Country = __webpack_require__(29);
 	
 	var trans = [0, 0];
 	
@@ -444,16 +444,16 @@
 	'use strict';
 	
 	// style
-	__webpack_require__(32);
+	__webpack_require__(37);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var $ = __webpack_require__(2);
 	
-	var Cursor = __webpack_require__(34);
-	var YearLines = __webpack_require__(35);
-	var YearLabels = __webpack_require__(36);
-	var Range = __webpack_require__(37);
+	var Cursor = __webpack_require__(39);
+	var YearLines = __webpack_require__(40);
+	var YearLabels = __webpack_require__(41);
+	var Range = __webpack_require__(42);
 	
 	var marginX = 60;
 	var w;
@@ -517,10 +517,19 @@
 
 	'use strict';
 	
-	__webpack_require__(25);
-	
 	var React = __webpack_require__(5);
 	var $ = __webpack_require__(2);
+	
+	var style = {
+	    overflow: 'scroll',
+	    position: 'fixed',
+	    backgroundColor: 'rgba(232, 230, 215, 0.65)',
+	    width: '50%',
+	    height: '100%',
+	    zIndex: 2,
+	    top: '0%',
+	    left: '50%'
+	};
 	
 	module.exports = React.createClass({displayName: "exports",
 	    getInitialState: function(){
@@ -571,7 +580,7 @@
 	
 	    render: function () {
 	        return (
-	            React.createElement("div", {id: "right-panel"}, 
+	            React.createElement("div", {id: "right-panel", style: style}, 
 	                this.renderChildren()
 	            )
 	        );
@@ -584,7 +593,7 @@
 
 	'use strict';
 	
-	__webpack_require__(38);
+	__webpack_require__(32);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
@@ -660,15 +669,19 @@
 
 	'use strict';
 	
-	__webpack_require__(40);
-	
 	var React = __webpack_require__(5);
 	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
 	
-	var Country = __webpack_require__(43);
+	var Country = __webpack_require__(36);
 	
 	var getGroupLabel = __webpack_require__(24);
+	
+	var groupStyle = {
+	    margin: '10px 0',
+	    boxSizing: 'content-box',
+	    borderBottom: '1px solid black'
+	};
 	
 	/**
 	 * @props data
@@ -696,10 +709,9 @@
 	        var groupAdhesionUEData = this.computeGroups();
 	        return (
 	            React.createElement("div", {id: "list-country"}, 
-	                React.createElement("div", {className: "list-country-container"}, 
 	                groupAdhesionUEData.map(function (g, kg) {
 	                    return (
-	                        React.createElement("div", {className: 'group-country', key: kg}, 
+	                        React.createElement("div", {style: groupStyle, key: kg}, 
 	                            
 	                                g.countries.map(function (c, kc) {
 	                                    return React.createElement(Country, {
@@ -714,7 +726,6 @@
 	                        )
 	                    );
 	                }.bind(this))
-	                )
 	            )
 	        );
 	    }
@@ -747,8 +758,8 @@
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(44)();
-	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(48)+");src:url("+__webpack_require__(48)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(52)+") format('woff'),url("+__webpack_require__(49)+") format('truetype'),url("+__webpack_require__(50)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
+	exports = module.exports = __webpack_require__(43)();
+	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(47)+");src:url("+__webpack_require__(47)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(50)+") format('woff'),url("+__webpack_require__(48)+") format('truetype'),url("+__webpack_require__(49)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
 
 /***/ },
 /* 18 */
@@ -1072,8 +1083,8 @@
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/right-panel.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/right-panel.scss");
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map-panel.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map-panel.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -1085,8 +1096,8 @@
 /* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(44)();
-	exports.push([module.id, "#right-panel{overflow:scroll;position:fixed;background-color:rgba(255,255,255,0.65);width:50%;height:100%;z-index:2;top:0%;left:50%;border-left:#ccc 1px solid}", ""]);
+	exports = module.exports = __webpack_require__(43)();
+	exports.push([module.id, "#map-panel{width:100%;height:100%}", ""]);
 
 /***/ },
 /* 27 */
@@ -1096,36 +1107,6 @@
 	
 	// load the styles
 	var content = __webpack_require__(28);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(19)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map-panel.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map-panel.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(44)();
-	exports.push([module.id, "#map-panel{width:100%;height:100%}", ""]);
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(30);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(19)(content, {});
@@ -1142,14 +1123,14 @@
 	}
 
 /***/ },
-/* 30 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(44)();
+	exports = module.exports = __webpack_require__(43)();
 	exports.push([module.id, "#map{width:100%;height:100%}#map .svg-map{width:100%;height:100%;background-color:#EBF0F7}", ""]);
 
 /***/ },
-/* 31 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1222,6 +1203,8 @@
 	module.exports = Country;
 
 /***/ },
+/* 30 */,
+/* 31 */,
 /* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1229,6 +1212,84 @@
 	
 	// load the styles
 	var content = __webpack_require__(33);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(19)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(43)();
+	exports.push([module.id, "#small-timeline{z-index:4;width:100%;height:10%}#small-timeline .svg-small-timeline{width:100%;height:1000px}#small-timeline .svg-small-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:0.5px}#small-timeline .svg-small-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:12px;font-family:karlaregular;font-weight:lighter;opacity:0.8}#small-timeline .svg-small-timeline .cursor{stroke:black;fill:white;cursor:pointer}", ""]);
+
+/***/ },
+/* 34 */,
+/* 35 */,
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(5);
+	var d3 = __webpack_require__(1);
+	
+	var Label = __webpack_require__(44);
+	var GroupLabel = __webpack_require__(45);
+	var UEStrip = __webpack_require__(46);
+	
+	var heightLine = 12;
+	
+	var style = {
+	    height: (heightLine + 4) + 'px',
+	    width: '100%'
+	};
+	
+	/**
+	 * @props country
+	 * @type {*|Function}
+	 */
+	module.exports = React.createClass({displayName: "exports",
+	    render: function () {
+	        return (
+	            React.createElement("svg", {style: style}, 
+	                React.createElement(GroupLabel, {ind: this.props.ind, label: this.props.groupLabel}), 
+	                React.createElement(Label, {
+	                    text: this.props.country.nom, 
+	                    height: heightLine}
+	                ), 
+	                React.createElement("g", {style: this.props.translateStripes}, 
+	                    React.createElement(UEStrip, {
+	                        begin: this.props.country.UE, 
+	                        currentYear: this.props.currentYear, 
+	                        yearExtent: this.props.yearExtent, 
+	                        height: heightLine}
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(38);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(19)(content, {});
@@ -1245,14 +1306,14 @@
 	}
 
 /***/ },
-/* 33 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(44)();
+	exports = module.exports = __webpack_require__(43)();
 	exports.push([module.id, "#timeline{z-index:2;position:fixed;left:0;bottom:0;width:50%;height:100px}#timeline .svg-timeline{width:100%;height:100%}#timeline .svg-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:0.5px}#timeline .svg-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:12px;font-family:karlaregular;font-weight:lighter;opacity:0.8}#timeline .svg-timeline .cursor{stroke:black;fill:white;cursor:pointer}", ""]);
 
 /***/ },
-/* 34 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1339,7 +1400,7 @@
 	});
 
 /***/ },
-/* 35 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1368,7 +1429,7 @@
 	module.exports = YearLines;
 
 /***/ },
-/* 36 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1396,7 +1457,7 @@
 	module.exports = YearLabels;
 
 /***/ },
-/* 37 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1432,104 +1493,7 @@
 	module.exports = Range;
 
 /***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(39);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(19)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(44)();
-	exports.push([module.id, "#small-timeline{z-index:4;width:100%;height:10%}#small-timeline .svg-small-timeline{width:100%;height:1000px}#small-timeline .svg-small-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:0.5px}#small-timeline .svg-small-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:12px;font-family:karlaregular;font-weight:lighter;opacity:0.8}#small-timeline .svg-small-timeline .cursor{stroke:black;fill:white;cursor:pointer}", ""]);
-
-/***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(41);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(19)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/list-country.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/list-country.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(44)();
-	exports.push([module.id, ".list-country-container .group-country{margin:10px 5px;box-sizing:content-box;border-bottom:1px solid black}.list-country-container .group-country .country{height:15px;width:100%}.list-country-container .group-country .country .grey-line{shape-rendering:crispEdges;stroke:#ccc;stroke-width:0.5}.list-country-container .group-country .country .country-label{text-anchor:start;dominant-baseline:text-before-edge;font-size:12px;font-family:karlaregular}", ""]);
-
-/***/ },
-/* 42 */,
 /* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(5);
-	var d3 = __webpack_require__(1);
-	
-	var Label = __webpack_require__(45);
-	var GroupLabel = __webpack_require__(46);
-	var UEStrip = __webpack_require__(47);
-	
-	/**
-	 * @props country
-	 * @type {*|Function}
-	 */
-	module.exports = React.createClass({displayName: "exports",
-	    render: function () {
-	        console.log(this.props.translateStripes);
-	        return (
-	            React.createElement("svg", {className: "country"}, 
-	                React.createElement(GroupLabel, {ind: this.props.ind, label: this.props.groupLabel}), 
-	                React.createElement(Label, {text: this.props.country.nom}), 
-	                React.createElement("g", {style: this.props.translateStripes}, 
-	                    React.createElement(UEStrip, {
-	                        begin: this.props.country.UE, 
-	                        currentYear: this.props.currentYear, 
-	                        yearExtent: this.props.yearExtent}
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-/***/ },
-/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function() {
@@ -1550,7 +1514,7 @@
 	}
 
 /***/ },
-/* 45 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1563,8 +1527,16 @@
 	 */
 	module.exports = React.createClass({displayName: "exports",
 	    render: function () {
+	
+	        var style = {
+	            text1nchor: 'start',
+	            dominantBaseline: 'text-before-edge',
+	            fontSize: this.props.height + 'px',
+	            fontFamily: 'karlaregular'
+	        };
+	
 	        return (
-	            React.createElement("text", {className: 'country-label', x: "150"}, 
+	            React.createElement("text", {style: style, x: "150"}, 
 	                this.props.text
 	            )
 	        );
@@ -1572,7 +1544,7 @@
 	});
 
 /***/ },
-/* 46 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1580,11 +1552,11 @@
 	var React = __webpack_require__(5);
 	
 	var style = {
-	    'text-anchor': 'start',
-	    'dominant-baseline': 'text-before-edge',
-	    'font-size': '14px',
-	    'font-family': 'karlaregular',
-	    'font-weight': 'bolder'
+	    textAnchor: 'start',
+	    dominantBaseline: 'text-before-edge',
+	    fontSize: '14px',
+	    fontFamily: 'karlaregular',
+	    fontWeight: 'bolder'
 	};
 	
 	var GroupLabel = React.createClass({displayName: "GroupLabel",
@@ -1600,27 +1572,28 @@
 	module.exports = GroupLabel;
 
 /***/ },
-/* 47 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(5);
 	
-	var styleLine = {
-	    stroke: 'blue',
-	    strokeWidth: 10
-	};
-	
 	var UEStrip = React.createClass({displayName: "UEStrip",
 	    render: function(){
+	
+	        var styleLine = {
+	            stroke: 'blue',
+	            strokeWidth: this.props.height
+	        };
+	
 	        return (
 	            React.createElement("line", {
 	                style: styleLine, 
 	                x1: 0, 
-	                y1: 5, 
+	                y1: this.props.height / 2, 
 	                x2: 50, 
-	                y2: 5}
+	                y2: this.props.height / 2}
 	            )
 	        );
 	    }
@@ -1629,22 +1602,28 @@
 	module.exports = UEStrip;
 
 /***/ },
-/* 48 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "9b32ddf7a8f92141181778d032317807.eot"
 
 /***/ },
-/* 49 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "b39ab43702ee55c707e54327b9a8251f.ttf"
 
 /***/ },
-/* 50 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "c2e4a81907170a84e0ef7079904653c6.svg"
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "25635a84225e55513e4882a4240e1dd5.woff"
 
 /***/ },
 /* 51 */
@@ -1652,7 +1631,7 @@
 
 	'use strict';
 	
-	var easingTypes = __webpack_require__(53);
+	var easingTypes = __webpack_require__(52);
 	
 	// additive is the new iOS 8 default. In most cases it simulates a physics-
 	// looking overshoot behavior (especially with easeInOut. You can test that in
@@ -1828,12 +1807,6 @@
 
 /***/ },
 /* 52 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "25635a84225e55513e4882a4240e1dd5.woff"
-
-/***/ },
-/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

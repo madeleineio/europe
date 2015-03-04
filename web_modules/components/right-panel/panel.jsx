@@ -1,9 +1,18 @@
 'use strict';
 
-require('right-panel.scss');
-
 var React = require('react');
 var $ = require('jquery');
+
+var style = {
+    overflow: 'scroll',
+    position: 'fixed',
+    backgroundColor: 'rgba(232, 230, 215, 0.65)',
+    width: '50%',
+    height: '100%',
+    zIndex: 2,
+    top: '0%',
+    left: '50%'
+};
 
 module.exports = React.createClass({
     getInitialState: function(){
@@ -54,7 +63,7 @@ module.exports = React.createClass({
 
     render: function () {
         return (
-            <div id="right-panel">
+            <div id="right-panel" style={style}>
                 {this.renderChildren()}
             </div>
         );

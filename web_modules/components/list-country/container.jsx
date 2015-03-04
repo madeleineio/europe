@@ -1,7 +1,5 @@
 'use strict';
 
-require('list-country.scss');
-
 var React = require('react');
 var $ = require('jquery');
 var _ = require('lodash');
@@ -9,6 +7,12 @@ var _ = require('lodash');
 var Country = require('components/list-country/country');
 
 var getGroupLabel = require('util/get-group-label');
+
+var groupStyle = {
+    margin: '10px 0',
+    boxSizing: 'content-box',
+    borderBottom: '1px solid black'
+};
 
 /**
  * @props data
@@ -36,10 +40,9 @@ module.exports = React.createClass({
         var groupAdhesionUEData = this.computeGroups();
         return (
             <div id="list-country">
-                <div className="list-country-container">
                 {groupAdhesionUEData.map(function (g, kg) {
                     return (
-                        <div className={'group-country'} key={kg}>
+                        <div style={groupStyle} key={kg}>
                             {
                                 g.countries.map(function (c, kc) {
                                     return <Country
@@ -54,7 +57,6 @@ module.exports = React.createClass({
                         </div>
                     );
                 }.bind(this))}
-                </div>
             </div>
         );
     }

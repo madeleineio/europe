@@ -3,11 +3,11 @@
 var React = require('react');
 
 var style = {
-    'text-anchor': 'start',
-    'dominant-baseline': 'text-before-edge',
-    'font-size': '14px',
-    'font-family': 'karlaregular',
-    'font-weight': 'bolder'
+    textAnchor: 'start',
+    dominantBaseline: 'text-before-edge',
+    fontSize: '14px',
+    fontFamily: 'karlaregular',
+    fontWeight: 'bolder'
 };
 
 var GroupLabel = React.createClass({
