@@ -3,10 +3,12 @@
 var React = require('react');
 var $ = require('jquery');
 
+var backgroundColor = 'rgb(232, 230, 215)'
+
 var style = {
     overflow: 'scroll',
     position: 'fixed',
-    backgroundColor: 'rgba(232, 230, 215, 0.65)',
+    backgroundColor: backgroundColor,
     width: '50%',
     height: '100%',
     zIndex: 2,
@@ -55,7 +57,8 @@ module.exports = React.createClass({
                 currentYear:this.props.currentYear,
                 widthLabels: this.state.widthLabels,
                 widthStripes: this.state.widthStripes,
-                translateStripes: this.state.translateStripes
+                translateStripes: this.state.translateStripes,
+                backgroundColor: backgroundColor
             });
             return child;
         }.bind(this));

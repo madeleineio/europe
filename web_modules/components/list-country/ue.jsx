@@ -1,14 +1,19 @@
 'use strict';
 
 var React = require('react');
+var _ = require('lodash');
+
+var styleLine = {
+    stroke: 'blue'
+};
 
 var UEStrip = React.createClass({
-    render: function(){
-
-        var styleLine = {
-            stroke: 'blue',
+    componentWillMount: function(){
+        _.extend(styleLine, {
             strokeWidth: this.props.height
-        };
+        });
+    },
+    render: function(){
 
         return (
             <line

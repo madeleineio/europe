@@ -365,14 +365,14 @@
 
 	'use strict';
 	
-	__webpack_require__(27);
+	__webpack_require__(28);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var topojson = __webpack_require__(18);
 	var _ = __webpack_require__(3);
 	
-	var Country = __webpack_require__(29);
+	var Country = __webpack_require__(30);
 	
 	var trans = [0, 0];
 	
@@ -444,16 +444,16 @@
 	'use strict';
 	
 	// style
-	__webpack_require__(37);
+	__webpack_require__(31);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var $ = __webpack_require__(2);
 	
-	var Cursor = __webpack_require__(39);
-	var YearLines = __webpack_require__(40);
-	var YearLabels = __webpack_require__(41);
-	var Range = __webpack_require__(42);
+	var Cursor = __webpack_require__(33);
+	var YearLines = __webpack_require__(34);
+	var YearLabels = __webpack_require__(35);
+	var Range = __webpack_require__(36);
 	
 	var marginX = 60;
 	var w;
@@ -520,10 +520,12 @@
 	var React = __webpack_require__(5);
 	var $ = __webpack_require__(2);
 	
+	var backgroundColor = 'rgb(232, 230, 215)'
+	
 	var style = {
 	    overflow: 'scroll',
 	    position: 'fixed',
-	    backgroundColor: 'rgba(232, 230, 215, 0.65)',
+	    backgroundColor: backgroundColor,
 	    width: '50%',
 	    height: '100%',
 	    zIndex: 2,
@@ -572,7 +574,8 @@
 	                currentYear:this.props.currentYear,
 	                widthLabels: this.state.widthLabels,
 	                widthStripes: this.state.widthStripes,
-	                translateStripes: this.state.translateStripes
+	                translateStripes: this.state.translateStripes,
+	                backgroundColor: backgroundColor
 	            });
 	            return child;
 	        }.bind(this));
@@ -593,15 +596,24 @@
 
 	'use strict';
 	
-	__webpack_require__(32);
+	__webpack_require__(37);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var $ = __webpack_require__(2);
+	var _ = __webpack_require__(3);
 	
-	var getYearRange = __webpack_require__(22);
+	var getYearRange = __webpack_require__(23);
 	
-	var math = __webpack_require__(23);
+	var math = __webpack_require__(24);
+	
+	var style = {
+	    zIndex: 4,
+	    width: '100%',
+	    height: '10%',
+	    position: 'fixed',
+	    top: 0
+	};
 	
 	var styleVerticalLine = {
 	    stroke: 'black'
@@ -613,8 +625,13 @@
 	 * @type {*|Function}
 	 */
 	module.exports = React.createClass({displayName: "exports",
+	    componentWillMount: function(){
+	        // add background color to the style
+	        _.extend(style, {
+	            backgroundColor: this.props.backgroundColor
+	        });
+	    },
 	    render: function () {
-	
 	        var h = 100;
 	
 	        var yearRange = getYearRange(this.props.currentYear, this.props.yearExtent);
@@ -626,7 +643,7 @@
 	        var years = d3.range(this.props.yearExtent[0], this.props.yearExtent[1] + 1);
 	
 	        return (
-	            React.createElement("div", {id: "small-timeline"}, 
+	            React.createElement("div", {id: "small-timeline", style: style}, 
 	                React.createElement("svg", {className: "svg-small-timeline"}, 
 	                    React.createElement("g", {style: this.props.translateStripes}, 
 	                        years.map(function (year, k) {
@@ -673,9 +690,14 @@
 	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
 	
-	var Country = __webpack_require__(36);
+	var Country = __webpack_require__(27);
 	
-	var getGroupLabel = __webpack_require__(24);
+	var getGroupLabel = __webpack_require__(22);
+	
+	var containerStyle = {
+	    position: 'relative',
+	    top: '100px'
+	};
 	
 	var groupStyle = {
 	    margin: '10px 0',
@@ -708,7 +730,7 @@
 	    render: function () {
 	        var groupAdhesionUEData = this.computeGroups();
 	        return (
-	            React.createElement("div", {id: "list-country"}, 
+	            React.createElement("div", {id: "list-country", style: containerStyle}, 
 	                groupAdhesionUEData.map(function (g, kg) {
 	                    return (
 	                        React.createElement("div", {style: groupStyle, key: kg}, 
@@ -758,8 +780,8 @@
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(43)();
-	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(47)+");src:url("+__webpack_require__(47)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(50)+") format('woff'),url("+__webpack_require__(48)+") format('truetype'),url("+__webpack_require__(49)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
+	exports = module.exports = __webpack_require__(39)();
+	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(45)+");src:url("+__webpack_require__(45)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(43)+") format('woff'),url("+__webpack_require__(46)+") format('truetype'),url("+__webpack_require__(47)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
 
 /***/ },
 /* 18 */
@@ -1008,7 +1030,28 @@
 
 	'use strict';
 	
-	var math = __webpack_require__(23);
+	var tabLabels = [
+	    'CEE',
+	    'CEE 9',
+	    'CEE 10',
+	    'UE 12',
+	    'UE 15',
+	    'UE 25',
+	    'UE 27',
+	    'UE 28'
+	];
+	
+	module.exports = function (ind){
+	    return ind < tabLabels.length ? tabLabels[ind] : ''
+	};
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var math = __webpack_require__(24);
 	
 	module.exports = function (currentYear, yearExtent) {
 	    var firstYearVisible = math.constrain(currentYear - 7.5, yearExtent[0], yearExtent[1]);
@@ -1020,7 +1063,7 @@
 	};
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1046,27 +1089,6 @@
 	    constrain: function (aNumber, aMin, aMax) {
 	        return aNumber > aMax ? aMax : aNumber < aMin ? aMin : aNumber;
 	    }
-	};
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var tabLabels = [
-	    'CEE',
-	    'CEE 9',
-	    'CEE 10',
-	    'UE 12',
-	    'UE 15',
-	    'UE 25',
-	    'UE 27',
-	    'UE 28'
-	];
-	
-	module.exports = function (ind){
-	    return ind < tabLabels.length ? tabLabels[ind] : ''
 	};
 
 /***/ },
@@ -1096,17 +1118,63 @@
 /* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(43)();
+	exports = module.exports = __webpack_require__(39)();
 	exports.push([module.id, "#map-panel{width:100%;height:100%}", ""]);
 
 /***/ },
 /* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	var React = __webpack_require__(5);
+	var d3 = __webpack_require__(1);
+	
+	var Label = __webpack_require__(40);
+	var GroupLabel = __webpack_require__(41);
+	var UEStrip = __webpack_require__(42);
+	
+	var heightLine = 12;
+	
+	var style = {
+	    height: (heightLine + 4) + 'px',
+	    width: '100%'
+	};
+	
+	/**
+	 * @props country
+	 * @type {*|Function}
+	 */
+	module.exports = React.createClass({displayName: "exports",
+	    render: function () {
+	        return (
+	            React.createElement("svg", {style: style}, 
+	                React.createElement(GroupLabel, {ind: this.props.ind, label: this.props.groupLabel}), 
+	                React.createElement(Label, {
+	                    text: this.props.country.nom, 
+	                    height: heightLine}
+	                ), 
+	                React.createElement("g", {style: this.props.translateStripes}, 
+	                    React.createElement(UEStrip, {
+	                        begin: this.props.country.UE, 
+	                        currentYear: this.props.currentYear, 
+	                        yearExtent: this.props.yearExtent, 
+	                        height: heightLine}
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(28);
+	var content = __webpack_require__(29);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(19)(content, {});
@@ -1123,14 +1191,14 @@
 	}
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(43)();
+	exports = module.exports = __webpack_require__(39)();
 	exports.push([module.id, "#map{width:100%;height:100%}#map .svg-map{width:100%;height:100%;background-color:#EBF0F7}", ""]);
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1140,7 +1208,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(5);
-	var tweenState = __webpack_require__(51);
+	var tweenState = __webpack_require__(44);
 	var d3 = __webpack_require__(1);
 	
 	var simplify = __webpack_require__(21);
@@ -1203,93 +1271,13 @@
 	module.exports = Country;
 
 /***/ },
-/* 30 */,
-/* 31 */,
-/* 32 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(33);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(19)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(43)();
-	exports.push([module.id, "#small-timeline{z-index:4;width:100%;height:10%}#small-timeline .svg-small-timeline{width:100%;height:1000px}#small-timeline .svg-small-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:0.5px}#small-timeline .svg-small-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:12px;font-family:karlaregular;font-weight:lighter;opacity:0.8}#small-timeline .svg-small-timeline .cursor{stroke:black;fill:white;cursor:pointer}", ""]);
-
-/***/ },
-/* 34 */,
-/* 35 */,
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(5);
-	var d3 = __webpack_require__(1);
-	
-	var Label = __webpack_require__(44);
-	var GroupLabel = __webpack_require__(45);
-	var UEStrip = __webpack_require__(46);
-	
-	var heightLine = 12;
-	
-	var style = {
-	    height: (heightLine + 4) + 'px',
-	    width: '100%'
-	};
-	
-	/**
-	 * @props country
-	 * @type {*|Function}
-	 */
-	module.exports = React.createClass({displayName: "exports",
-	    render: function () {
-	        return (
-	            React.createElement("svg", {style: style}, 
-	                React.createElement(GroupLabel, {ind: this.props.ind, label: this.props.groupLabel}), 
-	                React.createElement(Label, {
-	                    text: this.props.country.nom, 
-	                    height: heightLine}
-	                ), 
-	                React.createElement("g", {style: this.props.translateStripes}, 
-	                    React.createElement(UEStrip, {
-	                        begin: this.props.country.UE, 
-	                        currentYear: this.props.currentYear, 
-	                        yearExtent: this.props.yearExtent, 
-	                        height: heightLine}
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-/***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(38);
+	var content = __webpack_require__(32);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(19)(content, {});
@@ -1306,14 +1294,14 @@
 	}
 
 /***/ },
-/* 38 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(43)();
+	exports = module.exports = __webpack_require__(39)();
 	exports.push([module.id, "#timeline{z-index:2;position:fixed;left:0;bottom:0;width:50%;height:100px}#timeline .svg-timeline{width:100%;height:100%}#timeline .svg-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:0.5px}#timeline .svg-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:12px;font-family:karlaregular;font-weight:lighter;opacity:0.8}#timeline .svg-timeline .cursor{stroke:black;fill:white;cursor:pointer}", ""]);
 
 /***/ },
-/* 39 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1400,7 +1388,7 @@
 	});
 
 /***/ },
-/* 40 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1429,7 +1417,7 @@
 	module.exports = YearLines;
 
 /***/ },
-/* 41 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1457,14 +1445,14 @@
 	module.exports = YearLabels;
 
 /***/ },
-/* 42 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(5);
 	
-	var getYearRange = __webpack_require__(22);
+	var getYearRange = __webpack_require__(23);
 	
 	var style = {
 	    'stroke-width': '8',
@@ -1493,7 +1481,37 @@
 	module.exports = Range;
 
 /***/ },
-/* 43 */
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(38);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(19)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(39)();
+	exports.push([module.id, "#small-timeline .svg-small-timeline{width:100%;height:1000px}#small-timeline .svg-small-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:0.5px}#small-timeline .svg-small-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:12px;font-family:karlaregular;font-weight:lighter;opacity:0.8}#small-timeline .svg-small-timeline .cursor{stroke:black;fill:white;cursor:pointer}", ""]);
+
+/***/ },
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function() {
@@ -1514,27 +1532,31 @@
 	}
 
 /***/ },
-/* 44 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(5);
+	var _ = __webpack_require__(3);
+	
+	var style = {
+	    text1nchor: 'start',
+	    dominantBaseline: 'text-before-edge',
+	    fontFamily: 'karlaregular'
+	};
 	
 	/**
 	 * @props text
 	 * @type {*|Function}
 	 */
 	module.exports = React.createClass({displayName: "exports",
+	    componentWillMount: function(){
+	        _.extend(style, {
+	            fontSize: this.props.height + 'px'
+	        });
+	    },
 	    render: function () {
-	
-	        var style = {
-	            text1nchor: 'start',
-	            dominantBaseline: 'text-before-edge',
-	            fontSize: this.props.height + 'px',
-	            fontFamily: 'karlaregular'
-	        };
-	
 	        return (
 	            React.createElement("text", {style: style, x: "150"}, 
 	                this.props.text
@@ -1544,7 +1566,7 @@
 	});
 
 /***/ },
-/* 45 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1572,20 +1594,25 @@
 	module.exports = GroupLabel;
 
 /***/ },
-/* 46 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(5);
+	var _ = __webpack_require__(3);
+	
+	var styleLine = {
+	    stroke: 'blue'
+	};
 	
 	var UEStrip = React.createClass({displayName: "UEStrip",
-	    render: function(){
-	
-	        var styleLine = {
-	            stroke: 'blue',
+	    componentWillMount: function(){
+	        _.extend(styleLine, {
 	            strokeWidth: this.props.height
-	        };
+	        });
+	    },
+	    render: function(){
 	
 	        return (
 	            React.createElement("line", {
@@ -1602,36 +1629,18 @@
 	module.exports = UEStrip;
 
 /***/ },
-/* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "9b32ddf7a8f92141181778d032317807.eot"
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "b39ab43702ee55c707e54327b9a8251f.ttf"
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "c2e4a81907170a84e0ef7079904653c6.svg"
-
-/***/ },
-/* 50 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "25635a84225e55513e4882a4240e1dd5.woff"
 
 /***/ },
-/* 51 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var easingTypes = __webpack_require__(52);
+	var easingTypes = __webpack_require__(48);
 	
 	// additive is the new iOS 8 default. In most cases it simulates a physics-
 	// looking overshoot behavior (especially with easeInOut. You can test that in
@@ -1806,7 +1815,25 @@
 
 
 /***/ },
-/* 52 */
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "9b32ddf7a8f92141181778d032317807.eot"
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "b39ab43702ee55c707e54327b9a8251f.ttf"
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "c2e4a81907170a84e0ef7079904653c6.svg"
+
+/***/ },
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

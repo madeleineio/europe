@@ -8,6 +8,11 @@ var Country = require('components/list-country/country');
 
 var getGroupLabel = require('util/get-group-label');
 
+var containerStyle = {
+    position: 'relative',
+    top: '100px'
+};
+
 var groupStyle = {
     margin: '10px 0',
     boxSizing: 'content-box',
@@ -39,7 +44,7 @@ module.exports = React.createClass({
     render: function () {
         var groupAdhesionUEData = this.computeGroups();
         return (
-            <div id="list-country">
+            <div id="list-country" style={containerStyle}>
                 {groupAdhesionUEData.map(function (g, kg) {
                     return (
                         <div style={groupStyle} key={kg}>

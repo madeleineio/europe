@@ -5,10 +5,19 @@ require('small-timeline.scss');
 var React = require('react');
 var d3 = require('d3');
 var $ = require('jquery');
+var _ = require('lodash');
 
 var getYearRange = require('util/get-year-range');
 
 var math = require('util/math');
+
+var style = {
+    zIndex: 4,
+    width: '100%',
+    height: '10%',
+    position: 'fixed',
+    top: 0
+};
 
 var styleVerticalLine = {
     stroke: 'black'
@@ -20,8 +29,13 @@ var styleVerticalLine = {
  * @type {*|Function}
  */
 module.exports = React.createClass({
+    componentWillMount: function(){
+        // add background color to the style
+        _.extend(style, {
+            backgroundColor: this.props.backgroundColor
+        });
+    },
     render: function () {
-
         var h = 100;
 
         var yearRange = getYearRange(this.props.currentYear, this.props.yearExtent);
@@ -33,7 +47,7 @@ module.exports = React.createClass({
         var years = d3.range(this.props.yearExtent[0], this.props.yearExtent[1] + 1);
 
         return (
-            <div id="small-timeline">
+            <div id="small-timeline" style={style}>
                 <svg className="svg-small-timeline">
                     <g style={this.props.translateStripes}>
                         {years.map(function (year, k) {
