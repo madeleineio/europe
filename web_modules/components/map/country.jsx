@@ -13,7 +13,7 @@ var projection = require('services/get-projection');
 var path = d3.geo.path()
     .projection(simplify(.05, projection));
 
-var ueInterpolation = d3.interpolateRgb('#fff', 'rgb(0,158,255)');
+var ueInterpolation = d3.interpolateRgb('#fff', 'rgb(37, 37, 194)');
 
 /**
  * @props feature

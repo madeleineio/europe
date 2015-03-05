@@ -2,8 +2,11 @@
 
 var React = require('react');
 var $ = require('jquery');
+var d3 = require('d3');
 
-var backgroundColor = 'rgb(232, 230, 215)'
+var getYearRange = require('util/get-year-range');
+
+var backgroundColor = 'rgb(232, 230, 215)';
 
 var style = {
     overflow: 'scroll',
@@ -42,12 +45,17 @@ module.exports = React.createClass({
         this.setState(this.computeState());
     },
     computeState: function(){
+        var widthStripes = 0.6 * $(window).width() / 2;
+        var yearRange = getYearRange(this.props.currentYear, this.props.yearExtent);
         return {
             widthLabels: 0.4 * $(window).width() / 2,
-            widthStripes: 0.6 * $(window).width() / 2,
+            widthStripes: widthStripes,
             translateStripes: {
                 transform: 'translate(' + [(0.4 * $(window).width() / 2) + 'px', 0] + ')'
-            }
+            },
+            scaleXYear: d3.scale.linear()
+                .domain(yearRange)
+                .rangeRound([0, widthStripes])
         };
     },
     renderChildren: function () {
@@ -58,6 +66,7 @@ module.exports = React.createClass({
                 widthLabels: this.state.widthLabels,
                 widthStripes: this.state.widthStripes,
                 translateStripes: this.state.translateStripes,
+                scaleXYear: this.state.scaleXYear,
                 backgroundColor: backgroundColor
             });
             return child;

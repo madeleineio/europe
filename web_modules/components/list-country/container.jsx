@@ -56,6 +56,10 @@ module.exports = React.createClass({
                                         groupLabel={g.label}
                                         ind={kc}
                                         translateStripes={this.props.translateStripes}
+                                        scaleXYear={this.props.scaleXYear}
+                                        yearExtent={this.props.yearExtent}
+                                        widthLabels={this.props.widthLabels}
+                                        backgroundColor={this.props.backgroundColor}
                                     />;
                                 }.bind(this))
                             }

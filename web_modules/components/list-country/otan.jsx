@@ -4,13 +4,14 @@ var React = require('react');
 var _ = require('lodash');
 
 var styleLine = {
-    stroke: 'rgb(37, 37, 194)'
+    stroke: 'rgb(232, 101, 101)'
 };
 
-var UEStrip = React.createClass({
+
+var OTANStrip = React.createClass({
     componentWillMount: function(){
         _.extend(styleLine, {
-            strokeWidth: this.props.height / 2
+            strokeWidth: this.props.height
         });
     },
     render: function(){
@@ -26,4 +27,4 @@ var UEStrip = React.createClass({
     }
 });
 
-module.exports = UEStrip;
+module.exports = OTANStrip;
