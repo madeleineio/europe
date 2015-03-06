@@ -11,6 +11,9 @@ var simplify = require('services/get-simplify');
 
 var promise = new P(function (resolve) {
     d3.json('data/topo/world-50m.json', function (data) {
+        // compute important arcs
+        var presimplified = topojson.presimplify(data);
+
         // transform all MutliPolygon as an array of Polygon
         // as it, we just have Polygons
         data.objects.countries.geometries = _.flatten(data.objects.countries.geometries.map(function(g){
@@ -38,7 +41,7 @@ var promise = new P(function (resolve) {
         // remove too small pieces without neighbour
         // first, find all polygons without neighbours
         var path = d3.geo.path()
-            .projection(projection);
+            .projection(simplify(.1, projection));
         var features = topojson.feature(data, data.objects.countries).features;
         var neighbors = topojson.neighbors(data.objects.countries.geometries);
         data.objects.countries.geometries = data.objects.countries.geometries.filter(function(g, i){
@@ -46,7 +49,7 @@ var promise = new P(function (resolve) {
                 || path.area(features[i]) > 100; // not too small
         });
 
-        resolve(data);
+        resolve(presimplified);
     });
 });
 

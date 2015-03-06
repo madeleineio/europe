@@ -52,19 +52,14 @@ var Map = React.createClass({
     },
     computeOTANGroups: function(topology, objects){
         return topojson.merge(topology, objects.filter(function(o){
-            var cid = parseInt(o.id.match(/(.+)_/)[1]);
-            var test = [616].indexOf(cid) >= 0;
+            var cid = o.id.match(/(.+)_/)[1];
+            var test = ['250', '380', '620', '276'].indexOf(cid) >= 0;
             return test;
         }));
     },
     render: function () {
-        var features = topojson.feature(this.props.countries, this.props.countries.objects.countries).features;
+        var features = topojson.feature(this.props.simpleCountries, this.props.simpleCountries.objects.countries).features;
         var otanGroup = this.computeOTANGroups(this.props.countries, this.props.countries.objects.countries.geometries);
-        var dataBubble = otanGroup.coordinates[0][0];
-        var dataBubbleFiltered = dataBubble.filter(function(el, ind){
-            return true //ind%2 === 0;
-        });
-        console.log(dataBubbleFiltered);
         return (
             <div id="map">
                 <svg className={'svg-map'}>
@@ -77,7 +72,7 @@ var Map = React.createClass({
                         key={i} />
                 }.bind(this))}
                         <OTANStroke
-                            data={dataBubbleFiltered}
+                            feature={otanGroup}
                         />
                     </g>
 

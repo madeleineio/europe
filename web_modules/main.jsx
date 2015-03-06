@@ -19,6 +19,7 @@ var React = require('react');
 
 // services
 var promiseGeojson = require('services/get-json-map');
+var promiseSimplifiedGeojson = require('services/get-json-simplified-map');
 var promiseData = require('services/get-csv-data');
 var yearExtentService = require('services/get-year-extent');
 
@@ -58,6 +59,7 @@ var Root = React.createClass({
             }}>
                 <MapPanel>
                     <Map countries={this.props.jsonCountries}
+                        simpleCountries={this.props.jsonSimplifiedCountries}
                         data={this.props.countries}
                         currentYear={this.state.currentYear} />
                     <Timeline yearExtent={this.props.yearExtent}
@@ -82,7 +84,8 @@ var Root = React.createClass({
 // retrieve data
 P.all([
     promiseData,
-    promiseGeojson
+    promiseGeojson,
+    promiseSimplifiedGeojson
 ]).then(function (d) {
 
 
@@ -92,6 +95,7 @@ P.all([
         $(function () {
             React.render(
                 <Root jsonCountries={d[1]}
+                    jsonSimplifiedCountries={d[2]}
                     countries={d[0]}
                     yearExtent={yearExtent}/>,
                 $('body').get(0)

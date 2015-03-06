@@ -65,6 +65,7 @@
 	
 	// services
 	var promiseGeojson = __webpack_require__(7);
+	var promiseSimplifiedGeojson = __webpack_require__(52);
 	var promiseData = __webpack_require__(8);
 	var yearExtentService = __webpack_require__(9);
 	
@@ -104,6 +105,7 @@
 	            }}, 
 	                React.createElement(MapPanel, null, 
 	                    React.createElement(Map, {countries: this.props.jsonCountries, 
+	                        simpleCountries: this.props.jsonSimplifiedCountries, 
 	                        data: this.props.countries, 
 	                        currentYear: this.state.currentYear}), 
 	                    React.createElement(Timeline, {yearExtent: this.props.yearExtent, 
@@ -128,7 +130,8 @@
 	// retrieve data
 	P.all([
 	    promiseData,
-	    promiseGeojson
+	    promiseGeojson,
+	    promiseSimplifiedGeojson
 	]).then(function (d) {
 	
 	
@@ -138,6 +141,7 @@
 	        $(function () {
 	            React.render(
 	                React.createElement(Root, {jsonCountries: d[1], 
+	                    jsonSimplifiedCountries: d[2], 
 	                    countries: d[0], 
 	                    yearExtent: yearExtent}),
 	                $('body').get(0)
@@ -208,9 +212,6 @@
 	
 	var promise = new P(function (resolve) {
 	    d3.json('data/topo/world-50m.json', function (data) {
-	        // compute important arcs
-	        var presimplified = topojson.presimplify(data);
-	
 	        // transform all MutliPolygon as an array of Polygon
 	        // as it, we just have Polygons
 	        data.objects.countries.geometries = _.flatten(data.objects.countries.geometries.map(function(g){
@@ -238,7 +239,7 @@
 	        // remove too small pieces without neighbour
 	        // first, find all polygons without neighbours
 	        var path = d3.geo.path()
-	            .projection(simplify(.1, projection));
+	            .projection(projection);
 	        var features = topojson.feature(data, data.objects.countries).features;
 	        var neighbors = topojson.neighbors(data.objects.countries.geometries);
 	        data.objects.countries.geometries = data.objects.countries.geometries.filter(function(g, i){
@@ -246,10 +247,7 @@
 	                || path.area(features[i]) > 100; // not too small
 	        });
 	
-	
-	
-	
-	        resolve(presimplified);
+	        resolve(data);
 	    });
 	});
 	
@@ -345,7 +343,7 @@
 
 	'use strict';
 	
-	__webpack_require__(29);
+	__webpack_require__(25);
 	
 	var React = __webpack_require__(5);
 	
@@ -365,15 +363,15 @@
 
 	'use strict';
 	
-	__webpack_require__(25);
+	__webpack_require__(27);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var topojson = __webpack_require__(18);
 	var _ = __webpack_require__(3);
 	
-	var Country = __webpack_require__(27);
-	var OTANStroke = __webpack_require__(28);
+	var Country = __webpack_require__(29);
+	var OTANStroke = __webpack_require__(30);
 	
 	var trans = [0, 0];
 	
@@ -417,19 +415,14 @@
 	    },
 	    computeOTANGroups: function(topology, objects){
 	        return topojson.merge(topology, objects.filter(function(o){
-	            var cid = parseInt(o.id.match(/(.+)_/)[1]);
-	            var test = [616].indexOf(cid) >= 0;
+	            var cid = o.id.match(/(.+)_/)[1];
+	            var test = ['250', '380', '620', '276'].indexOf(cid) >= 0;
 	            return test;
 	        }));
 	    },
 	    render: function () {
-	        var features = topojson.feature(this.props.countries, this.props.countries.objects.countries).features;
+	        var features = topojson.feature(this.props.simpleCountries, this.props.simpleCountries.objects.countries).features;
 	        var otanGroup = this.computeOTANGroups(this.props.countries, this.props.countries.objects.countries.geometries);
-	        var dataBubble = otanGroup.coordinates[0][0];
-	        var dataBubbleFiltered = dataBubble.filter(function(el, ind){
-	            return true //ind%2 === 0;
-	        });
-	        console.log(dataBubbleFiltered);
 	        return (
 	            React.createElement("div", {id: "map"}, 
 	                React.createElement("svg", {className: 'svg-map'}, 
@@ -442,7 +435,7 @@
 	                        key: i})
 	                }.bind(this)), 
 	                        React.createElement(OTANStroke, {
-	                            data: dataBubbleFiltered}
+	                            feature: otanGroup}
 	                        )
 	                    )
 	
@@ -804,7 +797,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(40)();
-	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(46)+");src:url("+__webpack_require__(46)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(49)+") format('woff'),url("+__webpack_require__(47)+") format('truetype'),url("+__webpack_require__(48)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
+	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(47)+");src:url("+__webpack_require__(47)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(50)+") format('woff'),url("+__webpack_require__(48)+") format('truetype'),url("+__webpack_require__(49)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
 
 /***/ },
 /* 18 */
@@ -1128,8 +1121,8 @@
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/sass/map.scss", function() {
-			var newContent = require("!!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/sass/map.scss");
+		module.hot.accept("!!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/sass/map-panel.scss", function() {
+			var newContent = require("!!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/sass/map-panel.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -1142,10 +1135,40 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(40)();
-	exports.push([module.id, "#map{width:100%;height:100%}#map .svg-map{width:100%;height:100%;background-color:#EBF0F7}", ""]);
+	exports.push([module.id, "#map-panel{width:100%;height:100%}", ""]);
 
 /***/ },
 /* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(28);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(19)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/sass/map.scss", function() {
+			var newContent = require("!!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/sass/map.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(40)();
+	exports.push([module.id, "#map{width:100%;height:100%}#map .svg-map{width:100%;height:100%;background-color:#EBF0F7}", ""]);
+
+/***/ },
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1155,8 +1178,9 @@
 	'use strict';
 	
 	var React = __webpack_require__(5);
-	var tweenState = __webpack_require__(50);
+	var tweenState = __webpack_require__(46);
 	var d3 = __webpack_require__(1);
+	var topojson =  __webpack_require__(18);
 	
 	var simplify = __webpack_require__(21);
 	var projection = __webpack_require__(20);
@@ -1208,6 +1232,7 @@
 	        return (
 	            React.createElement("path", {className: 'country', 
 	                d: path(this.props.feature), 
+	                id: this.props.feature.id, 
 	                fill: this.getRGB(), 
 	                stroke: this.getRGB(), 
 	                onMouseOver: this.handleMouseOver})
@@ -1218,69 +1243,37 @@
 	module.exports = Country;
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(5);
+	var simplify = __webpack_require__(21);
 	var projection = __webpack_require__(20);
+	var path = d3.geo.path()
+	    .projection(projection);
 	
 	var style = {
-	    fill: 'red'
-	}
+	    stroke: 'rgb(232, 101, 101)',
+	    strokeLinejoin: 'round',
+	    strokeWidth: '6',
+	    strokeMiterlimit: '4',
+	    fill: 'none'
+	};
 	
 	var OTANStroke = React.createClass({displayName: "OTANStroke",
 	    render: function () {
 	        return (
-	            React.createElement("g", null, 
-	            
-	                this.props.data.map(function (d, k) {
-	                    return React.createElement("circle", {
-	                        key: k, 
-	                        style: style, 
-	                        cx: projection(d)[0], 
-	                        cy: projection(d)[1], 
-	                        r: 1}
-	                    );
-	                })
-	            
-	            )
+	            React.createElement("path", {
+	                style: style, 
+	                d: path(this.props.feature), 
+	                onMouseOver: this.handleMouseOver})
 	        )
 	    }
 	});
 	
 	module.exports = OTANStroke;
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(30);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(19)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/sass/map-panel.scss", function() {
-			var newContent = require("!!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/css-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nmondon/PhpstormProjects/madeleineio/europe/sass/map-panel.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(40)();
-	exports.push([module.id, "#map-panel{width:100%;height:100%}", ""]);
 
 /***/ },
 /* 31 */
@@ -1764,30 +1757,6 @@
 /* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "9b32ddf7a8f92141181778d032317807.eot"
-
-/***/ },
-/* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "b39ab43702ee55c707e54327b9a8251f.ttf"
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "c2e4a81907170a84e0ef7079904653c6.svg"
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "25635a84225e55513e4882a4240e1dd5.woff"
-
-/***/ },
-/* 50 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	
 	var easingTypes = __webpack_require__(51);
@@ -1965,6 +1934,30 @@
 
 
 /***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "9b32ddf7a8f92141181778d032317807.eot"
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "b39ab43702ee55c707e54327b9a8251f.ttf"
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "c2e4a81907170a84e0ef7079904653c6.svg"
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "25635a84225e55513e4882a4240e1dd5.woff"
+
+/***/ },
 /* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2093,6 +2086,68 @@
 	 *
 	 */
 
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by nicolasmondon on 02/02/15.
+	 */
+	
+	'use strict';
+	var P = __webpack_require__(4);
+	var d3 = __webpack_require__(1);
+	var topojson = __webpack_require__(18);
+	var projection = __webpack_require__(20);
+	var simplify = __webpack_require__(21);
+	
+	var promise = new P(function (resolve) {
+	    d3.json('data/topo/world-50m.json', function (data) {
+	        // compute important arcs
+	        var presimplified = topojson.presimplify(data);
+	
+	        // transform all MutliPolygon as an array of Polygon
+	        // as it, we just have Polygons
+	        data.objects.countries.geometries = _.flatten(data.objects.countries.geometries.map(function(g){
+	            // possibly non unique country id : cid
+	            g.cid = g.id;
+	            // multi polygons
+	            if(g.type === 'MultiPolygon'){
+	                return _.range(g.arcs.length).map(function(p, i){
+	                    return _.extend({}, g, {
+	                        type: 'Polygon',
+	                        arcs: g.arcs[i],
+	                        // unique id
+	                        id: g.id + '_' + i
+	                    });
+	                });
+	            }
+	            // simple polygons
+	            else return _.extend({}, g, {
+	                // unique id
+	                id: g.id + '_0'
+	            });
+	        }), true);
+	
+	
+	        // remove too small pieces without neighbour
+	        // first, find all polygons without neighbours
+	        var path = d3.geo.path()
+	            .projection(simplify(.1, projection));
+	        var features = topojson.feature(data, data.objects.countries).features;
+	        var neighbors = topojson.neighbors(data.objects.countries.geometries);
+	        data.objects.countries.geometries = data.objects.countries.geometries.filter(function(g, i){
+	            return neighbors[i].length > 0  // neighbours
+	                || path.area(features[i]) > 100; // not too small
+	        });
+	
+	        resolve(presimplified);
+	    });
+	});
+	
+	
+	module.exports = promise;
 
 /***/ }
 /******/ ]);

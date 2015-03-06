@@ -7,6 +7,7 @@
 var React = require('react');
 var tweenState = require('react-tween-state');
 var d3 = require('d3');
+var topojson =  require('topojson');
 
 var simplify = require('services/get-simplify');
 var projection = require('services/get-projection');
@@ -58,6 +59,7 @@ var Country = React.createClass({
         return (
             <path className={'country'}
                 d={path(this.props.feature)}
+                id={this.props.feature.id}
                 fill={this.getRGB()}
                 stroke={this.getRGB()}
                 onMouseOver={this.handleMouseOver}></path>
