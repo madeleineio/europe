@@ -8,6 +8,7 @@ var topojson = require('topojson');
 var _ = require('lodash');
 
 var Country = require('components/map/country');
+var OTANStroke = require('components/map/otan');
 
 var trans = [0, 0];
 
@@ -49,8 +50,21 @@ var Map = React.createClass({
             });
         svg.call(dragMap);
     },
+    computeOTANGroups: function(topology, objects){
+        return topojson.merge(topology, objects.filter(function(o){
+            var cid = parseInt(o.id.match(/(.+)_/)[1]);
+            var test = [616].indexOf(cid) >= 0;
+            return test;
+        }));
+    },
     render: function () {
         var features = topojson.feature(this.props.countries, this.props.countries.objects.countries).features;
+        var otanGroup = this.computeOTANGroups(this.props.countries, this.props.countries.objects.countries.geometries);
+        var dataBubble = otanGroup.coordinates[0][0];
+        var dataBubbleFiltered = dataBubble.filter(function(el, ind){
+            return true //ind%2 === 0;
+        });
+        console.log(dataBubbleFiltered);
         return (
             <div id="map">
                 <svg className={'svg-map'}>
@@ -62,7 +76,11 @@ var Map = React.createClass({
                         data={Map.getDataByFeature(feature, this.props.data)}
                         key={i} />
                 }.bind(this))}
+                        <OTANStroke
+                            data={dataBubbleFiltered}
+                        />
                     </g>
+
                 </svg>
             </div>
 
