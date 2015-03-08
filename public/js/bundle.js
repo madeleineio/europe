@@ -53,7 +53,7 @@
 	// webpack path
 	__webpack_require__(6);
 	// style
-	__webpack_require__(18);
+	__webpack_require__(17);
 	
 	
 	// vendors
@@ -206,9 +206,9 @@
 	'use strict';
 	var P = __webpack_require__(4);
 	var d3 = __webpack_require__(1);
-	var topojson = __webpack_require__(17);
-	var projection = __webpack_require__(20);
-	var simplify = __webpack_require__(21);
+	var topojson = __webpack_require__(19);
+	var projection = __webpack_require__(21);
+	var simplify = __webpack_require__(22);
 	
 	var promise = new P(function (resolve) {
 	    d3.json('data/topo/world-50m.json', function (data) {
@@ -265,9 +265,9 @@
 	'use strict';
 	var P = __webpack_require__(4);
 	var d3 = __webpack_require__(1);
-	var topojson = __webpack_require__(17);
-	var projection = __webpack_require__(20);
-	var simplify = __webpack_require__(21);
+	var topojson = __webpack_require__(19);
+	var projection = __webpack_require__(21);
+	var simplify = __webpack_require__(22);
 	
 	var promise = new P(function (resolve) {
 	    d3.json('data/topo/world-50m.json', function (data) {
@@ -429,7 +429,7 @@
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
-	var topojson = __webpack_require__(17);
+	var topojson = __webpack_require__(19);
 	var _ = __webpack_require__(3);
 	
 	var Country = __webpack_require__(28);
@@ -517,16 +517,16 @@
 	'use strict';
 	
 	// style
-	__webpack_require__(35);
+	__webpack_require__(32);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var $ = __webpack_require__(2);
 	
-	var Cursor = __webpack_require__(37);
-	var YearLines = __webpack_require__(38);
-	var YearLabels = __webpack_require__(39);
-	var Range = __webpack_require__(40);
+	var Cursor = __webpack_require__(34);
+	var YearLines = __webpack_require__(35);
+	var YearLabels = __webpack_require__(36);
+	var Range = __webpack_require__(37);
 	
 	var marginX = 60;
 	var w;
@@ -678,7 +678,7 @@
 
 	'use strict';
 	
-	__webpack_require__(32);
+	__webpack_require__(38);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
@@ -764,7 +764,7 @@
 	var $ = __webpack_require__(2);
 	var _ = __webpack_require__(3);
 	
-	var Country = __webpack_require__(34);
+	var Country = __webpack_require__(40);
 	
 	var getGroupLabel = __webpack_require__(25);
 	
@@ -835,19 +835,13 @@
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = topojson;
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(19);
+	var content = __webpack_require__(18);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(22)(content, {});
+	var update = __webpack_require__(20)(content, {});
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
@@ -861,53 +855,20 @@
 	}
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(41)();
-	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(48)+");src:url("+__webpack_require__(48)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(51)+") format('woff'),url("+__webpack_require__(49)+") format('truetype'),url("+__webpack_require__(50)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
+	exports.push([module.id, "body,html{width:100%;height:100%;margin:0;padding:0}@font-face{font-family:'karlaregular';src:url("+__webpack_require__(47)+");src:url("+__webpack_require__(47)+"?#iefix) format('embedded-opentype'),url("+__webpack_require__(50)+") format('woff'),url("+__webpack_require__(48)+") format('truetype'),url("+__webpack_require__(49)+"#karlaregular) format('svg');font-weight:normal;font-style:normal;}", ""]);
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = topojson;
 
 /***/ },
 /* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by nicolasmondon on 03/02/15.
-	 */
-	
-	'use strict';
-	
-	var d3 = __webpack_require__(1);
-	
-	module.exports =  d3.geo.stereographic()
-	    .scale(1600)
-	    .center([35, 50]);
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by nicolasmondon on 03/02/15.
-	 */
-	
-	'use strict';
-	
-	var d3 = __webpack_require__(1);
-	
-	module.exports = function (area, projection) {
-	    return d3.geo.transform({
-	        point: function (x, y, z) {
-	            if (z >= area) {
-	                var coords = projection([x, y]);
-	                this.stream.point(coords[0], coords[1]);
-	            }
-	        }
-	    });
-	};
-
-/***/ },
-/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -1103,6 +1064,45 @@
 
 
 /***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by nicolasmondon on 03/02/15.
+	 */
+	
+	'use strict';
+	
+	var d3 = __webpack_require__(1);
+	
+	module.exports =  d3.geo.stereographic()
+	    .scale(1600)
+	    .center([35, 50]);
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by nicolasmondon on 03/02/15.
+	 */
+	
+	'use strict';
+	
+	var d3 = __webpack_require__(1);
+	
+	module.exports = function (area, projection) {
+	    return d3.geo.transform({
+	        point: function (x, y, z) {
+	            if (z >= area) {
+	                var coords = projection([x, y]);
+	                this.stream.point(coords[0], coords[1]);
+	            }
+	        }
+	    });
+	};
+
+/***/ },
 /* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1179,7 +1179,7 @@
 	var content = __webpack_require__(27);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(22)(content, {});
+	var update = __webpack_require__(20)(content, {});
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
@@ -1210,12 +1210,12 @@
 	'use strict';
 	
 	var React = __webpack_require__(5);
-	var tweenState = __webpack_require__(47);
+	var tweenState = __webpack_require__(51);
 	var d3 = __webpack_require__(1);
-	var topojson =  __webpack_require__(17);
+	var topojson =  __webpack_require__(19);
 	
-	var simplify = __webpack_require__(21);
-	var projection = __webpack_require__(20);
+	var simplify = __webpack_require__(22);
+	var projection = __webpack_require__(21);
 	var path = d3.geo.path()
 	    .projection(simplify(.05, projection));
 	
@@ -1281,16 +1281,16 @@
 	'use strict';
 	
 	var React = __webpack_require__(5);
-	var simplify = __webpack_require__(21);
-	var projection = __webpack_require__(20);
+	var simplify = __webpack_require__(22);
+	var projection = __webpack_require__(21);
 	var path = d3.geo.path()
 	    .projection(projection);
 	
 	var style = {
 	    stroke: 'rgb(232, 101, 101)',
 	    strokeLinejoin: 'round',
-	    strokeWidth: '6',
-	    strokeMiterlimit: '4',
+	    strokeWidth: '8',
+	    strokeMiterlimit: '1',
 	    fill: 'none'
 	};
 	
@@ -1317,7 +1317,7 @@
 	var content = __webpack_require__(31);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(22)(content, {});
+	var update = __webpack_require__(20)(content, {});
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
@@ -1347,103 +1347,7 @@
 	var content = __webpack_require__(33);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(22)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(41)();
-	exports.push([module.id, "#small-timeline .svg-small-timeline{width:100%;height:1000px}#small-timeline .svg-small-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:1px}#small-timeline .svg-small-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:12px;font-family:karlaregular;font-weight:lighter;opacity:0.8}#small-timeline .svg-small-timeline .cursor{stroke:black;fill:white;cursor:pointer}", ""]);
-
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(5);
-	var d3 = __webpack_require__(1);
-	
-	var Label = __webpack_require__(42);
-	var GroupLabel = __webpack_require__(43);
-	var UEStrip = __webpack_require__(44);
-	var OTANStrip = __webpack_require__(45);
-	var Mask = __webpack_require__(46);
-	
-	var heightLine = 12;
-	
-	var style = {
-	    height: (heightLine + 4) + 'px',
-	    width: '100%'
-	};
-	
-	/**
-	 * @props country
-	 * @type {*|Function}
-	 */
-	module.exports = React.createClass({displayName: "exports",
-	    render: function () {
-	        var maskId = 'mask' + this.props.ind;
-	        return (
-	            React.createElement("svg", {style: style}, 
-	                React.createElement("defs", null, 
-	                    React.createElement(Mask, {
-	                        id: maskId, 
-	                        x: 0, 
-	                        width: this.props.widthStripes, 
-	                        y: 0, 
-	                        height: heightLine}
-	                    )
-	                ), 
-	                React.createElement("g", {style: this.props.translateStripes}, 
-	                    React.createElement(OTANStrip, {
-	                        scaleXYear: this.props.scaleXYear, 
-	                        begin: this.props.country.OTAN, 
-	                        yearExtent: this.props.yearExtent, 
-	                        height: heightLine, 
-	                        mask: maskId}
-	                    ), 
-	                    React.createElement(UEStrip, {
-	                        scaleXYear: this.props.scaleXYear, 
-	                        begin: this.props.country.UE, 
-	                        yearExtent: this.props.yearExtent, 
-	                        height: heightLine, 
-	                        mask: maskId}
-	                    )
-	                ), 
-	                React.createElement(GroupLabel, {ind: this.props.ind, label: this.props.groupLabel}), 
-	                React.createElement(Label, {
-	                    text: this.props.country.nom, 
-	                    height: heightLine}
-	                )
-	            )
-	        );
-	    }
-	});
-
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(36);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(22)(content, {});
+	var update = __webpack_require__(20)(content, {});
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
@@ -1457,14 +1361,14 @@
 	}
 
 /***/ },
-/* 36 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(41)();
 	exports.push([module.id, "#timeline{z-index:2;position:fixed;left:0;bottom:0;width:50%;height:100px}#timeline .svg-timeline{width:100%;height:100%}#timeline .svg-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:1px}#timeline .svg-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:12px;font-family:karlaregular;font-weight:lighter;opacity:0.8}#timeline .svg-timeline .cursor{stroke:black;fill:white;cursor:pointer}", ""]);
 
 /***/ },
-/* 37 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1551,7 +1455,7 @@
 	});
 
 /***/ },
-/* 38 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1580,7 +1484,7 @@
 	module.exports = YearLines;
 
 /***/ },
-/* 39 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1608,7 +1512,7 @@
 	module.exports = YearLabels;
 
 /***/ },
-/* 40 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1642,6 +1546,102 @@
 	});
 	
 	module.exports = Range;
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(39);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(20)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/small-timeline.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(41)();
+	exports.push([module.id, "#small-timeline .svg-small-timeline{width:100%;height:1000px}#small-timeline .svg-small-timeline .pick{stroke:black;shape-rendering:crispEdges;stroke-width:1px}#small-timeline .svg-small-timeline .year{text-anchor:middle;dominant-baseline:middle;font-size:12px;font-family:karlaregular;font-weight:lighter;opacity:0.8}#small-timeline .svg-small-timeline .cursor{stroke:black;fill:white;cursor:pointer}", ""]);
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(5);
+	var d3 = __webpack_require__(1);
+	
+	var Label = __webpack_require__(42);
+	var GroupLabel = __webpack_require__(43);
+	var UEStrip = __webpack_require__(44);
+	var OTANStrip = __webpack_require__(45);
+	var Mask = __webpack_require__(46);
+	
+	var heightLine = 12;
+	
+	var style = {
+	    height: (heightLine + 4) + 'px',
+	    width: '100%'
+	};
+	
+	/**
+	 * @props country
+	 * @type {*|Function}
+	 */
+	module.exports = React.createClass({displayName: "exports",
+	    render: function () {
+	        var maskId = 'mask' + this.props.ind;
+	        return (
+	            React.createElement("svg", {style: style}, 
+	                React.createElement("defs", null, 
+	                    React.createElement(Mask, {
+	                        id: maskId, 
+	                        x: 0, 
+	                        width: this.props.widthStripes, 
+	                        y: 0, 
+	                        height: heightLine}
+	                    )
+	                ), 
+	                React.createElement("g", {style: this.props.translateStripes}, 
+	                    React.createElement(OTANStrip, {
+	                        scaleXYear: this.props.scaleXYear, 
+	                        begin: this.props.country.OTAN, 
+	                        yearExtent: this.props.yearExtent, 
+	                        height: heightLine, 
+	                        mask: maskId}
+	                    ), 
+	                    React.createElement(UEStrip, {
+	                        scaleXYear: this.props.scaleXYear, 
+	                        begin: this.props.country.UE, 
+	                        yearExtent: this.props.yearExtent, 
+	                        height: heightLine, 
+	                        mask: maskId}
+	                    )
+	                ), 
+	                React.createElement(GroupLabel, {ind: this.props.ind, label: this.props.groupLabel}), 
+	                React.createElement(Label, {
+	                    text: this.props.country.nom, 
+	                    height: heightLine}
+	                )
+	            )
+	        );
+	    }
+	});
 
 /***/ },
 /* 41 */
@@ -1836,6 +1836,30 @@
 /* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = __webpack_require__.p + "9b32ddf7a8f92141181778d032317807.eot"
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "b39ab43702ee55c707e54327b9a8251f.ttf"
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "c2e4a81907170a84e0ef7079904653c6.svg"
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "25635a84225e55513e4882a4240e1dd5.woff"
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	var easingTypes = __webpack_require__(52);
@@ -2011,30 +2035,6 @@
 	
 	module.exports = tweenState;
 
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "9b32ddf7a8f92141181778d032317807.eot"
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "b39ab43702ee55c707e54327b9a8251f.ttf"
-
-/***/ },
-/* 50 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "c2e4a81907170a84e0ef7079904653c6.svg"
-
-/***/ },
-/* 51 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "25635a84225e55513e4882a4240e1dd5.woff"
 
 /***/ },
 /* 52 */

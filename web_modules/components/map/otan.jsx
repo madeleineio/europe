@@ -9,8 +9,8 @@ var path = d3.geo.path()
 var style = {
     stroke: 'rgb(232, 101, 101)',
     strokeLinejoin: 'round',
-    strokeWidth: '6',
-    strokeMiterlimit: '4',
+    strokeWidth: '8',
+    strokeMiterlimit: '1',
     fill: 'none'
 };
 
