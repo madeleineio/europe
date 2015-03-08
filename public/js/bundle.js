@@ -405,7 +405,7 @@
 
 	'use strict';
 	
-	__webpack_require__(30);
+	__webpack_require__(26);
 	
 	var React = __webpack_require__(5);
 	
@@ -425,15 +425,15 @@
 
 	'use strict';
 	
-	__webpack_require__(26);
+	__webpack_require__(28);
 	
 	var React = __webpack_require__(5);
 	var d3 = __webpack_require__(1);
 	var topojson = __webpack_require__(19);
 	var _ = __webpack_require__(3);
 	
-	var Country = __webpack_require__(28);
-	var OTANStroke = __webpack_require__(29);
+	var Country = __webpack_require__(30);
+	var OTANStroke = __webpack_require__(31);
 	
 	var trans = [0, 0];
 	
@@ -1183,8 +1183,8 @@
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map.scss");
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map-panel.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map-panel.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -1197,10 +1197,40 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(41)();
-	exports.push([module.id, "#map{width:100%;height:100%}#map .svg-map{width:100%;height:100%;background-color:#EBF0F7}", ""]);
+	exports.push([module.id, "#map-panel{width:100%;height:100%}", ""]);
 
 /***/ },
 /* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(29);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(20)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map.scss", function() {
+			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(41)();
+	exports.push([module.id, "#map{width:100%;height:100%}#map .svg-map{width:100%;height:100%;background-color:#EBF0F7}", ""]);
+
+/***/ },
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1275,7 +1305,7 @@
 	module.exports = Country;
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1289,8 +1319,8 @@
 	var style = {
 	    stroke: 'rgb(232, 101, 101)',
 	    strokeLinejoin: 'round',
+	    strokeLinecap: 'round',
 	    strokeWidth: '8',
-	    strokeMiterlimit: '1',
 	    fill: 'none'
 	};
 	
@@ -1306,36 +1336,6 @@
 	});
 	
 	module.exports = OTANStroke;
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(31);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(20)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map-panel.scss", function() {
-			var newContent = require("!!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/css-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/node_modules/sass-loader/index.js!/Users/nicolasmondon/Documents/madeleineio/europe/sass/map-panel.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(41)();
-	exports.push([module.id, "#map-panel{width:100%;height:100%}", ""]);
 
 /***/ },
 /* 32 */
