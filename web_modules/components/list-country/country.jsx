@@ -22,27 +22,34 @@ var style = {
  */
 module.exports = React.createClass({
     render: function () {
+        var maskId = 'mask' + this.props.ind;
         return (
             <svg style={style}>
+                <defs>
+                    <Mask
+                        id={maskId}
+                        x={0}
+                        width={this.props.widthStripes}
+                        y={0}
+                        height={heightLine}
+                    />
+                </defs>
                 <g style={this.props.translateStripes}>
                     <OTANStrip
                         scaleXYear={this.props.scaleXYear}
                         begin={this.props.country.OTAN}
                         yearExtent={this.props.yearExtent}
                         height={heightLine}
+                        mask={maskId}
                     />
                     <UEStrip
                         scaleXYear={this.props.scaleXYear}
                         begin={this.props.country.UE}
                         yearExtent={this.props.yearExtent}
                         height={heightLine}
+                        mask={maskId}
                     />
                 </g>
-                <Mask
-                    widthLabels={this.props.widthLabels}
-                    height={heightLine}
-                    backgroundColor={this.props.backgroundColor}
-                />
                 <GroupLabel ind={this.props.ind} label={this.props.groupLabel}/>
                 <Label
                     text={this.props.country.nom}

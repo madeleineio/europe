@@ -24,7 +24,7 @@ module.exports = React.createClass({
         return this.computeState();
     },
     componentDidMount: function () {
-        var $el = $('#right-panel');
+        /*var $el = $('#right-panel');
         // TODO opacity on hover
         $el.hammer().on('swiperight', function () {
             $el.velocity({
@@ -39,7 +39,7 @@ module.exports = React.createClass({
                 duration: 200,
                 easing: 'easeOutQuart'
             });
-        });
+        });*/
     },
     componentWillReceiveProps: function(){
         this.setState(this.computeState());

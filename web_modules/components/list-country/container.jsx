@@ -58,7 +58,7 @@ module.exports = React.createClass({
                                         translateStripes={this.props.translateStripes}
                                         scaleXYear={this.props.scaleXYear}
                                         yearExtent={this.props.yearExtent}
-                                        widthLabels={this.props.widthLabels}
+                                        widthStripes={this.props.widthStripes}
                                         backgroundColor={this.props.backgroundColor}
                                     />;
                                 }.bind(this))

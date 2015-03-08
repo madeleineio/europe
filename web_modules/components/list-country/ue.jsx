@@ -10,7 +10,8 @@ var styleLine = {
 var UEStrip = React.createClass({
     componentWillMount: function(){
         _.extend(styleLine, {
-            strokeWidth: this.props.height / 2
+            strokeWidth: this.props.height / 2,
+            mask: 'url(#' + this.props.mask + ')'
         });
     },
     render: function(){

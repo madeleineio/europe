@@ -11,7 +11,8 @@ var styleLine = {
 var OTANStrip = React.createClass({
     componentWillMount: function(){
         _.extend(styleLine, {
-            strokeWidth: this.props.height
+            strokeWidth: this.props.height,
+            mask: 'url(#' + this.props.mask + ')'
         });
     },
     render: function(){

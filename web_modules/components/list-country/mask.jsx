@@ -2,19 +2,27 @@
 
 var React = require('react');
 
+var style = {
+    stroke: 'none',
+    fill: '#ffffff'
+};
+
 var Mask = React.createClass({
-    render: function(){
-        var style = {
-            fill: this.props.backgroundColor
-        };
+    render: function () {
         return (
-            <rect
-                style={style}
-                x={0}
-                y={0}
-                width={this.props.widthLabels}
-                height={this.props.height}
-            />
+            <mask id={this.props.id}
+                x={this.props.x}
+                y={this.props.y}
+                width={this.props.width}
+                height={this.props.height} >
+                <rect
+                    x={this.props.x}
+                    y={this.props.y}
+                    width={this.props.width}
+                    height={this.props.height}
+                    style={style}
+                />
+            </mask>
         );
     }
 });
