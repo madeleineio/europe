@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react');
-var simplify = require('services/get-simplify');
 var projection = require('services/get-projection');
 var path = d3.geo.path()
     .projection(projection);
